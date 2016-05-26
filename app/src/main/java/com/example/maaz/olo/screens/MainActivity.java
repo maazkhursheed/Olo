@@ -1,5 +1,6 @@
 package com.example.maaz.olo.screens;
 
+import adapters.CategoryAdapter;
 import adapters.NavDrawerListAdapter;
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -17,11 +18,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.example.maaz.olo.R;
 import fragments.FindPeopleFragment;
 import fragments.HomeFragment;
 import fragments.PhotosFragment;
+import models.Category;
 import models.NavDrawerItem;
+import network.RestClient;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import java.util.ArrayList;
 
@@ -39,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private NavDrawerListAdapter adapter;
 
 
+    private ArrayList<Category> navCategoryItems;
+    private CategoryAdapter categoryAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,22 +61,26 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
-        navDrawerItems = new ArrayList<NavDrawerItem>();
 
-        // adding nav drawer items to array
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
+        // adding dummy items in drawer
+//        navDrawerItems = new ArrayList<NavDrawerItem>();
+//
+//        // adding nav drawer items to array
+//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
+//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
+//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
+//
+//        navMenuIcons.recycle();   // Recycle the typed array
+//
+//        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+//
+//        adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
+//        mDrawerList.setAdapter(adapter);
 
-        navMenuIcons.recycle();   // Recycle the typed array
-
-        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-
-        adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
-        mDrawerList.setAdapter(adapter);
+        getCategory();
 
         // enabling action bar app icon and behaving it as toggle button
 
@@ -93,6 +107,24 @@ public class MainActivity extends AppCompatActivity {
             // on first time display view for first nav item
             displayView(0);
         }
+    }
+
+    private void getCategory() {
+
+
+
+        RestClient.getAdapter().getCategories(new Callback<ArrayList<Category>>() {
+            @Override
+            public void success(ArrayList<Category> categories, Response response) {
+                categoryAdapter = new CategoryAdapter(getApplicationContext(),categories);
+                mDrawerList.setAdapter(categoryAdapter);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                Toast.makeText(getApplicationContext(),retrofitError.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
