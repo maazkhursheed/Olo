@@ -25,8 +25,15 @@ import java.util.ArrayList;
  * Created by Sabih Ahmed on 5/12/2015.
  */
 public class CategoryAdapter extends BaseAdapter {
+
+    private static final int TYPE_HEADER = 0;     // Declaring Variable to Understand which View is being worked on
+    private static final int TYPE_ITEM = 1;      // IF the view under inflation and population is header or Item
+
+
+
     private Context context;
     private ArrayList<Category> categoryArrayList;
+    int Holderid;
 
     public CategoryAdapter(Context context, ArrayList<Category> categoryArrayList) {
         this.context = context;
@@ -72,20 +79,17 @@ public class CategoryAdapter extends BaseAdapter {
         setCategoryName(viewHolder, position);
 
         final ViewHolder finalViewHolder = viewHolder;
-
-        if(categoryArrayList.get(position).isSelected()){
-
-
-            viewHolder.frameImageContainer.setBackground(context.getResources().getDrawable(R.drawable.shape_circle_white));
-            view.setBackgroundDrawable((context.getResources().
-                    getDrawable(R.drawable.shape_category_selector)));
-
-        }
-
-        else{
-            view.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-            viewHolder.frameImageContainer.setBackground(context.getResources().getDrawable(R.drawable.shape_category_circle));
-        }
+//
+//        if(categoryArrayList.get(position).isSelected()){
+//
+//            viewHolder.frameImageContainer.setBackground(context.getResources().getDrawable(R.drawable.shape_circle_white));
+//            view.setBackgroundDrawable((context.getResources().getDrawable(R.drawable.shape_category_selector)));
+//        }
+//
+//        else{
+//            view.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+//            viewHolder.frameImageContainer.setBackground(context.getResources().getDrawable(R.drawable.shape_category_circle));
+//        }
 
         return view;
     }
@@ -120,13 +124,15 @@ public class CategoryAdapter extends BaseAdapter {
 
     }
 
-    private ViewHolder createViewHolder(View row) {
+    public ViewHolder createViewHolder(View row ) {
         ViewHolder viewHolder = new ViewHolder();
 
-        viewHolder.categoryName = (TextView) row.findViewById(R.id.list_item_category);
-        viewHolder.imageView = (ImageView) row.findViewById(R.id.list_item_category_image);
+            viewHolder.categoryName = (TextView) row.findViewById(R.id.list_item_category);
+            Holderid = 1;
+//        viewHolder.imageView = (ImageView) row.findViewById(R.id.list_item_category_image);
+//        viewHolder.frameImageContainer = (LinearLayout) row.findViewById(R.id.list_item_category_imageFrame);
 
-        viewHolder.frameImageContainer = (LinearLayout) row.findViewById(R.id.list_item_category_imageFrame);
+
 
         return viewHolder;
     }

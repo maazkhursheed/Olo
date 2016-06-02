@@ -75,14 +75,14 @@ public class Item_Detailed_Screen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 total_cart_bill +=totalprice;
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+               // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                // intent.putExtra("totalprice",String.valueOf(totalprice));
                //setResult(RESULT_OK, intent);
                // startActivityForResult(intent,RESULT_OK);
                // startActivity(intent);
                // startActivityForResult(intent,1);
                 //finish();
-                startActivity(intent);
+               // startActivity(intent);
                 finish();
 
             }

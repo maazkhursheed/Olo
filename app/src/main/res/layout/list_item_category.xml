@@ -7,7 +7,7 @@
               android:paddingBottom="5dp"
         >
 
-    <LinearLayout
+<!--    <LinearLayout
                  android:id="@+id/list_item_category_imageFrame"
                  android:orientation="vertical"
                  android:layout_width="50dp"
@@ -19,21 +19,22 @@
                  >
 
         <ImageView android:id="@+id/list_item_category_image"
-                   android:layout_width="30dp"
-                   android:layout_height="30dp"
-                   android:layout_gravity="center_horizontal"/>
+                   android:layout_width="25dp"
+                   android:layout_height="25dp"
+                   android:layout_gravity="center_horizontal"
+                   android:src="@drawable/food"/>
 
 
-    </LinearLayout>
+    </LinearLayout>  -->
+
     <TextView
+            android:id="@+id/list_item_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="28sp"
+            android:textSize="20sp"
             android:textStyle="normal"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="3dp"
-            android:id="@+id/list_item_category"
-
-            />
+            android:layout_marginTop="13dp"
+            android:text="Continental Dishes"
+            android:textColor="#555555"/>
 </LinearLayout>

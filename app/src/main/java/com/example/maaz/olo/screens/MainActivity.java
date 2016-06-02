@@ -1,7 +1,6 @@
 package com.example.maaz.olo.screens;
 
 import adapters.CategoryAdapter;
-import adapters.NavDrawerListAdapter;
 
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
@@ -16,10 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -53,39 +49,26 @@ public class MainActivity extends AppCompatActivity {
 //    private ArrayList<NavDrawerItem> navDrawerItems;
 //    private NavDrawerListAdapter adapter;
 
-
     private ArrayList<Category> navCategoryItems;
     private CategoryAdapter categoryAdapter;
+    Category category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-//        navMenuIcons.recycle();   // Recycle the typed array
-
-        //initialize all views
-
         init_views();
-//
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-//
 
-         //show category on Drawer
-        getCategory();
-        //always open a drawer when activity is opened
-      //  setDraweropened();
-      //  enabling action bar app icon and behaving it as toggle button
-        drawer_Toggle_Handling(savedInstanceState);
+        getCategory();     //show category on Drawer
+        setDraweropened();    //always open a drawer when activity is opened
+        drawer_Toggle_Handling(savedInstanceState);    //  enabling action bar app icon and behaving it as toggle button
 
 
         // enabling action bar app icon and behaving it as toggle button
 
 //        ActionBar actionBar = getSupportActionBar();
-//
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setHomeButtonEnabled(true);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -113,16 +96,13 @@ public class MainActivity extends AppCompatActivity {
 //        }
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        setDraweropened();
-//    }
 
     public void setDraweropened()
     {
         mDrawerLayout.openDrawer(mDrawerList);
     }
+
+
     private void drawer_Toggle_Handling(Bundle savedInstanceState)
     {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, R.string.app_name, R.string.app_name) {
@@ -159,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View listHeaderView = inflater.inflate(R.layout.drawer_header,null, false);
+        mDrawerList.addHeaderView(listHeaderView);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -239,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
             //send categoryid to fragment .. to display menus for selected category
 
-          Category category= (Category) parent.getItemAtPosition(position);
+            category= (Category) parent.getItemAtPosition(position);
             send_CategoryId(category.getId());
          //   set actionbar tittle when closed
             getSupportActionBar().setTitle(category.getName());
