@@ -13,4 +13,11 @@
         tools:showIn="@layout/activity_detail_menu_screen"
         tools:context="com.example.maaz.olo.screens.DetailMenuScreen">
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Here Details Screen Menu"
+            android:id="@+id/textView" android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" android:layout_marginRight="148dp" android:layout_marginEnd="148dp"
+            android:layout_marginTop="113dp"/>
 </RelativeLayout>

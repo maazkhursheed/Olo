@@ -23,9 +23,9 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment {
 
-    private List<Menus> menuList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private MenuAdapter menuAdapter;
+//    private List<MenusFragment> menuList = new ArrayList<>();
+//    private RecyclerView recyclerView;
+//    private MenuAdapter menuAdapter;
 
     public HomeFragment(){}
 
@@ -34,59 +34,59 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.listMenu);
-        menuAdapter = new MenuAdapter(menuList);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(menuAdapter);
-
-        menuAdapter.SetOnItemClickListner(new MenuAdapter.OnItemClickListner() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-                Intent intent = new Intent(getActivity(), DetailMenuScreen.class);
-                startActivity(intent);
-            }
-        });
-        
-        prepareMenuData();
+//        recyclerView = (RecyclerView)rootView.findViewById(R.id.listMenu);
+//        menuAdapter = new MenuAdapter(menuList);
+//
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//        recyclerView.setLayoutManager(mLayoutManager);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setAdapter(menuAdapter);
+//
+//        menuAdapter.SetOnItemClickListner(new MenuAdapter.OnItemClickListner() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//
+//                Intent intent = new Intent(getActivity(), DetailMenuScreen.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        prepareMenuData();
         return rootView;
     }
 
-    private void prepareMenuData() {
-
-        Menus menus = new Menus("BBQ : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Chicken : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Beef : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Mutton : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Chicken : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Beef : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Mutton : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Chicken : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Beef : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menus = new Menus("Mutton : Mastana", "Spicy Hot", "2015");
-        menuList.add(menus);
-
-        menuAdapter.notifyDataSetChanged();
-    }
+//    private void prepareMenuData() {
+//
+//        MenusFragment menus = new MenusFragment("BBQ : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Chicken : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Beef : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Mutton : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Chicken : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Beef : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Mutton : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Chicken : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Beef : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menus = new MenusFragment("Mutton : Mastana", "Spicy Hot", "2015");
+//        menuList.add(menus);
+//
+//        menuAdapter.notifyDataSetChanged();
+//    }
 }

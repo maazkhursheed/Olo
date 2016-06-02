@@ -2,8 +2,10 @@ package com.example.maaz.olo.screens;
 
 import adapters.CategoryAdapter;
 import adapters.NavDrawerListAdapter;
-import android.app.Activity;
+
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -12,7 +14,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +24,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.example.maaz.olo.R;
+import com.google.gson.Gson;
 import fragments.FindPeopleFragment;
 import fragments.HomeFragment;
+import fragments.MenusFragment;
 import fragments.PhotosFragment;
 import models.Category;
 import models.NavDrawerItem;
@@ -41,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence mTitle;        // used to store app title
     private String[] navMenuTitles;    // slide menu items
     private TypedArray navMenuIcons;
+    private Toolbar toolbar;
 
-    private ArrayList<NavDrawerItem> navDrawerItems;
-    private NavDrawerListAdapter adapter;
+   String catname;
+//    private ArrayList<NavDrawerItem> navDrawerItems;
+//    private NavDrawerListAdapter adapter;
 
 
     private ArrayList<Category> navCategoryItems;
@@ -54,44 +62,75 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTitle = mDrawerTitle = getTitle();
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);      // load slide menu items
-        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);    // nav drawer icons from resources
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
 
-        // adding dummy items in drawer
-//        navDrawerItems = new ArrayList<NavDrawerItem>();
-//
-//        // adding nav drawer items to array
-//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
-//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-//        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
-//
+
 //        navMenuIcons.recycle();   // Recycle the typed array
-//
-//        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-//
-//        adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
-//        mDrawerList.setAdapter(adapter);
 
+        //initialize all views
+
+        init_views();
+//
+        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+//
+
+         //show category on Drawer
         getCategory();
+        //always open a drawer when activity is opened
+      //  setDraweropened();
+      //  enabling action bar app icon and behaving it as toggle button
+        drawer_Toggle_Handling(savedInstanceState);
+
 
         // enabling action bar app icon and behaving it as toggle button
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+//        ActionBar actionBar = getSupportActionBar();
+//
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
 
+//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, R.string.app_name, R.string.app_name) {
+//
+//            public void onDrawerClosed(View view) {
+//               // getSupportActionBar().setTitle(mTitle);
+//                getSupportActionBar().setTitle("Kababjees Menu");
+//                invalidateOptionsMenu();  // calling onPrepareOptionsMenu() to show action bar icons
+//            }
+//
+//            public void onDrawerOpened(View drawerView) {
+//                getSupportActionBar().setTitle(mDrawerTitle);
+//                invalidateOptionsMenu();  // calling onPrepareOptionsMenu() to hide action bar icons
+//            }
+//        };
+//
+//        mDrawerLayout.setDrawerListener(mDrawerToggle);
+//
+//        if (savedInstanceState == null) {
+//            // on first time display view for first nav item
+//            //displayView(0);
+//        }
+    }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        setDraweropened();
+//    }
+
+    public void setDraweropened()
+    {
+        mDrawerLayout.openDrawer(mDrawerList);
+    }
+    private void drawer_Toggle_Handling(Bundle savedInstanceState)
+    {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, R.string.app_name, R.string.app_name) {
 
             public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(mTitle);
+                // getSupportActionBar().setTitle(mTitle);
+                ////set actionbar tittle when closed
+               // getSupportActionBar().setTitle("Kababjees Menu");
                 invalidateOptionsMenu();  // calling onPrepareOptionsMenu() to show action bar icons
             }
 
@@ -105,19 +144,36 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
-            displayView(0);
+            //displayView(0);
         }
+    }
+
+
+    private void init_views()
+    {
+        toolbar= (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        mTitle = mDrawerTitle = getSupportActionBar().getTitle();
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);      // load slide menu items
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);    // nav drawer icons from resources
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
     }
 
     private void getCategory() {
 
 
-
         RestClient.getAdapter().getCategories(new Callback<ArrayList<Category>>() {
             @Override
             public void success(ArrayList<Category> categories, Response response) {
+
                 categoryAdapter = new CategoryAdapter(getApplicationContext(),categories);
                 mDrawerList.setAdapter(categoryAdapter);
+
             }
 
             @Override
@@ -132,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+       // menu.findItem(R.id.cart_text).setVisible(false);
+
         return true;
     }
 
@@ -143,18 +201,33 @@ public class MainActivity extends AppCompatActivity {
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
+            case R.id.cart_text:
+                Intent cart_activity=new Intent(this,MyCart.class);
+                startActivity(cart_activity);
+              //  return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
+//    get total cart price
+//public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//    super.onActivityResult(requestCode, resultCode, data);
+//    if (requestCode == 1) {
+//        if(resultCode == RESULT_OK){
+//            String totalprice=data.getStringExtra("totalprice");
+//            Toast.makeText(getApplicationContext(),"your cart value"+totalprice,Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//}
+//
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        //get total cart price and show in menu
+        //menu.findItem(R.id.cart_text).setVisible(true);
+        menu.findItem(R.id.cart_text).setTitle("Rs:"+String.valueOf(Item_Detailed_Screen.total_cart_bill));
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -162,51 +235,74 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            displayView(position);   // display view for selected nav drawer item
+           // displayView(position);   // display view for selected nav drawer item
+
+            //send categoryid to fragment .. to display menus for selected category
+
+          Category category= (Category) parent.getItemAtPosition(position);
+            send_CategoryId(category.getId());
+         //   set actionbar tittle when closed
+            getSupportActionBar().setTitle(category.getName());
+
+           // Toast.makeText(getApplicationContext(),"Cat_id"+category.getId(),Toast.LENGTH_LONG).show();
+
+
+
         }
     }
+    private void  send_CategoryId(int cat_id)
+    {
+        Bundle bundle=new Bundle();
+        bundle.putInt("Category_id",cat_id);
+        MenusFragment menufragment = new MenusFragment();
+        menufragment.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame_container, menufragment).commit();
+        mDrawerLayout.closeDrawer(mDrawerList);
 
-    private void displayView(int position) {
-
-        // update the main content by replacing fragments
-        Fragment fragment = null;
-        switch (position ) {
-            case 0:
-                fragment = new HomeFragment();
-                break;
-            case 1:
-                fragment = new FindPeopleFragment();
-                break;
-            case 2:
-                fragment = new PhotosFragment();
-                break;
-//            case 3:
-//                fragment = new CommunityFragment();
-//                break;
-//            case 4:
-//                fragment = new PagesFragment();
-//                break;
-//            case 5:
-//                fragment = new WhatsHotFragment();
-//                break;
-
-            default:
-                break;
-        }
-
-        if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-
-            mDrawerList.setItemChecked(position, true);    // update selected item and title, then close the drawer
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
-        } else {
-
-            Log.e("MainActivity", "Error in creating fragment");   // error in creating fragment
-        }
     }
+
+//    private void displayView(int position) {
+//
+//        // update the main content by replacing fragments
+//        Fragment fragment = null;
+//        switch (position ) {
+//            case 0:
+//                fragment = new HomeFragment();
+//                break;
+//            case 1:
+//                fragment = new FindPeopleFragment();
+//                break;
+//            case 2:
+//                fragment = new PhotosFragment();
+//                break;
+////            case 3:
+////                fragment = new CommunityFragment();
+////                break;
+////            case 4:
+////                fragment = new PagesFragment();
+////                break;
+////            case 5:
+////                fragment = new WhatsHotFragment();
+////                break;
+//
+//            default:
+//                break;
+//        }
+//
+//        if (fragment != null) {
+//            FragmentManager fragmentManager = getFragmentManager();
+//            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+//
+//            mDrawerList.setItemChecked(position, true);    // update selected item and title, then close the drawer
+//            mDrawerList.setSelection(position);
+//            setTitle(navMenuTitles[position]);
+//            mDrawerLayout.closeDrawer(mDrawerList);
+//        } else {
+//
+//            Log.e("MainActivity", "Error in creating fragment");   // error in creating fragment
+//        }
+//    }
 
     @Override
     public void setTitle(CharSequence title) {
@@ -232,4 +328,14 @@ public class MainActivity extends AppCompatActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+//    private void showProgress(String message){
+//
+//        progressDialog=ProgressDialog.show(getApplicationContext(),"",message,false);
+//
+//    }
+//
+//    private void hideProgress(){
+//
+//        progressDialog.dismiss();
+//    }
 }
