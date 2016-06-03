@@ -84,17 +84,17 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         MenusItem menus = menusList.get(position);
-        if (menus.getDescription().isEmpty())
-        {
-            holder.menus_item_desc.setText("Very Delicious in taste");
-
-        }
-        else {
+//        if (menus.getDescription().isEmpty())
+//        {
+//            holder.menus_item_desc.setText("Very Delicious in taste");
+//
+//        }
+//        else {
             holder.menu_item_name.setText("" + menus.getName());
 
             holder.menus_item_desc.setText("" + menus.getDescription());
             holder.menu_item_price.setText("Rs" + ":" + (int) menus.getPrice());
-        }
+       // }
       //  holder.setIsRecyclable(true);
     //    holder.itemView.setBackgroundColor(Color.parseColor("#ffffcc"));
        // layoutView.setBackgroundResource(R.drawable.row_item_bg);

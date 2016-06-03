@@ -15,35 +15,42 @@ import com.example.maaz.olo.R;
 import utils.IntentsConstants;
 //AppCompatActivity
 
-public class Item_Detailed_Screen extends AppCompatActivity {
+public class Item_Detailed_Screen extends AppCompatActivity implements View.OnClickListener {
 //    declare variables
     Toolbar toolbar;
-    TextView item_name,item_price,add_quantity,subtract_quantity, quantity_totalprice;
+    TextView item_name,item_price,add_quantity,subtract_quantity, quantity_totalprice,item_quantity;
     NumberPicker quantity_picker;
     Button add_cart_btn;
     double itemprice;
    static  double totalprice;
     static double total_cart_bill;
     boolean valuechanged=false;
+    int minQuantity=1,maxQuantity=20;
+    int selectedItemQuantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_item__detailed__screen);
-        setContentView(R.layout.detailed_item_screen_withpicker);
+       // setContentView(R.layout.activity_item__detailed__screen);
+      setContentView(R.layout.detailed_item_screen_withpicker);
 
 
         init_views();
-        setHomeButton();
+//        add_quantity.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getApplicationContext(),"Here increment logic",Toast.LENGTH_LONG).show();
+//            }
+//        });
+       setHomeButton();
 
         get_set_intentdata();
         setInitial_itemPrice();
-        setTotalPrice_withquantity();
-      //  getTotalPrice_withquantity();
-       // computetotalprice();
+       // setTotalPrice_withquantity();
+
         send_data_tomainmenu();
-       // getscrollvalue();
-        //final double tot=Double.parseDouble(item_price.getText().toString());
+
+//        //final double tot=Double.parseDouble(item_price.getText().toString());
 
 
     }
@@ -56,16 +63,21 @@ public class Item_Detailed_Screen extends AppCompatActivity {
     private void init_views()
     {
         toolbar = (Toolbar) findViewById(R.id.toolbar_details_item_screen);
-        quantity_picker= (NumberPicker) findViewById(R.id.quantity_numberPicker);
+    //   quantity_picker= (NumberPicker) findViewById(R.id.quantity_numberPicker);
         add_cart_btn= (Button) findViewById(R.id.addcart_btn);
         item_name= (TextView) findViewById(R.id.textView_itemname);
         item_price= (TextView) findViewById(R.id.textView_itemPrice);
-        add_quantity= (TextView) findViewById(R.id.add_quantity);
-        subtract_quantity= (TextView) findViewById(R.id.subtract_quantity);
+        add_quantity= (TextView) findViewById(R.id.add_txtview);
+       subtract_quantity= (TextView) findViewById(R.id.subtract_txtview);
         quantity_totalprice = (TextView) findViewById(R.id.total_price);
-        quantity_picker.setMinValue(1);
-        quantity_picker.setMaxValue(10);
-        quantity_picker.setWrapSelectorWheel(false);
+        item_quantity= (TextView) findViewById(R.id.itemquantity_txtview);
+        selectedItemQuantity=minQuantity;
+        item_quantity.setText("Quantity :"+selectedItemQuantity);
+        add_quantity.setOnClickListener(this);
+        subtract_quantity.setOnClickListener(this);
+//        quantity_picker.setMinValue(1);
+//        quantity_picker.setMaxValue(10);
+//        quantity_picker.setWrapSelectorWheel(false);
 
 
     }
@@ -74,18 +86,25 @@ public class Item_Detailed_Screen extends AppCompatActivity {
         add_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                total_cart_bill +=totalprice;
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-               // intent.putExtra("totalprice",String.valueOf(totalprice));
-               //setResult(RESULT_OK, intent);
-               // startActivityForResult(intent,RESULT_OK);
-               // startActivity(intent);
-               // startActivityForResult(intent,1);
-                //finish();
-                startActivity(intent);
-                finish();
+//                if (totalprice != 0)
+//                {
+                    total_cart_bill +=totalprice;
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-            }
+                    startActivity(intent);
+                    finish();
+              //  }
+//                else {
+//
+//                    total_cart_bill+=itemprice;
+//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//
+//                    startActivity(intent);
+//                    finish();
+//                }
+//
+//
+           }
         });
 
     }
@@ -102,7 +121,7 @@ public class Item_Detailed_Screen extends AppCompatActivity {
 
 
     }
-    ///set total price txtview when activity created
+    //set initial total price total price in txtview when activity created
     private void setInitial_itemPrice()
     {
         if(quantity_totalprice.getText().equals(""))
@@ -111,81 +130,11 @@ public class Item_Detailed_Screen extends AppCompatActivity {
         }
 
     }
-    ///////////set total price in textview according to quantity
-    private void setTotalPrice_withquantity()
-    {
-
-        quantity_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                /// get desired quantity of selected item
-                int quantity=quantity_picker.getValue();
-               totalprice = calcTotalPrice(quantity,itemprice);
-                if (!quantity_totalprice.getText().equals("")) {
-                    ///update totalprice in txtview according to quantity of item
-                    quantity_totalprice.setText("" + totalprice);
-                   // total_cart_bill +=totalprice;
-
-                }
-
-            }
-        });
 
 
 
-    }
-
-    ///////////set total price without value listner
-    private void getTotalPrice_withquantity()
-    {
-//        final int quantity=quantity_picker.getValue();;
-//
-//        if (quantity==1)
-//        {
-//            totalprice=calcTotalPrice(1,itemprice);
-//
-//        }
-//        else {
-
-            quantity_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    valuechanged=true;
-                    /// get desired quantity of selected item
-                    //  int quantity=quantity_picker.getValue();
-//                    totalprice = calcTotalPrice(newVal, itemprice);
-//                    if (!quantity_totalprice.getText().equals("")) {
-//                        ///update totalprice in txtview according to quantity of item
-//                        quantity_totalprice.setText("" + totalprice);
-                        // total_cart_bill +=totalprice;
-
-                   // }
-
-                }
-            });
-       // }
-   }
-                  public void computetotalprice()
-                  {
-                      if(valuechanged==true)
-                      {
-                          int quantity=quantity_picker.getValue();
-                          totalprice = calcTotalPrice(quantity,itemprice);
-                          if (!quantity_totalprice.getText().equals("")) {
-                              ///update totalprice in txtview according to quantity of item
-                              quantity_totalprice.setText("" + totalprice);
-                          }
-                          else
-                          {
-                              totalprice = calcTotalPrice(1,itemprice);
-                           //   Toast.makeText(getApplicationContext(),"",Toast.LENGTH_SHORT).show();
-
-                          }
-
-                      }
 
 
-                  }
 
    private double calcTotalPrice(int quantity, double itemprice ){
 
@@ -206,5 +155,42 @@ public class Item_Detailed_Screen extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+//     increemnent quantity here
+            case R.id.add_txtview:
+                if(selectedItemQuantity==minQuantity||selectedItemQuantity <maxQuantity)
+                {
+                    selectedItemQuantity++;
+                    item_quantity.setText("Quantity :"+selectedItemQuantity);
+                   totalprice= calcTotalPrice(selectedItemQuantity,itemprice);
+                    quantity_totalprice.setText(""+totalprice);
+
+                }
+                break;
+//     decreemnent quantity  here
+            case R.id.subtract_txtview:
+
+
+                if(selectedItemQuantity>minQuantity)
+                {
+
+                    selectedItemQuantity--;
+                    //selectedItemQuantity=minQuantity;
+                    item_quantity.setText("Quantity :"+selectedItemQuantity);
+                    totalprice= calcTotalPrice(selectedItemQuantity,itemprice);
+                    quantity_totalprice.setText(""+totalprice);
+
+                }
+                break;
+
+
+        }
+
+
+
     }
 }

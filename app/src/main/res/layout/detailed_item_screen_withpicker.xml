@@ -62,7 +62,7 @@
                     android:layout_marginLeft="15dp"
                    android:layout_gravity="center"
 
-            />
+                    android:autoText="false"/>
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -88,7 +88,10 @@
                 android:layout_weight="1.25"
                 android:weightSum="2">
 
-
+<RelativeLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+></RelativeLayout>
 
             <!--<LinearLayout-->
                     <!--android:layout_weight="1"-->
@@ -144,33 +147,77 @@
 
 
             <!--price description layout -->
-            <LinearLayout
-                    android:gravity="center"
+            <!--<LinearLayout-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+
+            <!--android:layout_weight="0.5">-->
+                <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--&lt;!&ndash;android:text="Total Quatity"/>&ndash;&gt;-->
+            <!--<RelativeLayout-->
+                         <!--android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                            <!--&gt;-->
+            <!--android:theme="@android:style/Theme.NoTitleBar"-->
+
+            <!--<NumberPicker-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/quantity_numberPicker"-->
+                        <!--android:theme="@android:style/Theme.Light.NoTitleBar"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_weight="0.75"-->
+
+                <!--/>-->
+            <!--</RelativeLayout>-->
+
+
+
+            <!--Total price show layouts -->
+            <!--
+            custom picker here
+            -->
+            <include
+                    layout="@layout/custom_picker"
+
+                    android:id="@+id/myquantity_picker"/>
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
 
-            android:layout_weight="0.5">
+                    android:layout_weight="0.3">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Quatity"/>
-                <NumberPicker
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/quantity_numberPicker"
-                        android:theme="@android:style/Theme.NoTitleBar"/>
+                        android:text="Total Price"
+                         android:textStyle="bold"
+                        android:layout_margin="15dp"
+                        android:id="@+id/total_price_txtview"
+                        android:gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+               android:textColor="#000000"/>
+
+                <!--total price according to quantity-->
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Price"/>
-                <TextView
-                        android:layout_marginLeft="15dp"
+                        android:layout_gravity=""
                         android:id="@+id/total_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                       />
-            </LinearLayout>
+
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                    android:layout_margin="15dp" />
+
+            </RelativeLayout>
+
+            <!--</LinearLayout>-->
             <Button
                     android:background="#F34545"
                     android:layout_width="match_parent"
@@ -179,7 +226,9 @@
                     android:id="@+id/addcart_btn"
                     android:textColor="@android:color/white"
                     android:layout_gravity="center"
-                    android:layout_weight="0.75"/>
+                    android:layout_weight="0.75"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentEnd="false"/>
 
         </LinearLayout>
     </LinearLayout>
