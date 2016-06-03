@@ -31,7 +31,7 @@ public class Item_Detailed_Screen extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_item__detailed__screen);
+
       setContentView(R.layout.detailed_item_screen_withpicker);
 
 
