@@ -35,7 +35,7 @@
         </activity>
         <!-- android:label="@string/title_activity_detail_menu_screen" -->
         <activity
-                android:name=".screens.Item_Detailed_Screen"
+                android:name=".screens.DetailScreen"
                 android:label="Details Menu Screen"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>

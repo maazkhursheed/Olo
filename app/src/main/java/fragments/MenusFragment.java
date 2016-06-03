@@ -12,14 +12,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Toast;
 import com.example.maaz.olo.R;
-import com.example.maaz.olo.screens.DetailMenuScreen;
-import com.example.maaz.olo.screens.Item_Detailed_Screen;
+import com.example.maaz.olo.screens.DetailScreen;
 import com.google.gson.Gson;
 import models.MenusItem;
 import network.RestClient;
@@ -36,8 +34,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,7 +106,7 @@ public class MenusFragment extends Fragment {
                         menuAdapter.SetOnItemClickListner(new MenuAdapter.OnItemClickListner() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                Intent intent = new Intent(getActivity(), Item_Detailed_Screen.class);
+                                Intent intent = new Intent(getActivity(), DetailScreen.class);
                                // intent.putExtra("Itemname")
                                 intent.putExtra(IntentsConstants.item_name,menusItems.get(position).getName());
                                // intent.putExtra("ItemDesc",menusItems.get(position).getDescription());

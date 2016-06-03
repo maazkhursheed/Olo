@@ -1,6 +1,5 @@
 package com.example.maaz.olo.screens;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,25 +7,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.example.maaz.olo.R;
 import utils.IntentsConstants;
-//AppCompatActivity
 
-public class Item_Detailed_Screen extends AppCompatActivity implements View.OnClickListener {
-//    declare variables
-    Toolbar toolbar;
-    TextView item_name,item_price,add_quantity,subtract_quantity, quantity_totalprice,item_quantity;
-    NumberPicker quantity_picker;
-    Button add_cart_btn;
-    double itemprice;
-   static  double totalprice;
+/**This is detail screen of meal items
+ *
+ */
+public class DetailScreen extends AppCompatActivity implements View.OnClickListener {
+
+    private Toolbar toolbar;
+    private TextView item_name,item_price,add_quantity,subtract_quantity, quantity_totalprice,item_quantity;
+    private Button add_cart_btn;
+    private double itemprice;
+    static  double totalprice;
     static double total_cart_bill;
-    boolean valuechanged=false;
-    int minQuantity=1,maxQuantity=20;
-    int selectedItemQuantity;
+    private boolean valuechanged=false;
+    private int minQuantity=1,maxQuantity=20;
+    private int selectedItemQuantity =1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +33,13 @@ public class Item_Detailed_Screen extends AppCompatActivity implements View.OnCl
       setContentView(R.layout.detailed_item_screen_withpicker);
 
 
-        init_views();
-//        add_quantity.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getApplicationContext(),"Here increment logic",Toast.LENGTH_LONG).show();
-//            }
-//        });
-       setHomeButton();
-
+        initViews();
+        setHomeButton();
         get_set_intentdata();
         setInitial_itemPrice();
-       // setTotalPrice_withquantity();
 
         send_data_tomainmenu();
 
-//        //final double tot=Double.parseDouble(item_price.getText().toString());
 
 
     }
@@ -60,7 +49,7 @@ public class Item_Detailed_Screen extends AppCompatActivity implements View.OnCl
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
-    private void init_views()
+    private void initViews()
     {
         toolbar = (Toolbar) findViewById(R.id.toolbar_details_item_screen);
     //   quantity_picker= (NumberPicker) findViewById(R.id.quantity_numberPicker);
@@ -86,22 +75,13 @@ public class Item_Detailed_Screen extends AppCompatActivity implements View.OnCl
         add_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (totalprice != 0)
-//                {
+//
                     total_cart_bill +=totalprice;
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                   // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-                    startActivity(intent);
+                   // startActivity(intent);
                     finish();
-              //  }
-//                else {
-//
-//                    total_cart_bill+=itemprice;
-//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//
-//                    startActivity(intent);
-//                    finish();
-//                }
+
 //
 //
            }

@@ -3,30 +3,21 @@ package com.example.maaz.olo.screens;
 import adapters.CategoryAdapter;
 
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.example.maaz.olo.R;
-import com.google.gson.Gson;
-import fragments.FindPeopleFragment;
-import fragments.HomeFragment;
 import fragments.MenusFragment;
-import fragments.PhotosFragment;
 import models.Category;
-import models.NavDrawerItem;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -212,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         //get total cart price and show in menu
         //menu.findItem(R.id.cart_text).setVisible(true);
-        menu.findItem(R.id.cart_text).setTitle("Rs:"+String.valueOf(Item_Detailed_Screen.total_cart_bill));
+        menu.findItem(R.id.cart_text).setTitle("Rs:"+String.valueOf(DetailScreen.total_cart_bill));
         return super.onPrepareOptionsMenu(menu);
     }
 
