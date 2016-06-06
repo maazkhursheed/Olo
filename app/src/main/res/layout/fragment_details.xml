@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+             <!--xmlns:tools="http://schemas.android.com/tools"-->
+             <!--android:layout_width="match_parent"-->
+             <!--android:layout_height="match_parent"-->
+             <!--tools:context="fragments.DetailsFragment">-->
+
+    <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+    <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="@string/hello_blank_fragment"/>-->
+
+<!--</FrameLayout>-->
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+
+>
+    <!--<include android:id="@+id/toolbar_details_item_screen"-->
+             <!--layout="@layout/tool_bar"-->
+
+    <!--&gt;</include>-->
+
+    <LinearLayout
+            android:id="@+id/mainlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/toolbar_details_item_screen"
+            android:weightSum="4">
+        <!--item image layout-->
+        <LinearLayout
+                android:id="@+id/layout_item_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="1">
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/itemimage_imageview"
+                    android:src="@drawable/burger"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            <!--android:src="@drawable/piza"-->
+        </LinearLayout>
+        <!-- item short_desc and item_price  layout-->
+        <LinearLayout
+                android:layout_weight="0.5"
+                android:background="@android:color/darker_gray"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/layout_itemdetails"
+                android:weightSum="1"
+                android:gravity="center_horizontal"
+
+        >
+            <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Pizza"
+                    android:id="@+id/textView_itemname"
+
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentEnd="false"
+                    android:textStyle="normal"
+                    android:layout_weight="0.70"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+
+                    android:autoText="false"/>
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+
+                    android:id="@+id/textView_itemPrice"
+                    android:layout_weight="0.30"
+
+                    android:background="#F34545"
+                    android:textStyle="normal"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center"
+                    android:padding="5dp"/>
+            <!--android:layout_marginLeft="210dp"-->
+        </LinearLayout>
+        <!--order button and details item layout-->
+        <LinearLayout
+
+                android:id="@+id/layout_details_orderbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1.25"
+                android:weightSum="2">
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+            ></RelativeLayout>
+
+            <!--<LinearLayout-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:weightSum="2">-->
+            <!--<TextView-->
+            <!--android:id="@+id/subtract_quantity"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.10"-->
+
+            <!--android:clickable="true"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@drawable/subtract"-->
+            <!--android:layout_marginLeft="15dp"/>-->
+            <!--<View-->
+            <!--android:layout_weight="1.60"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:background="@android:color/holo_green_dark"-->
+            <!--android:layout_gravity="center"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/add_quantity"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.10"-->
+
+            <!--android:clickable="true"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@drawable/plus"/>-->
+
+            <!--</LinearLayout>-->
+
+
+            <!--<TextView-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:text="here item description"-->
+            <!--android:id="@+id/textView2"-->
+            <!--android:layout_weight="1.5"/>-->
+            <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+            <!--android:text="Select Quantity"-->
+            <!--android:layout_weight=".10"/>-->
+            <!--<NumberPicker-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:id="@+id/numberPicker"-->
+            <!--android:layout_weight="1" />-->
+
+
+            <!--price description layout -->
+            <!--<LinearLayout-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+
+            <!--android:layout_weight="0.5">-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--&lt;!&ndash;android:text="Total Quatity"/>&ndash;&gt;-->
+            <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent" android:layout_height="wrap_content"-->
+            <!--&gt;-->
+            <!--android:theme="@android:style/Theme.NoTitleBar"-->
+
+            <!--<NumberPicker-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/quantity_numberPicker"-->
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_weight="0.75"-->
+
+            <!--/>-->
+            <!--</RelativeLayout>-->
+
+
+
+            <!--Total price show layouts -->
+            <!--
+            custom picker here
+            -->
+            <include
+                    layout="@layout/custom_picker"
+
+                    android:id="@+id/myquantity_picker"/>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="0.3">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Price"
+                        android:textStyle="bold"
+                        android:layout_margin="15dp"
+                        android:id="@+id/total_price_txtview"
+                        android:gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000"/>
+
+                <!--total price according to quantity-->
+                <TextView
+                        android:layout_gravity=""
+                        android:id="@+id/total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="15dp" />
+
+            </RelativeLayout>
+
+            <!--</LinearLayout>-->
+            <Button
+                    android:background="#F34545"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="Add to Basket"
+                    android:id="@+id/addcart_btn"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.75"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentEnd="false"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+
+

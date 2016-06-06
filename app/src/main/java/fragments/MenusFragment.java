@@ -3,8 +3,8 @@ package fragments;
 
 import adapters.MenuAdapter;
 import android.annotation.TargetApi;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,19 +17,15 @@ import android.view.ViewGroup;
 
 import android.widget.Toast;
 import com.example.maaz.olo.R;
-import com.example.maaz.olo.screens.DetailScreen;
+//import com.example.maaz.olo.screens.DetailScreen;
 import com.google.gson.Gson;
 import models.MenusItem;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import utils.IntentsConstants;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -58,27 +54,8 @@ public class MenusFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_menus, container, false);
 
         recyclerView = (RecyclerView)rootView.findViewById(R.id.listMenu);
-        show_Menus_By_id(get_CatId());
+        prepareMenusBy_Id(get_CatId());
 
-        //menuAdapter = new MenuAdapter(menuList);
-
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-       // recyclerView.setAdapter(menuAdapter);
-
-//        menuAdapter.SetOnItemClickListner(new MenuAdapter.OnItemClickListner() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//
-//                Intent intent = new Intent(getActivity(), DetailMenuScreen.class);
-//                startActivity(intent);
-//            }
-//        });
-
-        //prepareMenuData();
-
-        //Toast.makeText(getActivity(),"Cat Id:"+cat_id,Toast.LENGTH_LONG).show();
         return rootView;
     }
     private int get_CatId()
@@ -87,7 +64,7 @@ public class MenusFragment extends Fragment {
         return cat_id;
     }
 
-    private void show_Menus_By_id(int category_id)
+    private void prepareMenusBy_Id(int category_id)
     {
         showProgress("Loading.....");
         RestClient.getAdapter().getMenuItems(category_id, new Callback<ArrayList<MenusItem>>() {
@@ -106,13 +83,24 @@ public class MenusFragment extends Fragment {
                         menuAdapter.SetOnItemClickListner(new MenuAdapter.OnItemClickListner() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                Intent intent = new Intent(getActivity(), DetailScreen.class);
-                               // intent.putExtra("Itemname")
-                                intent.putExtra(IntentsConstants.item_name,menusItems.get(position).getName());
-                               // intent.putExtra("ItemDesc",menusItems.get(position).getDescription());
-                                intent.putExtra(IntentsConstants.item_price,menusItems.get(position).getPrice());
-                                startActivity(intent);
-                                //startActivityForResult(intent, 1);
+//                                Intent intent = new Intent(getActivity(), DetailScreen.class);
+//                               // intent.putExtra("Itemname")
+//                                intent.putExtra(IntentsConstants.item_name,menusItems.get(position).getName());
+//                               // intent.putExtra("ItemDesc",menusItems.get(position).getDescription());
+//                                intent.putExtra(IntentsConstants.item_price,menusItems.get(position).getPrice());
+//                                startActivity(intent);
+//                                //startActivityForResult(intent, 1);
+
+                                Bundle data = new Bundle();
+                                MenusItem item = menusItems.get(position);
+                                data.putSerializable("Item", (Serializable) item);
+
+                                DetailsFragment detailsFragment = new DetailsFragment();
+                                detailsFragment.setArguments(data);
+                                FragmentManager fragmentManager = getFragmentManager();
+                                fragmentManager.beginTransaction().replace(R.id.frame_container, detailsFragment).commit();
+
+
 
                             }
                         });

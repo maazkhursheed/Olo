@@ -15,7 +15,9 @@ import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import cart.ItemCart;
 import com.example.maaz.olo.R;
+import fragments.DetailsFragment;
 import fragments.MenusFragment;
 import models.Category;
 import network.RestClient;
@@ -25,7 +27,7 @@ import retrofit.client.Response;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction{
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -203,8 +205,19 @@ public class MainActivity extends AppCompatActivity {
         //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         //get total cart price and show in menu
         //menu.findItem(R.id.cart_text).setVisible(true);
-        menu.findItem(R.id.cart_text).setTitle("Rs:"+String.valueOf(DetailScreen.total_cart_bill));
+        //menu.findItem(R.id.cart_text).setTitle("Rs:"+String.valueOf(DetailScreen.total_cart_bill));
+        menu.findItem(R.id.cart_text).setTitle("Rs:"+ItemCart.getInstance().getTotal());
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void OnItemAddedInCart() {
+
+      //  ItemCart.getInstance().getTotal();
+        //Toast.makeText(getApplicationContext(),"Total "+ItemCart.getInstance().getTotal(),Toast.LENGTH_LONG).show();
+        invalidateOptionsMenu();
+
+
     }
 
     private class SlideMenuClickListener implements android.widget.AdapterView.OnItemClickListener {
@@ -218,6 +231,9 @@ public class MainActivity extends AppCompatActivity {
             category= (Category) parent.getItemAtPosition(position);
             send_CategoryId(category.getId());
          //   set actionbar tittle when closed
+
+            mDrawerLayout.closeDrawer(mDrawerList);
+
             getSupportActionBar().setTitle(category.getName());
 
            // Toast.makeText(getApplicationContext(),"Cat_id"+category.getId(),Toast.LENGTH_LONG).show();
@@ -304,14 +320,7 @@ public class MainActivity extends AppCompatActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-//    private void showProgress(String message){
-//
-//        progressDialog=ProgressDialog.show(getApplicationContext(),"",message,false);
-//
-//    }
-//
-//    private void hideProgress(){
-//
-//        progressDialog.dismiss();
-//    }
+
+
+
 }

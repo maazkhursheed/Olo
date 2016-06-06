@@ -1,12 +1,14 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Maaz on 5/27/2016.
  */
-public class MenusItem {
+//
+public class MenusItem implements Serializable{
 
     private int id;
     private String name;
@@ -17,6 +19,16 @@ public class MenusItem {
 
     private int category_id;
     private List<Image> images = new ArrayList<Image>();
+
+    public int getDesiredQuantity() {
+        return desiredQuantity;
+    }
+
+    public void setDesiredQuantity(int desiredQuantity) {
+        this.desiredQuantity = desiredQuantity;
+    }
+
+    private int desiredQuantity;
 
     public MenusItem(int id, String name, double price, String description, String created_at, String updated_at, int category_id, List<Image> images) {
         this.id = id;
@@ -41,7 +53,11 @@ public class MenusItem {
         this.category_id = category_id;
     }
 
-
+    public MenusItem(int id, String name, int desiredQuantity) {
+        this.id = id;
+        this.name = name;
+        this.desiredQuantity = desiredQuantity;
+    }
 
 
     public int getId() {
