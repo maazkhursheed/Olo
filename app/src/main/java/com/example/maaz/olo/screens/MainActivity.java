@@ -180,9 +180,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.cart_text:
-                Intent cart_activity=new Intent(this,MyCart.class);
-                startActivity(cart_activity);
-              //  return true;
+                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
+                startActivity(intent);
+
             default:
                 return super.onOptionsItemSelected(item);
         }

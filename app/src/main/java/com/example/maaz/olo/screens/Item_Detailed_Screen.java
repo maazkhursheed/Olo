@@ -50,17 +50,17 @@ public class Item_Detailed_Screen extends AppCompatActivity {
     }
     private void init_views()
     {
-        toolbar = (Toolbar) findViewById(R.id.toolbar_details_item_screen);
-        quantity_picker= (NumberPicker) findViewById(R.id.quantity_numberPicker);
-        add_cart_btn= (Button) findViewById(R.id.addcart_btn);
-        item_name= (TextView) findViewById(R.id.textView_itemname);
-        item_price= (TextView) findViewById(R.id.textView_itemPrice);
-        add_quantity= (TextView) findViewById(R.id.add_quantity);
-        subtract_quantity= (TextView) findViewById(R.id.subtract_quantity);
-        quantity_totalprice = (TextView) findViewById(R.id.total_price);
-        quantity_picker.setMinValue(1);
-        quantity_picker.setMaxValue(10);
-        quantity_picker.setWrapSelectorWheel(false);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar_details_item_screen);
+//        quantity_picker= (NumberPicker) findViewById(R.id.quantity_numberPicker);
+//        add_cart_btn= (Button) findViewById(R.id.addcart_btn);
+//        item_name= (TextView) findViewById(R.id.textView_itemname);
+//        item_price= (TextView) findViewById(R.id.textView_itemPrice);
+//        add_quantity= (TextView) findViewById(R.id.add_quantity);
+//        subtract_quantity= (TextView) findViewById(R.id.subtract_quantity);
+//        quantity_totalprice = (TextView) findViewById(R.id.total_price);
+//        quantity_picker.setMinValue(1);
+//        quantity_picker.setMaxValue(10);
+//        quantity_picker.setWrapSelectorWheel(false);
 
 
     }
