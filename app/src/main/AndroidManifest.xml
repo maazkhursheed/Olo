@@ -37,11 +37,16 @@
         <activity
                 android:name=".screens.Item_Detailed_Screen"
                 android:label="Details Menu Screen"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+        >
         </activity>
-        <activity android:name=".screens.MyCart"
-        android:label="My Cart"
-       >
+        <activity
+                android:name=".screens.MyCart"
+                android:label="My Cart">
+        </activity>
+        <activity
+                android:name=".screens.OrderCheckoutScreen"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

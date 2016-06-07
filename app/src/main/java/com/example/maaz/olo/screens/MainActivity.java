@@ -45,10 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private TypedArray navMenuIcons;
     private Toolbar toolbar;
 
-   String catname;
-//    private ArrayList<NavDrawerItem> navDrawerItems;
-//    private NavDrawerListAdapter adapter;
-
     private ArrayList<Category> navCategoryItems;
     private CategoryAdapter categoryAdapter;
     Category category;
@@ -209,9 +205,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-        //get total cart price and show in menu
-        //menu.findItem(R.id.cart_text).setVisible(true);
         menu.findItem(R.id.cart_text).setTitle("Rs:"+String.valueOf(Item_Detailed_Screen.total_cart_bill));
         return super.onPrepareOptionsMenu(menu);
     }

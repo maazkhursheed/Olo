@@ -26,11 +26,6 @@ import java.util.ArrayList;
  */
 public class CategoryAdapter extends BaseAdapter {
 
-    private static final int TYPE_HEADER = 0;     // Declaring Variable to Understand which View is being worked on
-    private static final int TYPE_ITEM = 1;      // IF the view under inflation and population is header or Item
-
-
-
     private Context context;
     private ArrayList<Category> categoryArrayList;
     int Holderid;

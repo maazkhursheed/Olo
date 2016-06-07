@@ -29,7 +29,6 @@ public class Item_Detailed_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_item__detailed__screen);
         setContentView(R.layout.detailed_item_screen_withpicker);
 
 
@@ -39,14 +38,10 @@ public class Item_Detailed_Screen extends AppCompatActivity {
         get_set_intentdata();
         setInitial_itemPrice();
         setTotalPrice_withquantity();
-      //  getTotalPrice_withquantity();
-       // computetotalprice();
         send_data_tomainmenu();
-       // getscrollvalue();
-        //final double tot=Double.parseDouble(item_price.getText().toString());
-
-
     }
+
+
     public void setHomeButton()
     {
         setSupportActionBar(toolbar);
@@ -75,14 +70,9 @@ public class Item_Detailed_Screen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 total_cart_bill +=totalprice;
-               // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
                // intent.putExtra("totalprice",String.valueOf(totalprice));
-               //setResult(RESULT_OK, intent);
-               // startActivityForResult(intent,RESULT_OK);
-               // startActivity(intent);
-               // startActivityForResult(intent,1);
-                //finish();
-               // startActivity(intent);
+                startActivity(intent);
                 finish();
 
             }
