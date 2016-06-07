@@ -134,7 +134,7 @@ public class DetailsFragment extends Fragment {
         menufragment.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, menufragment).commit();
-        //mDrawerLayout.closeDrawer(mDrawerList);
+
 
     }
 
@@ -156,6 +156,17 @@ public class DetailsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+            listner = (OnDetailFragmentInteraction) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnDetailFragmentInteractionListener");
+        }
+    }
+
     //==========================================Inner Classes / Listeners=========================================
     private class AddCartListener implements View.OnClickListener {
         @Override
@@ -166,14 +177,9 @@ public class DetailsFragment extends Fragment {
            // total_cart_bill +=totalprice;
             listner.OnItemAddedInCart();
            // getActivity().getFragmentManager().popBackStack();
-            //getActivity().getFragmentManager().beginTransaction().hide(DetailsFragment.this).commit();
+           // getActivity().getFragmentManager().beginTransaction().hide(DetailsFragment.this).commit();
             backToMenus(menusItem.getCategory_id());
            // getActivity().getFragmentManager().beginTransaction().replace();
-            //getActivity().getSupportFragmentManager().popBackStack();
-           // getActivity().getFragmentManager().popBackStack();
-           //getActivity().getFragmentManager().popBackStackImmediate();
-           // getActivity().getFragmentManager().popBackStack();
-           // getActivity().onBackPressed();
 
 
 
@@ -182,8 +188,8 @@ public class DetailsFragment extends Fragment {
 
 
 
-//            Intent intent = new Intent(DetailScreen.this,MainActivity.class);
-//            startActivity(intent);
+
+
 
             //finish();
         }
@@ -227,13 +233,8 @@ public class DetailsFragment extends Fragment {
         void OnItemAddedInCart();
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-       super.onCreateOptionsMenu(menu, inflater);
-//       getActivity().getMenuInflater().inflate(R.menu.m, menu);
-//         menu.findItem(R.id.cart_text).setVisible(false);
 
 
-    }
+
 }
 
