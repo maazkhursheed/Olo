@@ -31,11 +31,11 @@ public class DetailsFragment extends Fragment {
     static  double totalprice;
     static double total_cart_bill;
     private boolean valuechanged=false;
-    private int minQuantity=1,maxQuantity=20;
+    private int initialQuantity =1,maxQuantity=20;
     private int selectedItemQuantity =1;
     private String itemname;
     private OnDetailFragmentInteraction listner;
-    MenusItem menusItem;
+    private MenusItem menusItem;
 
 
     public DetailsFragment() {
@@ -65,7 +65,7 @@ public class DetailsFragment extends Fragment {
         label_decrementQuantity = (TextView) view.findViewById(R.id.subtract_txtview);
         label_totalPrice = (TextView) view.findViewById(R.id.total_price);
         label_quantity = (TextView) view.findViewById(R.id.itemquantity_txtview);
-        selectedItemQuantity=minQuantity;
+        selectedItemQuantity= checkItemQuantity();
         label_quantity.setText("Quantity: "+selectedItemQuantity);
 
 
@@ -81,6 +81,26 @@ public class DetailsFragment extends Fragment {
         setInitial_itemPrice();
 
         setListeners();
+
+
+    }
+
+    /**This method determines the pre selected quantity of item, if it
+     * already exists in  cart
+     *
+     */
+    private int checkItemQuantity() {
+
+        int desiredQuantity = initialQuantity;
+        MenusItem tempItem = null;
+        tempItem = ItemCart.getInstance().checkItem(menusItem);
+
+        if(tempItem != null){
+            desiredQuantity = tempItem.getDesiredQuantity();
+        }
+
+
+        return desiredQuantity;
     }
 
     private void setListeners() {
@@ -173,7 +193,7 @@ public class DetailsFragment extends Fragment {
         public void onClick(View view) {
 
 
-           ItemCart.getInstance().addItem(menusItem);
+           ItemCart.getInstance().addOrUpdateItem(menusItem);
            // total_cart_bill +=totalprice;
             listner.OnItemAddedInCart();
            // getActivity().getFragmentManager().popBackStack();
@@ -198,7 +218,7 @@ public class DetailsFragment extends Fragment {
     private class IncrementListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if(selectedItemQuantity==minQuantity||selectedItemQuantity <maxQuantity)
+            if(selectedItemQuantity== initialQuantity ||selectedItemQuantity <maxQuantity)
             {
                 selectedItemQuantity++;
                 label_quantity.setText("Quantity :"+selectedItemQuantity);
@@ -213,11 +233,11 @@ public class DetailsFragment extends Fragment {
     private class DecrementListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if(selectedItemQuantity>minQuantity)
+            if(selectedItemQuantity> initialQuantity)
             {
 
                 selectedItemQuantity--;
-                //selectedItemQuantity=minQuantity;
+                //selectedItemQuantity=initialQuantity;
                 label_quantity.setText("Quantity :"+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
                 label_totalPrice.setText(""+totalprice);

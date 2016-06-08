@@ -8,9 +8,8 @@ import java.util.List;
 /**
  * Created by attribe on 6/6/16.
  */
+
 public class ItemCart {
-
-
 
     public static List<MenusItem> orderableItems;
     private static ItemCart itemCart ;
@@ -22,7 +21,7 @@ public class ItemCart {
 
     public static synchronized ItemCart getInstance(){
 
-        if(itemCart == null||orderableItems==null){
+        if(itemCart == null){
 
 
             itemCart = new ItemCart();
@@ -34,18 +33,129 @@ public class ItemCart {
 
     }
 
+    /**This method adds item in cart,
+     * in case item already exists in the cart, it simply
+     * updates its quantity
 
-    public void addItem(MenusItem item){
+     *
+     * @param item
+     */
+    public void addOrUpdateItem(MenusItem item){
 
-      // orderableItems=new ArrayList<>();
-        orderableItems.add(item);
+
+       boolean isItemfound = false;
+
+        if(!orderableItems.isEmpty()) {
+            for (MenusItem iterator : orderableItems) {
+
+                //Item Update Block
+                if (iterator.getId() == item.getId()) {    //Check if item exixts in cart
+                    isItemfound = true;
+
+                    iterator.setDesiredQuantity(item.getDesiredQuantity());
+
+                    break;
+                }
+
+
+
+            }
+
+            if(!isItemfound){
+                orderableItems.add(item);
+
+            }
+
+        }
+
+        else{
+
+            orderableItems.add(item);
+
+    }
+
+    }
+
+    public void newaddUpdateItem(MenusItem item){
+
+
+        boolean isItemfound;
+
+        if(!orderableItems.isEmpty()) {
+            for (MenusItem iterator : orderableItems) {
+
+                //Item Update Block
+                if (iterator.getId() == item.getId()) {    //Check if item exixts in cart
+                    isItemfound = true;
+                    if(item.getDesiredQuantity()==0)
+                    {
+
+                    }
+
+                    iterator.setDesiredQuantity(item.getDesiredQuantity());
+
+                    break;
+                }
+
+
+                //Item Insertion Block
+                else {
+
+                    orderableItems.add(item);
+                }
+            }
+
+        }
+
+        else{
+
+            orderableItems.add(item);
+
+        }
+
     }
 
 
-    public void removeItem(MenusItem item){
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * This method removes an item in cart if exist
+     * @param item
+     */
+    public void removeItem(MenusItem item)
+    {
+        for(MenusItem iterator : orderableItems) {
+
+            //Item remove Block
+            if (iterator.getId() == item.getId()) {    //Check if item exixts in cart
+                orderableItems.remove(item);
+
+                 break;
+
+            }
+        }
     }
+
+    /**
+     * This method simply returns  Cart total price
+     *
+     * @return
+     */
+
 
     public double getTotal(){
         double totalItemPrice = 0;
@@ -58,5 +168,23 @@ public class ItemCart {
         }
 
         return cartTotal;
+    }
+
+    public MenusItem checkItem(MenusItem menusItem) {
+
+        MenusItem menuItem = null;
+        for(MenusItem item: orderableItems){
+
+            if(menusItem.getId() == item.getId()){
+
+                menuItem = item;
+            }
+
+
+
+
+        }
+
+        return menuItem;
     }
 }
