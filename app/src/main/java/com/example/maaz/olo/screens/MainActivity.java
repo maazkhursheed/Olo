@@ -58,35 +58,6 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         setDraweropened();    //always open a drawer when activity is opened
         drawer_Toggle_Handling(savedInstanceState);    //  enabling action bar app icon and behaving it as toggle button
 
-
-        // enabling action bar app icon and behaving it as toggle button
-
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-
-//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, null, R.string.app_name, R.string.app_name) {
-//
-//            public void onDrawerClosed(View view) {
-//               // getSupportActionBar().setTitle(mTitle);
-//                getSupportActionBar().setTitle("Kababjees Menu");
-//                invalidateOptionsMenu();  // calling onPrepareOptionsMenu() to show action bar icons
-//            }
-//
-//            public void onDrawerOpened(View drawerView) {
-//                getSupportActionBar().setTitle(mDrawerTitle);
-//                invalidateOptionsMenu();  // calling onPrepareOptionsMenu() to hide action bar icons
-//            }
-//        };
-//
-//        mDrawerLayout.setDrawerListener(mDrawerToggle);
-//
-//        if (savedInstanceState == null) {
-//            // on first time display view for first nav item
-//            //displayView(0);
-//        }
     }
 
 
@@ -233,12 +204,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
          //   set actionbar tittle when closed
 
             mDrawerLayout.closeDrawer(mDrawerList);
-
             getSupportActionBar().setTitle(category.getName());
 
            // Toast.makeText(getApplicationContext(),"Cat_id"+category.getId(),Toast.LENGTH_LONG).show();
-
-
 
         }
     }
@@ -253,48 +221,6 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         mDrawerLayout.closeDrawer(mDrawerList);
 
     }
-
-//    private void displayView(int position) {
-//
-//        // update the main content by replacing fragments
-//        Fragment fragment = null;
-//        switch (position ) {
-//            case 0:
-//                fragment = new HomeFragment();
-//                break;
-//            case 1:
-//                fragment = new FindPeopleFragment();
-//                break;
-//            case 2:
-//                fragment = new PhotosFragment();
-//                break;
-////            case 3:
-////                fragment = new CommunityFragment();
-////                break;
-////            case 4:
-////                fragment = new PagesFragment();
-////                break;
-////            case 5:
-////                fragment = new WhatsHotFragment();
-////                break;
-//
-//            default:
-//                break;
-//        }
-//
-//        if (fragment != null) {
-//            FragmentManager fragmentManager = getFragmentManager();
-//            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-//
-//            mDrawerList.setItemChecked(position, true);    // update selected item and title, then close the drawer
-//            mDrawerList.setSelection(position);
-//            setTitle(navMenuTitles[position]);
-//            mDrawerLayout.closeDrawer(mDrawerList);
-//        } else {
-//
-//            Log.e("MainActivity", "Error in creating fragment");   // error in creating fragment
-//        }
-//    }
 
     @Override
     public void setTitle(CharSequence title) {
