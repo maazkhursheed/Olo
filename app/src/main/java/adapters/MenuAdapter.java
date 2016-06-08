@@ -20,9 +20,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
 
     private List<MenusItem> menusList;
     OnItemClickListner menuItemClickListner;
-    ////
-//    private MyViewHolder viewHolder ;
-//    private View layoutView;
+
 
     public MenuAdapter(List<MenusItem> menusList) {
         this.menusList = menusList;
@@ -65,45 +63,18 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_menu_item_row, parent, false);
-         //itemView.setBackgroundColor(R.color.cardview_shadow_end_color);
-        return new MyViewHolder(itemView);
-////
-//        layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_menu_item_row, parent, false);
-//
-//
-//        viewHolder = new MyViewHolder(layoutView);
-//        layoutView.setTag(viewHolder);
-//
-//
-//        viewHolder = (MyViewHolder) layoutView.getTag();
-//
-//        return viewHolder;
 
+        return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         MenusItem menus = menusList.get(position);
-//        if (menus.getDescription().isEmpty())
-//        {
-//            holder.menus_item_desc.setText("Very Delicious in taste");
-//
-//        }
-//        else {
+
             holder.menu_item_name.setText("" + menus.getName());
 
             holder.menus_item_desc.setText("" + menus.getDescription());
             holder.menu_item_price.setText("Rs" + ":" + (int) menus.getPrice());
-       // }
-      //  holder.setIsRecyclable(true);
-    //    holder.itemView.setBackgroundColor(Color.parseColor("#ffffcc"));
-       // layoutView.setBackgroundResource(R.drawable.row_item_bg);
-//        if(position % 2 == 0){
-//
-//           // layoutView.setBackgroundResource(R.drawable.row_item_bg);
-//           // layoutView.setBackgroundColor(Color.GRAY);
-//            holder.itemView.setBackgroundColor(Color.parseColor("#dddddd"));
-//        }
 
         if (position % 2 == 1) {
             holder.itemView.setBackgroundColor(Color.parseColor("#dddddd"));

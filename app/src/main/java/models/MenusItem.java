@@ -16,18 +16,8 @@ public class MenusItem implements Serializable{
     private String description;
     private String created_at;
     private String updated_at;
-
     private int category_id;
     private List<Image> images = new ArrayList<Image>();
-
-    public int getDesiredQuantity() {
-        return desiredQuantity;
-    }
-
-    public void setDesiredQuantity(int desiredQuantity) {
-        this.desiredQuantity = desiredQuantity;
-    }
-
     private int desiredQuantity;
 
     public MenusItem(int id, String name, double price, String description, String created_at, String updated_at, int category_id, List<Image> images) {
@@ -40,7 +30,6 @@ public class MenusItem implements Serializable{
         this.category_id = category_id;
         this.images = images;
     }
-
 
 
     public MenusItem(int id, String name, double price, String description, String created_at, String updated_at, int category_id) {
@@ -125,6 +114,13 @@ public class MenusItem implements Serializable{
     }
 
 
+    public int getDesiredQuantity() {
+        return desiredQuantity;
+    }
+
+    public void setDesiredQuantity(int desiredQuantity) {
+        this.desiredQuantity = desiredQuantity;
+    }
 
 
 }

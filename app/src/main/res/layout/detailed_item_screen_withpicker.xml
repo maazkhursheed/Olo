@@ -219,11 +219,11 @@
 
             <!--</LinearLayout>-->
             <Button
+                    android:id="@+id/addcart_btn"
                     android:background="#F34545"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:text="Add to Basket"
-                    android:id="@+id/addcart_btn"
                     android:textColor="@android:color/white"
                     android:layout_gravity="center"
                     android:layout_weight="0.75"
