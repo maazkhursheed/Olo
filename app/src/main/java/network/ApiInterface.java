@@ -2,6 +2,8 @@ package network;
 
 import models.Category;
 import models.MenusItem;
+import models.OrderResponse;
+import models.Orders;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -28,7 +30,10 @@ public interface ApiInterface {
     @GET(URL_GET_ITEMS)
     void getMenuItems(@Query("category_id") int categoryId ,
                   Callback<ArrayList<MenusItem>> callback);
-    
+
+    @POST(URL_PLACE_ORDER)
+    void placeOrder(@Body Orders orders, Callback<OrderResponse> responseCallback);
+//
 //    @GET(URL_GET_CATEGORIES)
 //    ArrayList<Category> getCategoriesSync();
 
