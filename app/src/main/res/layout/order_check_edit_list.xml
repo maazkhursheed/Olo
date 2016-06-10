@@ -17,8 +17,10 @@
               android:id="@+id/editItemQuantity"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:hint="30"
-              android:inputType="number"/>
+              android:hint=""
+              android:inputType="number"
+              android:imeOptions="actionDone"
+              android:cursorVisible="true"/>
 
     <TextView
             android:layout_width="wrap_content"

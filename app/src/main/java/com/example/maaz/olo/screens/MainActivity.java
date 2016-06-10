@@ -19,6 +19,7 @@ import cart.ItemCart;
 import com.example.maaz.olo.R;
 import fragments.DetailsFragment;
 import fragments.MenusFragment;
+import fragments.OrderCheckoutFragment;
 import models.Category;
 import network.RestClient;
 import retrofit.Callback;
@@ -151,8 +152,11 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.cart_text:
-                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
+//                startActivity(intent);
+                OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
 
             default:
                 return super.onOptionsItemSelected(item);

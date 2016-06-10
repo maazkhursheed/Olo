@@ -2,12 +2,14 @@ package fragments;
 
 
 
+import Interfaces.OnItemRemoveListener;
+import Interfaces.OnQuantityChangeListener;
 import adapters.CartEditListAdapter;
 import adapters.CartListAdapter;
+import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 
-
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +26,12 @@ public class OrderCheckEditListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private CartEditListAdapter cartEditListAdapter;
+    private OnItemRemoveListener onItemRemoveListener;
+    private OnQuantityChangeListener onQuantityChangeListener;
 
     public OrderCheckEditListFragment() {
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,4 +51,16 @@ public class OrderCheckEditListFragment extends Fragment {
         recyclerView.setAdapter(cartEditListAdapter);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try{
+            onItemRemoveListener = (OnItemRemoveListener) context;
+            onItemRemoveListener.onItemRemoved();
+        }
+        catch (ClassCastException ex){
+            throw new ClassCastException(getActivity().toString()+"Must implement the OnItemRemoveListner");
+        }
+    }
 }

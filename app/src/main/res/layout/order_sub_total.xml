@@ -6,14 +6,15 @@
               android:paddingLeft="25dp"
               android:paddingStart="25dp"
               android:paddingRight="20dp"
-              android:paddingEnd="20dp">
+              android:paddingEnd="20dp"
+              android:paddingBottom="5dp" >
 
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp" >
+          >
 
         <TextView
                 android:layout_width="wrap_content"
@@ -27,7 +28,8 @@
                 android:text="Rs."
                 android:layout_gravity="right"
                 android:textSize="18sp"
-                android:layout_marginLeft="160dp"/>
+                android:layout_marginLeft="160dp"
+                android:layout_marginStart="160dp"/>
 
         <TextView
                 android:id="@+id/tv_subTotal"
@@ -36,7 +38,8 @@
                 android:text="10690"
                 android:layout_gravity="right"
                 android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"/>
 
     </LinearLayout>
 
@@ -59,7 +62,8 @@
                 android:text="Free"
                 android:layout_gravity="right"
                 android:textSize="18sp"
-                android:layout_marginLeft="160dp"/>
+                android:layout_marginLeft="110dp"
+                android:layout_marginStart="110dp"/>
 
         <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
@@ -91,15 +95,16 @@
                 android:text="Rs."
                 android:layout_gravity="right"
                 android:textSize="18sp"
-                android:layout_marginLeft="160dp"/>
+                android:layout_marginLeft="140dp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100"
+                android:text="90"
                 android:layout_gravity="right"
                 android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"/>
 
     </LinearLayout>
 

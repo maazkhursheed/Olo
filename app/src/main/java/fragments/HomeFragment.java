@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.maaz.olo.R;
-import com.example.maaz.olo.screens.DetailMenuScreen;
 import models.Menus;
 
 import java.util.ArrayList;

@@ -1,10 +1,14 @@
 package adapters;
 
+import Interfaces.OnItemRemoveListener;
+import Interfaces.OnQuantityChangeListener;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +31,10 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
         this.menusList = menusList;
     }
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder  {
 
-        public EditText  itemEditQuantity;
+      final   public EditText  itemEditQuantity;
         public TextView  itemEditName, itemEditPrice, itemEditCross;
 
         public MyViewHolder(View view) {
@@ -51,12 +56,23 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
         menus = menusList.get(position);
-        holder.itemEditQuantity.setText("" + menus.getDesiredQuantity());
         holder.itemEditName.setText("" + menus.getName());
-        holder.itemEditPrice.setText("" + menus.getPrice());
+        holder.itemEditPrice.setText("" + getItemPrice(menus.getDesiredQuantity(),menus.getPrice()));
+        holder.itemEditQuantity.setText("" + menus.getDesiredQuantity());    // EditionSetListner(position)
+        holder.itemEditQuantity.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+
+                    ItemCart.getOrderableItems().get(position).setDesiredQuantity(Integer.parseInt(String.valueOf(v.getText())));
+                    holder.itemEditQuantity.setCursorVisible(false);
+                }
+                return false;
+            }
+        });
 
         holder.itemEditCross.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,9 +85,38 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
         });
     }
 
+
     @Override
     public int getItemCount() {
         return menusList.size();
     }
+
+    public static double getItemPrice(int itemQuantity, double itemPrice ) {
+
+        double totalPrice = itemQuantity*itemPrice;
+        return totalPrice;
+    }
+
+
+    private class EditionSetListner implements TextView.OnEditorActionListener {
+
+        int mPosition;
+
+        public EditionSetListner(int position) {
+
+            this.mPosition= position;
+        }
+
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+
+                ItemCart.getOrderableItems().get(mPosition).setDesiredQuantity(Integer.parseInt(String.valueOf(v.getText())));
+            }
+            return false;
+        }
+    }
+
 
 }
