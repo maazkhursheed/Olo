@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
             public void onDrawerClosed(View view) {
                 // getSupportActionBar().setTitle(mTitle);
                 ////set actionbar tittle when closed
-               // getSupportActionBar().setTitle("Kababjees Menu");
+                // getSupportActionBar().setTitle("Kababjees Menu");
                 invalidateOptionsMenu();  // calling onPrepareOptionsMenu() to show action bar icons
             }
 
