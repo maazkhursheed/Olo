@@ -11,6 +11,8 @@ import java.util.List;
 
 public class ItemCart {
 
+
+
     public static List<MenusItem> orderableItems;
     private static ItemCart itemCart ;
 
@@ -76,60 +78,6 @@ public class ItemCart {
 
     }
 
-    public void newaddUpdateItem(MenusItem item){
-
-
-        boolean isItemfound;
-
-        if(!orderableItems.isEmpty()) {
-            for (MenusItem iterator : orderableItems) {
-
-                //Item Update Block
-                if (iterator.getId() == item.getId()) {    //Check if item exixts in cart
-                    isItemfound = true;
-                    if(item.getDesiredQuantity()==0)
-                    {
-
-                    }
-
-                    iterator.setDesiredQuantity(item.getDesiredQuantity());
-
-                    break;
-                }
-
-
-                //Item Insertion Block
-                else {
-
-                    orderableItems.add(item);
-                }
-            }
-
-        }
-
-        else{
-
-            orderableItems.add(item);
-
-        }
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -168,6 +116,20 @@ public class ItemCart {
         }
 
         return cartTotal;
+    }
+
+    public double getAllTotal(){
+
+        double allTotalPrice = 0;
+        int deliveryFee = 90;
+        double serviceFee = 0;
+
+        allTotalPrice = getTotal()+ deliveryFee + serviceFee;
+        return allTotalPrice;
+    }
+
+    public static List<MenusItem> getOrderableItems() {
+        return orderableItems;
     }
 
     public MenusItem checkItem(MenusItem menusItem) {

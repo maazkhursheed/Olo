@@ -22,7 +22,7 @@ public class Item_Detailed_Screen extends AppCompatActivity {
     NumberPicker quantity_picker;
     Button add_cart_btn;
     double itemprice;
-   static  double totalprice;
+    static  double totalprice;
     static double total_cart_bill;
     boolean valuechanged=false;
 
@@ -31,8 +31,6 @@ public class Item_Detailed_Screen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detailed_item_screen_withpicker);
 
-
-        init_views();
         setHomeButton();
 
         get_set_intentdata();
@@ -48,22 +46,7 @@ public class Item_Detailed_Screen extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
-    private void init_views()
-    {
-//        toolbar = (Toolbar) findViewById(R.id.toolbar_details_item_screen);
-//        quantity_picker= (NumberPicker) findViewById(R.id.quantity_numberPicker);
-//        add_cart_btn= (Button) findViewById(R.id.addcart_btn);
-//        item_name= (TextView) findViewById(R.id.textView_itemname);
-//        item_price= (TextView) findViewById(R.id.textView_itemPrice);
-//        add_quantity= (TextView) findViewById(R.id.add_quantity);
-//        subtract_quantity= (TextView) findViewById(R.id.subtract_quantity);
-//        quantity_totalprice = (TextView) findViewById(R.id.total_price);
-//        quantity_picker.setMinValue(1);
-//        quantity_picker.setMaxValue(10);
-//        quantity_picker.setWrapSelectorWheel(false);
 
-
-    }
     private void send_data_tomainmenu()
     {
         add_cart_btn.setOnClickListener(new View.OnClickListener() {

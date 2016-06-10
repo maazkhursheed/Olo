@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="fragments.UserInfo">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <!--<RelativeLayout-->
+            <!--android:id="@+id/logo"-->
+            <!--android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                    <!--&gt;-->
+
+    <!--</RelativeLayout>-->
+
+    <LinearLayout
+            
+            android:id="@+id/mainlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="3"
+    android:layout_margin="15dp">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Your Name"
+                android:layout_weight="0.5"
+                android:textStyle="bold"
+        android:textColor="@android:color/darker_gray"/>
+
+        <EditText
+                android:id="@+id/edittxt_username"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+
+        android:layout_weight="0.5"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Your Phone Number"
+                android:layout_weight="0.5"
+                android:textStyle="bold"
+                android:textColor="@android:color/darker_gray"/>
+
+        <EditText
+                android:id="@+id/edittxt_userphone"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+
+                android:layout_weight="0.5"/>
+
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Your Address"
+                android:layout_weight="0.5"
+                android:textStyle="bold"
+                android:textColor="@android:color/darker_gray"/>
+
+        <EditText
+                android:id="@+id/edittxt_useraddress"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+
+                android:layout_weight="0.5"/>
+
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:id="@+id/confirm_btn"
+        android:text="Proceed"/>
+
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
