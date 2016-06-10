@@ -1,5 +1,7 @@
 package com.example.maaz.olo.screens;
 
+import Interfaces.OnItemRemoveListener;
+import Interfaces.OnQuantityChangeListener;
 import adapters.CategoryAdapter;
 
 import android.app.FragmentManager;
@@ -28,9 +30,11 @@ import retrofit.client.Response;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction{
+public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction, OnItemRemoveListener, OnQuantityChangeListener{
 
     private DrawerLayout mDrawerLayout;
+    public static OnItemRemoveListener onItemRemoveListener = null;
+    public static OnQuantityChangeListener onQuantityChangeListener = null;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
@@ -38,11 +42,6 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private String[] navMenuTitles;    // slide menu items
     private TypedArray navMenuIcons;
     private Toolbar toolbar;
-
-   String catname;
-//    private ArrayList<NavDrawerItem> navDrawerItems;
-//    private NavDrawerListAdapter adapter;
-
     private ArrayList<Category> navCategoryItems;
     private CategoryAdapter categoryAdapter;
     Category category;
@@ -111,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        onItemRemoveListener = this;
+        onQuantityChangeListener = this;
 
     }
 
@@ -187,12 +189,19 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     @Override
     public void OnItemAddedInCart() {
-
-      //  ItemCart.getInstance().getTotal();
-        //Toast.makeText(getApplicationContext(),"Total "+ItemCart.getInstance().getTotal(),Toast.LENGTH_LONG).show();
         invalidateOptionsMenu();
+//        Toast.makeText(getApplicationContext(),"Total "+ItemCart.getInstance().getTotal(),Toast.LENGTH_LONG).show();
+    }
 
 
+    @Override
+    public void onItemRemoved(int price) {
+        invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onQuantityChanged(int price) {
+        invalidateOptionsMenu();
     }
 
     private class SlideMenuClickListener implements android.widget.AdapterView.OnItemClickListener {

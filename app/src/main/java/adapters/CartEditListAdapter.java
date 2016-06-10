@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
+import com.example.maaz.olo.screens.MainActivity;
 import models.MenusItem;
 
 import java.util.List;
@@ -69,6 +70,7 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
 
                     ItemCart.getOrderableItems().get(position).setDesiredQuantity(Integer.parseInt(String.valueOf(v.getText())));
                     holder.itemEditQuantity.setCursorVisible(false);
+                    holder.itemEditQuantity.setSelection(holder.itemEditQuantity.getText().length());
                 }
                 return false;
             }
@@ -77,7 +79,8 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
         holder.itemEditCross.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ItemCart.getInstance().getOrderList().remove(position);
+
+                MainActivity.onItemRemoveListener.onItemRemoved((int) ItemCart.getInstance().getTotal());
                 ItemCart.getOrderableItems().remove(position);
                 Toast.makeText(mContext,"Item Removed",Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
@@ -97,26 +100,22 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
         return totalPrice;
     }
 
-
-    private class EditionSetListner implements TextView.OnEditorActionListener {
-
-        int mPosition;
-
-        public EditionSetListner(int position) {
-
-            this.mPosition= position;
-        }
-
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-            if(actionId == EditorInfo.IME_ACTION_DONE){
-
-                ItemCart.getOrderableItems().get(mPosition).setDesiredQuantity(Integer.parseInt(String.valueOf(v.getText())));
-            }
-            return false;
-        }
-    }
-
-
+//    private class EditionSetListner implements TextView.OnEditorActionListener {
+//
+//        int mPosition;
+//
+//        public EditionSetListner(int position) {
+//
+//            this.mPosition= position;
+//        }
+//
+//        @Override
+//        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//
+//            if(actionId == EditorInfo.IME_ACTION_DONE){
+//                ItemCart.getOrderableItems().get(mPosition).setDesiredQuantity(Integer.parseInt(String.valueOf(v.getText())));
+//            }
+//            return false;
+//        }
+//    }
 }

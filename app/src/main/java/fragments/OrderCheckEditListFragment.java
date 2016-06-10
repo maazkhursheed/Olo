@@ -51,16 +51,4 @@ public class OrderCheckEditListFragment extends Fragment {
         recyclerView.setAdapter(cartEditListAdapter);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        try{
-            onItemRemoveListener = (OnItemRemoveListener) context;
-            onItemRemoveListener.onItemRemoved();
-        }
-        catch (ClassCastException ex){
-            throw new ClassCastException(getActivity().toString()+"Must implement the OnItemRemoveListner");
-        }
-    }
 }

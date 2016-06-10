@@ -5,5 +5,5 @@ package Interfaces;
  */
 public interface OnItemRemoveListener {
 
-    void onItemRemoved();
+    void onItemRemoved(int price);
 }

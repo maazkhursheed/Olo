@@ -30,16 +30,7 @@
         </activity>
         <!-- android:theme="@style/AppTheme -->
         <!-- android:label="@string/title_activity_detail_menu_screen" -->
-        <activity
-                android:name=".screens.DetailScreen"
-                android:label="Details Menu Screen"
-                android:theme="@style/AppTheme.NoActionBar"
-        >
-        </activity>
-        <activity
-                android:name=".screens.OrderCheckoutScreen"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
     </application>
 
 </manifest>

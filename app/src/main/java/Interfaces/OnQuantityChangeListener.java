@@ -5,5 +5,5 @@ package Interfaces;
  */
 public interface OnQuantityChangeListener {
 
-    void onQuantityChanged();
+    void onQuantityChanged(int price);
 }

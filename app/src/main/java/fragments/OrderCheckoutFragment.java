@@ -21,9 +21,7 @@ import com.example.maaz.olo.screens.MainActivity;
 /**
  * Created by Maaz on 6/9/2016.
  */
-public class OrderCheckoutFragment extends Fragment {
-
-    private CartEditListAdapter cartEditListAdapter;
+public class OrderCheckoutFragment extends Fragment{
 
     TextView editOrderTv, applyOrderChanges, addProduct, orderSubTotal, orderAllTotal;
     int subTotal = 0;
@@ -64,7 +62,6 @@ public class OrderCheckoutFragment extends Fragment {
         orderAllTotal = (TextView)view.findViewById(R.id.tv_allTotal);
         allTotal = (int) ItemCart.getInstance().getAllTotal();
         orderAllTotal.setText(Integer.toString(allTotal));
-
     }
 
 
@@ -100,7 +97,20 @@ public class OrderCheckoutFragment extends Fragment {
             transaction.hide(editListFragment);
             transaction.replace(R.id.orderframe_container, simpleListFragment);
             transaction.commit();
+
+            reloadFragment();
+            updatePriceListner();
         }
+    }
+
+    private void updatePriceListner() {
+        MainActivity.onQuantityChangeListener.onQuantityChanged((int) ItemCart.getInstance().getTotal());
+    }
+
+    private void reloadFragment() {
+
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commit();
     }
 
     private class AddProductListner implements View.OnClickListener {
