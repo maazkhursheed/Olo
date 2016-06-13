@@ -1,5 +1,7 @@
 package com.example.maaz.olo.screens;
 
+import Interfaces.OnItemRemoveListener;
+import Interfaces.OnQuantityChangeListener;
 import adapters.CategoryAdapter;
 
 import android.app.FragmentManager;
@@ -19,6 +21,7 @@ import cart.ItemCart;
 import com.example.maaz.olo.R;
 import fragments.DetailsFragment;
 import fragments.MenusFragment;
+import fragments.OrderCheckoutFragment;
 import models.Category;
 import network.RestClient;
 import retrofit.Callback;
@@ -27,9 +30,11 @@ import retrofit.client.Response;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction{
+public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction, OnItemRemoveListener, OnQuantityChangeListener{
 
     private DrawerLayout mDrawerLayout;
+    public static OnItemRemoveListener onItemRemoveListener = null;
+    public static OnQuantityChangeListener onQuantityChangeListener = null;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
@@ -37,11 +42,6 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private String[] navMenuTitles;    // slide menu items
     private TypedArray navMenuIcons;
     private Toolbar toolbar;
-
-   String catname;
-//    private ArrayList<NavDrawerItem> navDrawerItems;
-//    private NavDrawerListAdapter adapter;
-
     private ArrayList<Category> navCategoryItems;
     private CategoryAdapter categoryAdapter;
     Category category;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
             public void onDrawerClosed(View view) {
                 // getSupportActionBar().setTitle(mTitle);
                 ////set actionbar tittle when closed
-               // getSupportActionBar().setTitle("Kababjees Menu");
+                // getSupportActionBar().setTitle("Kababjees Menu");
                 invalidateOptionsMenu();  // calling onPrepareOptionsMenu() to show action bar icons
             }
 
@@ -110,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        onItemRemoveListener = this;
+        onQuantityChangeListener = this;
 
     }
 
@@ -151,8 +154,11 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.cart_text:
-                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
+//                startActivity(intent);
+                OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -183,12 +189,19 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     @Override
     public void OnItemAddedInCart() {
-
-      //  ItemCart.getInstance().getTotal();
-        //Toast.makeText(getApplicationContext(),"Total "+ItemCart.getInstance().getTotal(),Toast.LENGTH_LONG).show();
         invalidateOptionsMenu();
+//        Toast.makeText(getApplicationContext(),"Total "+ItemCart.getInstance().getTotal(),Toast.LENGTH_LONG).show();
+    }
 
 
+    @Override
+    public void onItemRemoved(int price) {
+        invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onQuantityChanged(int price) {
+        invalidateOptionsMenu();
     }
 
     private class SlideMenuClickListener implements android.widget.AdapterView.OnItemClickListener {

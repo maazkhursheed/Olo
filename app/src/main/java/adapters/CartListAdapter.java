@@ -48,7 +48,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         MenusItem menus = menusList.get(position);
         holder.itemQuantity.setText("" + menus.getDesiredQuantity());
         holder.itemName.setText("" + menus.getName());
-        holder.itemPrice.setText("" + menus.getPrice());
+        holder.itemPrice.setText("" + CartEditListAdapter.getItemPrice(menus.getDesiredQuantity(),menus.getPrice()));
     }
 
     @Override
