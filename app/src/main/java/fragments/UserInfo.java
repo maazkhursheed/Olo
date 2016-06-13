@@ -149,10 +149,7 @@ public class UserInfo extends Fragment {
 
             String deviceId="755a29c9c999885a";
 
-            //validateInput();
-//            userName=edittxt_name.getText().toString();
-//            userPhone=edittxt_phone.getText().toString();
-//            userAddress=edittxt_address.getText().toString();
+
               validateInput();
 
             int ordertotal= (int) ItemCart.getInstance().getTotal();

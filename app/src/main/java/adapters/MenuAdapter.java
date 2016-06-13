@@ -1,6 +1,8 @@
 package adapters;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.maaz.olo.R;
+import com.squareup.picasso.Picasso;
+import models.Image;
 import models.Menus;
 import models.MenusItem;
 
@@ -17,13 +21,15 @@ import java.util.List;
  * Created by Maaz on 5/25/2016.
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> {
-
+    Context mContext;
     private List<MenusItem> menusList;
     OnItemClickListner menuItemClickListner;
 
 
-    public MenuAdapter(List<MenusItem> menusList) {
+    public MenuAdapter(Context mContext,List<MenusItem> menusList) {
+
         this.menusList = menusList;
+        this.mContext=mContext;
     }
 
 
@@ -70,11 +76,15 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         MenusItem menus = menusList.get(position);
+       // Image menuImage=menusList.get(position)
+       // String url=menus.getImages().get(position).getUrl();
 
             holder.menu_item_name.setText("" + menus.getName());
 
             holder.menus_item_desc.setText("" + menus.getDescription());
             holder.menu_item_price.setText("Rs" + ":" + (int) menus.getPrice());
+//        Picasso.with(mContext).load(menus.getImages().get(position).getUrl()).
+//                placeholder(R.drawable.fastfood).resize(100,100).error(R.id.subtract_txtview).into(holder.item_pic);
 
         if (position % 2 == 1) {
             holder.itemView.setBackgroundColor(Color.parseColor("#dddddd"));
