@@ -4,9 +4,8 @@ package fragments;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.Settings;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.Toolbar;
+import android.view.*;
 
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +38,6 @@ public class UserInfo extends Fragment {
 
     private Button button_confirm;
 
-
     public UserInfo() {
         // Required empty public constructor
     }
@@ -51,20 +49,39 @@ public class UserInfo extends Fragment {
         // Inflate the layout for this fragment
 
         view=inflater.inflate(R.layout.fragment_user_info, container, false);
+        setHasOptionsMenu(true);
+
         initViews();
         return view;
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.userinfo_menu,menu);
+        menu.findItem(R.id.cart_text).setVisible(false);
+        menu.findItem(R.id.cart).setVisible(false);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
+
+
+
     /**
      * This method initialize a views of screen
      */
     private void initViews(){
+
         edittxt_name= (EditText) view.findViewById(R.id.edittxt_username);
         edittxt_phone= (EditText) view.findViewById(R.id.edittxt_userphone);
 
         edittxt_address= (EditText) view.findViewById(R.id.edittxt_useraddress);
         button_confirm= (Button) view.findViewById(R.id.confirm_btn);
+
          buttonListner();
 
 
@@ -91,45 +108,8 @@ public class UserInfo extends Fragment {
 //                   Settings.Secure.ANDROID_ID);
             placeOrders();
 //            String deviceId="755a29c9c999885a";
-//
-//
-//            String name=edittxt_name.getText().toString();
-//            String phone=edittxt_phone.getText().toString();
-//            String address=edittxt_address.getText().toString();
-//            int ordertotal= (int) ItemCart.getInstance().getTotal();
-//            int orderTime=111;
-//
-//            List<OrderDetail> orderDetails=new ArrayList<>();
-//            //  List<OrderDetail> fillOrderDetails=new ArrayList<>();
-//
-//            int itemListsize=ItemCart.getOrderableItems().size()-1;
-//            for (int i=0; i<itemListsize;i++) {
-//                orderDetails.get(i).setMenuId(ItemCart.getOrderableItems().get(i).getId()) ;
-//                orderDetails.get(i).setItemName(ItemCart.getOrderableItems().get(i).getName());
-//                orderDetails.get(i).setQuantity(ItemCart.getOrderableItems().get(i).getDesiredQuantity());
-//                orderDetails.get(i).setItemPrice(ItemCart.getOrderableItems().get(i).getPrice());
-//
-//            }
-//
-//
-//
-//
-//            Orders orders=new Orders(deviceId,name,phone,ordertotal,address,orderTime,orderDetails);
-//
-//            RestClient.getAdapter().placeOrder(orders, new Callback<OrderResponse>() {
-//                @Override
-//                public void success(OrderResponse orderResponse, Response response) {
-//                    Toast.makeText(getActivity().getApplicationContext(),"Status" +":"+orderResponse.getMessage(),Toast.LENGTH_LONG).show();
-//
-//                }
-//
-//                @Override
-//                public void failure(RetrofitError error) {
-//                    Toast.makeText(getActivity().getApplicationContext(),"Retrofit Error"+error.toString(),Toast.LENGTH_LONG).show();
-//
-//
-//                }
-//            });
+
+
 
 
 
