@@ -37,6 +37,7 @@ public class UserInfo extends Fragment {
                      edittxt_address;
 
     private Button button_confirm;
+    private String userName,userPhone,userAddress;
 
     public UserInfo() {
         // Required empty public constructor
@@ -119,6 +120,27 @@ public class UserInfo extends Fragment {
 
         }
 
+        //validates  input fields
+
+        private boolean validateInput(){
+
+            if(edittxt_name.getText().toString().isEmpty()||edittxt_address.getText().toString().isEmpty()
+                    ||edittxt_phone.getText().toString().isEmpty())
+            {
+                Toast.makeText(getActivity().getApplicationContext(),"Fields Missing",Toast.LENGTH_LONG).show();
+                return false;
+
+            }
+            else {
+                userName=edittxt_name.getText().toString();
+                 userPhone=edittxt_phone.getText().toString();
+                  userAddress=edittxt_address.getText().toString();
+               return true;
+            }
+
+
+        }
+
 
 
 // ==========================This method simply place an order to server ===================///
@@ -127,10 +149,12 @@ public class UserInfo extends Fragment {
 
             String deviceId="755a29c9c999885a";
 
+            //validateInput();
+//            userName=edittxt_name.getText().toString();
+//            userPhone=edittxt_phone.getText().toString();
+//            userAddress=edittxt_address.getText().toString();
+              validateInput();
 
-            String name=edittxt_name.getText().toString();
-            String phone=edittxt_phone.getText().toString();
-            String address=edittxt_address.getText().toString();
             int ordertotal= (int) ItemCart.getInstance().getTotal();
             int orderTime=111;
 
@@ -155,7 +179,7 @@ public class UserInfo extends Fragment {
 
 
 
-            Orders placeorders=new Orders(deviceId,name,phone,ordertotal,address,orderTime,orderdetail);
+            Orders placeorders=new Orders(deviceId,userName,userPhone,ordertotal,userAddress,orderTime,orderdetail);
 
             RestClient.getAdapter().placeOrder(placeorders, new Callback<OrderResponse>() {
                 @Override

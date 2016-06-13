@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
@@ -26,6 +27,7 @@ public class OrderCheckoutFragment extends Fragment{
     TextView editOrderTv, applyOrderChanges, addProduct, orderSubTotal, orderAllTotal;
     int subTotal = 0;
     int allTotal = 0;
+    Button btn_checkout;
 
     public OrderCheckoutFragment() {
     }
@@ -62,6 +64,8 @@ public class OrderCheckoutFragment extends Fragment{
         orderAllTotal = (TextView)view.findViewById(R.id.tv_allTotal);
         allTotal = (int) ItemCart.getInstance().getAllTotal();
         orderAllTotal.setText(Integer.toString(allTotal));
+        btn_checkout= (Button) view.findViewById(R.id.checkoutBtn);
+        btn_checkout.setOnClickListener(new InfoCheckListner());
     }
 
 
@@ -118,6 +122,16 @@ public class OrderCheckoutFragment extends Fragment{
         public void onClick(View v) {
             Intent intent = new Intent(getActivity(),MainActivity.class);
             startActivity(intent);
+        }
+    }
+
+    private class InfoCheckListner implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            UserInfo infofragment = new UserInfo();
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame_container, infofragment).commit();
+
         }
     }
 }
