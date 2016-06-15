@@ -3,8 +3,7 @@ package fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.provider.Settings;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 
 import android.widget.Button;
@@ -13,18 +12,16 @@ import android.widget.Toast;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
 import models.MenusItem;
-import models.OrderDetail;
+import models.order_detail;
 import models.OrderResponse;
 import models.Orders;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import utils.DeviceInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +51,12 @@ public class UserInfo extends Fragment {
 
         initViews();
         return view;
+
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Place Order");
 
     }
 
@@ -108,20 +111,13 @@ public class UserInfo extends Fragment {
 //           String deviceId= Settings.Secure.getString(getContext().getContentResolver(),
 //                   Settings.Secure.ANDROID_ID);
             placeOrders();
-//            String deviceId="755a29c9c999885a";
-
-
-
-
-
-
-
-
 
         }
 
-        //validates  input fields
-
+        /**
+         * validates  input fields
+         * @return
+         */
         private boolean validateInput(){
 
             if(edittxt_name.getText().toString().isEmpty()||edittxt_address.getText().toString().isEmpty()
@@ -146,55 +142,62 @@ public class UserInfo extends Fragment {
 // ==========================This method simply place an order to server ===================///
 
         private void placeOrders(){
+            if(validateInput()==true) {
 
-            String deviceId="755a29c9c999885a";
+//                DevicePreference.getInstance().initPref(getActivity().getApplicationContext());
+//                DevicePreference.getInstance().setAuthHeaderFlag(true);
 
-
-              validateInput();
-
-            int ordertotal= (int) ItemCart.getInstance().getTotal();
-            int orderTime=111;
+               // String deviceId = "755a29c9c999885a";
 
 
 
-            List<MenusItem> itemsList = ItemCart.getOrderableItems();
-            ArrayList<OrderDetail> orderdetail = new ArrayList<>();
+
+                double ordertotal =  ItemCart.getInstance().getTotal();
+                int orderTime = 462970960;
 
 
-            for(MenusItem item: itemsList) {
+               List<MenusItem> itemsList = ItemCart.getOrderableItems();
+                ArrayList<order_detail> orderdetail = new ArrayList<>();
 
-                int id = item.getId();
-                String itemname = item.getName();
-                int desiredQuantity = item.getDesiredQuantity();
-                double price = item.getPrice();
+//
+                for (MenusItem item : itemsList) {
 
-                OrderDetail detail = new OrderDetail(id, itemname, desiredQuantity, (int) price);
-                orderdetail.add(detail);
+                    int id = item.getId();
+                    String itemname = item.getName();
+                    int desiredQuantity = item.getDesiredQuantity();
+                    double price = item.getPrice();
+
+                    order_detail detail = new order_detail(id, itemname, desiredQuantity,price);
+                //order_detail detail = new order_detail(1,"Tikka",3,400);
+                   orderdetail.add(detail);
+                }
+
+
+
+
+                Orders placeorders = new Orders(userName, userPhone,userAddress, ordertotal, orderTime, orderdetail);
+
+                RestClient.getAdapter().placeOrder(placeorders, new Callback<OrderResponse>() {
+                    @Override
+                    public void success(OrderResponse orderResponse, Response response) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Status" + ":" +""+orderResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Retrofit Error" + error.toString(), Toast.LENGTH_LONG).show();
+
+
+                    }
+                });
+
+
             }
+            else {
 
-
-
-
-
-            Orders placeorders=new Orders(deviceId,userName,userPhone,ordertotal,userAddress,orderTime,orderdetail);
-
-            RestClient.getAdapter().placeOrder(placeorders, new Callback<OrderResponse>() {
-                @Override
-                public void success(OrderResponse orderResponse, Response response) {
-                    Toast.makeText(getActivity().getApplicationContext(),"Status" +":"+orderResponse.getMessage(),Toast.LENGTH_LONG).show();
-
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    Toast.makeText(getActivity().getApplicationContext(),"Retrofit Error"+error.toString(),Toast.LENGTH_LONG).show();
-
-
-                }
-            });
-
-
-
+//                exception here
+            }
         }
     }
 }

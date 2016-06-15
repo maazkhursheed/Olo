@@ -116,8 +116,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.01"
             android:layout_margin="12dp"
-            android:background="@drawable/round_corner"
-            >
+            android:background="@drawable/picker_rounded"
+                            android:theme="@style/Base.CardView">
 
             <include
                     layout="@layout/custom_picker"

@@ -4,6 +4,10 @@ package models;
  * Created by attribe on 6/9/16.
  */
 public class OrderResponse {
+
+    public String message;
+    public int status;
+
     public String getMessage() {
         return message;
     }
@@ -20,7 +24,6 @@ public class OrderResponse {
         this.status = status;
     }
 
-    String message;
-    int status;
+
 
 }

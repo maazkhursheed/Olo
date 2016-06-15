@@ -5,10 +5,7 @@ import models.MenusItem;
 import models.OrderResponse;
 import models.Orders;
 import retrofit.Callback;
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.Query;
+import retrofit.http.*;
 
 import java.util.ArrayList;
 
@@ -25,8 +22,10 @@ public interface ApiInterface {
     public static String URL_GET_KEY="/user/get_api_key";
     public static String PARAM_PASSCODE = "passcode";
 
+   // @Headers("Accept:application/json")
     @GET(URL_GET_CATEGORIES)
     void getCategories(Callback<ArrayList<Category>> callback);
+   // @Headers("Accept:application/json")
     @GET(URL_GET_ITEMS)
     void getMenuItems(@Query("category_id") int categoryId ,
                   Callback<ArrayList<MenusItem>> callback);
@@ -37,8 +36,5 @@ public interface ApiInterface {
 //    @GET(URL_GET_CATEGORIES)
 //    ArrayList<Category> getCategoriesSync();
 
-//    @GET(URL_SYNC)
 
-
-  //  String getClientKey(@Query(PARAM_PASSCODE) String passCode);
 }

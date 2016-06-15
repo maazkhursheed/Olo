@@ -9,6 +9,7 @@ import retrofit.converter.Converter;
 import retrofit.mime.TypedInput;
 import retrofit.mime.TypedOutput;
 import utils.Constants;
+import utils.DevicePreference;
 
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
@@ -36,9 +37,12 @@ public class RestClient {
             public void intercept(RequestInterceptor.RequestFacade request) {
 
                 request.addHeader("Content-Type","application/json");
-                request.addHeader("Accept","application/json");
-//                request.addHeader(Constants.PARAM_AUTHORIZATION,DevicePreferences.getInstance().getClientKey());
-                request.addHeader("Authorization","7ea442c9-2fca-405f-94f6-4ebb94484f01");
+               request.addHeader("Accept","application/json");
+                request.addHeader("Authorization","d6e8a59c-9518-4998-a12a-9c97e50cebcb");
+                                                  // d6e8a59c-9518-4998-a12a-9c97e50cebcb
+              //  request.addHeader("Authorization", DevicePreference.getInstance().getHeader());
+
+
             }
         };
 
@@ -53,7 +57,7 @@ public class RestClient {
                 .setEndpoint(Constants.BASE_URL_PROD)
                 .setRequestInterceptor(interceptor)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-               // .setConverter(new EmptyConverter())
+
                 .setClient(new OkClient(okHttpClient))
                 .build();
 
