@@ -147,6 +147,6 @@
         android:text="Checkout"
         android:textColor="#ffffff"
         android:layout_alignParentBottom="true"
-        android:background="#01beff"/>
+        android:background="#7CAF41"/>
 
 </RelativeLayout>

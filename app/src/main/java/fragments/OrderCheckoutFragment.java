@@ -1,18 +1,22 @@
 package fragments;
 
+import Interfaces.OnDrawerToggleListner;
 import Interfaces.OnItemRemoveListener;
 import Interfaces.OnQuantityChangeListener;
 import adapters.CartEditListAdapter;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import cart.ItemCart;
@@ -28,6 +32,7 @@ public class OrderCheckoutFragment extends Fragment{
     int subTotal = 0;
     int allTotal = 0;
     Button btn_checkout;
+    private OnDrawerToggleListner mListner;
 
     public OrderCheckoutFragment() {
     }
@@ -44,6 +49,53 @@ public class OrderCheckoutFragment extends Fragment{
         transaction.replace(R.id.orderframe_container, simpleListFragment);
         transaction.commit();
         return rootView ;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mListner.showDrawerToggle(true);
+        hideKeyboard();
+
+    }
+    private void hideKeyboard(){
+
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Order Checkout");
+
+
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mListner= (OnDrawerToggleListner) context;
+
+        }
+        catch (ClassCastException ex){
+            throw new ClassCastException("must implement OnDrawerToggleListner");
+        }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+
+            mListner= (OnDrawerToggleListner) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnDrawerToggleListner");
+        }
     }
 
     private void initViews(View view) {
@@ -65,7 +117,21 @@ public class OrderCheckoutFragment extends Fragment{
         allTotal = (int) ItemCart.getInstance().getAllTotal();
         orderAllTotal.setText(Integer.toString(allTotal));
         btn_checkout= (Button) view.findViewById(R.id.checkoutBtn);
+        checkOrderItem();
         btn_checkout.setOnClickListener(new InfoCheckListner());
+    }
+
+    private void checkOrderItem(){
+
+       // int size=ItemCart.getOrderableItems().size();
+        if(ItemCart.getOrderableItems().isEmpty()){
+//            hide order checkout button
+            btn_checkout.setVisibility(View.INVISIBLE);
+        }
+        else {
+
+            btn_checkout.setVisibility(View.VISIBLE);
+        }
     }
 
 

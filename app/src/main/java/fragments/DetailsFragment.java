@@ -1,10 +1,12 @@
 package fragments;
 
 
+import Interfaces.OnDrawerToggleListner;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 
 import android.widget.Button;
@@ -36,6 +38,7 @@ public class DetailsFragment extends Fragment {
     private String itemname;
     private OnDetailFragmentInteraction listner;
     private MenusItem menusItem;
+    private OnDrawerToggleListner mListner;
 
 
     public DetailsFragment() {
@@ -55,8 +58,11 @@ public class DetailsFragment extends Fragment {
     }
 
 
+
     private void initViews() {
         //toolbar = (Toolbar) findViewById(R.id.toolbar_details_item_screen);
+
+       // ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Details Screen");
 
         button_addCart = (Button) view.findViewById(R.id.addcart_btn);
         label_itemName = (TextView) view.findViewById(R.id.textView_itemname);
@@ -66,7 +72,7 @@ public class DetailsFragment extends Fragment {
         label_totalPrice = (TextView) view.findViewById(R.id.total_price);
         label_quantity = (TextView) view.findViewById(R.id.itemquantity_txtview);
         selectedItemQuantity= checkItemQuantity();
-        label_quantity.setText("Quantity: "+selectedItemQuantity);
+        label_quantity.setText("Quantity "+selectedItemQuantity);
 
 
         label_itemName.setText(itemname);
@@ -159,8 +165,23 @@ public class DetailsFragment extends Fragment {
     }
 
 
-//========================================Overridden methods=======================================================
 
+//========================================Overridden methods=======================================================
+   @Override
+   public void onActivityCreated(Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Details Screen");
+
+
+
+}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+       mListner.showDrawerToggle(true);
+
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -168,6 +189,7 @@ public class DetailsFragment extends Fragment {
         try {
 
             listner = (OnDetailFragmentInteraction) context;
+            mListner= (OnDrawerToggleListner) context;
         }
         catch (ClassCastException ex) {
 
@@ -181,6 +203,7 @@ public class DetailsFragment extends Fragment {
         super.onStart();
         try {
             listner = (OnDetailFragmentInteraction) getActivity();
+            mListner= (OnDrawerToggleListner) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString()
                     + " must implement OnDetailFragmentInteractionListener");

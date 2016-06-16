@@ -1,11 +1,14 @@
 package fragments;
 
 
+import Interfaces.OnDrawerToggleListner;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +38,7 @@ public class UserInfo extends Fragment {
 
     private Button button_confirm;
     private String userName,userPhone,userAddress;
+    private OnDrawerToggleListner mListner;
 
     public UserInfo() {
         // Required empty public constructor
@@ -48,30 +52,65 @@ public class UserInfo extends Fragment {
 
         view=inflater.inflate(R.layout.fragment_user_info, container, false);
         setHasOptionsMenu(true);
-
+      //  shouldDisplayHomeUp();
         initViews();
+//        android.app.ActionBar actionBar = getActivity().getActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
         return view;
 
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            this.mListner = (OnDrawerToggleListner) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(e.toString() + " must implement OnDrawerToggleListner");
+        }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+
+            mListner= (OnDrawerToggleListner) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnDrawerToggleListner");
+        }
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Place Order");
+
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mListner.showDrawerToggle(false);
+
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Place Order");
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+
+
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.userinfo_menu,menu);
-        menu.findItem(R.id.cart_text).setVisible(false);
+        menu.findItem(R.id.cart_text).setVisible(true);
         menu.findItem(R.id.cart).setVisible(false);
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        return super.onContextItemSelected(item);
-    }
 
 
 
@@ -87,6 +126,7 @@ public class UserInfo extends Fragment {
         button_confirm= (Button) view.findViewById(R.id.confirm_btn);
 
          buttonListner();
+
 
 
 
@@ -139,27 +179,18 @@ public class UserInfo extends Fragment {
 
 
 
-// ==========================This method simply place an order to server ===================///
+// ==========================This method place an order to server ===================///
 
         private void placeOrders(){
             if(validateInput()==true) {
 
 //                DevicePreference.getInstance().initPref(getActivity().getApplicationContext());
 //                DevicePreference.getInstance().setAuthHeaderFlag(true);
-
-               // String deviceId = "755a29c9c999885a";
-
-
-
-
                 double ordertotal =  ItemCart.getInstance().getTotal();
                 int orderTime = 462970960;
-
-
-               List<MenusItem> itemsList = ItemCart.getOrderableItems();
+                List<MenusItem> itemsList = ItemCart.getOrderableItems();
                 ArrayList<order_detail> orderdetail = new ArrayList<>();
 
-//
                 for (MenusItem item : itemsList) {
 
                     int id = item.getId();
@@ -171,9 +202,6 @@ public class UserInfo extends Fragment {
                 //order_detail detail = new order_detail(1,"Tikka",3,400);
                    orderdetail.add(detail);
                 }
-
-
-
 
                 Orders placeorders = new Orders(userName, userPhone,userAddress, ordertotal, orderTime, orderdetail);
 
@@ -200,4 +228,5 @@ public class UserInfo extends Fragment {
             }
         }
     }
+
 }
