@@ -1,13 +1,16 @@
 package fragments;
 
 
+import Interfaces.OnDrawerToggleListner;
 import adapters.MenuAdapter;
 import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +45,8 @@ public class MenusFragment extends Fragment {
     private ProgressDialog progressDialog;
     private Gson gson;
     static String totalprice=null;
+    private OnDrawerToggleListner mListner;
+
     public MenusFragment() {
         // Required empty public constructor
     }
@@ -74,7 +79,7 @@ public class MenusFragment extends Fragment {
 
                     if(!menusItems.isEmpty())
                     {
-                        menuAdapter=new MenuAdapter(menusItems);
+                        menuAdapter=new MenuAdapter(getActivity().getApplicationContext(),menusItems);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                         recyclerView.setLayoutManager(mLayoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -99,6 +104,8 @@ public class MenusFragment extends Fragment {
                                 detailsFragment.setArguments(data);
                                 FragmentManager fragmentManager = getFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.frame_container, detailsFragment).commit();
+                              //  fragmentManager.beginTransaction().replace(R.id.frame_container, detailsFragment).addToBackStack(null).commit();
+
 
 
 
@@ -130,40 +137,41 @@ public class MenusFragment extends Fragment {
         });
 
     }
-    @TargetApi(Build.VERSION_CODES.M)
-    private void saveImageIntoFile(String imageUrl, String itemName, String imageCreateDate){
-        //Image file is saved in following pattern
-        //filepath = ItemName+ImageFileCreationDateTime
+
+
+//    ==============================overriden methods ===============================//
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mListner.showDrawerToggle(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Menu Screen");
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            URL imageURL = new URL(imageUrl);
-            URLConnection connection = imageURL.openConnection();
-
-            InputStream inputStream = new BufferedInputStream(imageURL.openStream(),10240);
-
-            File cacheDir = getContext().getCacheDir();
-            File cacheFile = new File(cacheDir,itemName + imageCreateDate);
-            FileOutputStream fileOutputStream = new FileOutputStream(cacheFile);
-
-            byte buffer []= new byte[1024];
-            int dataSize;
-            int loadSize = 0;
-
-            while((dataSize = inputStream.read(buffer))!= -1){
-
-                loadSize += dataSize;
-                fileOutputStream.write(buffer,0,dataSize);
-
-            }
-
-            fileOutputStream.close();
-
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            this.mListner = (OnDrawerToggleListner) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(e.toString() + " must implement OnDrawerToggleListner");
         }
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+
+            mListner= (OnDrawerToggleListner) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnDrawerToggleListner");
+        }
+    }
+
+
 
     private void showProgress(String message){
 

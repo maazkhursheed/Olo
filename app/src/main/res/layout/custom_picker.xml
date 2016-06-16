@@ -25,14 +25,15 @@
 
             android:background="@drawable/round_corner"
             android:layout_weight="0.15"
-            android:textColor="#FF0000"
+            android:textColor="#ffffff"
 
-            android:padding="3dp"
+            android:padding="2dp"
         android:clickable="true"
        android:textStyle="bold"
        android:textSize="25dp"
 
     />
+    <!--android:textColor="#FF0000"-->
     <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"-->
     <!--android:background="#ffffff"-->
     <!--android:background="#FF0000"-->
@@ -47,20 +48,23 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.70"
         android:gravity="center"
-          android:orientation="vertical">
+          android:orientation="vertical"
+android:layout_margin="5dp">
 
     <TextView
             android:id="@+id/itemquantity_txtview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+              android:text="Quantity"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/darker_gray"
 
-            android:textAppearance="?android:attr/textAppearanceLarge"
     />
     <View
 
     android:layout_width="match_parent"
     android:layout_height="2dp"
-    android:background="@android:color/holo_green_dark"
+    android:background="#7CAF41"
     android:layout_gravity="center"/>
 
 </LinearLayout>
@@ -75,10 +79,10 @@
             android:gravity="center_horizontal"
         android:background="@drawable/round_corner"
     android:layout_weight="0.15"
-    android:textColor="#FF0000"
-    android:padding="3dp"
+    android:textColor="#ffffff"
+    android:padding="2dp"
     android:clickable="true"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textSize="25dp" />
     <!--android:background="@android:color/holo_green_dark"-->
 

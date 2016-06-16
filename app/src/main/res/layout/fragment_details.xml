@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-             <!--xmlns:tools="http://schemas.android.com/tools"-->
-             <!--android:layout_width="match_parent"-->
-             <!--android:layout_height="match_parent"-->
-             <!--tools:context="fragments.DetailsFragment">-->
 
-    <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
-    <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="@string/hello_blank_fragment"/>-->
-
-<!--</FrameLayout>-->
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -22,10 +10,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
 
 >
-    <!--<include android:id="@+id/toolbar_details_item_screen"-->
-             <!--layout="@layout/tool_bar"-->
 
-    <!--&gt;</include>-->
 
     <LinearLayout
             android:id="@+id/mainlayout"
@@ -54,7 +39,7 @@
         </LinearLayout>
         <!-- item short_desc and item_price  layout-->
         <LinearLayout
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:background="@android:color/darker_gray"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -102,22 +87,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1.25"
+                android:layout_weight="1.75"
                 android:weightSum="2">
 
             <RelativeLayout android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.2"
+                            android:layout_weight="0.25"
             ></RelativeLayout>
 
 
             <!--custom picker here-->
             <RelativeLayout android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.01"
+                            android:layout_weight="0.25"
             android:layout_margin="12dp"
-            android:background="@drawable/picker_rounded"
+
                             android:theme="@style/Base.CardView">
+                <!--android:background="@drawable/picker_rounded"-->
 
             <include
                     layout="@layout/custom_picker"
@@ -128,12 +114,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_weight="0.3">
+                    android:layout_weight="0.25">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total Price"
-                        android:textStyle="bold"
+                        android:textStyle="normal"
                         android:layout_margin="15dp"
                         android:id="@+id/total_price_txtview"
                         android:gravity="center"
@@ -158,18 +144,20 @@
 
             <!--</LinearLayout>-->
             <Button
-                    android:background="#F34545"
+                    android:background="#7CAF41"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:text="Add to Basket"
                     android:id="@+id/addcart_btn"
                     android:textColor="@android:color/white"
                     android:layout_gravity="center"
-                    android:layout_weight="0.75"
+                    android:layout_weight="1"
                     android:layout_alignParentRight="false"
-                    android:layout_alignParentEnd="false"/>
+                    android:layout_alignParentEnd="false"
+            android:elevation="25dp"/>
 
         </LinearLayout>
+        <!--F34545-->
     </LinearLayout>
 </RelativeLayout>
 

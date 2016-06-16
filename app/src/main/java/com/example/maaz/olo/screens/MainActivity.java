@@ -1,11 +1,11 @@
 package com.example.maaz.olo.screens;
 
+import Interfaces.OnDrawerToggleListner;
 import Interfaces.OnItemRemoveListener;
 import Interfaces.OnQuantityChangeListener;
 import adapters.CategoryAdapter;
 
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -13,24 +13,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
-import fragments.DetailsFragment;
-import fragments.MenusFragment;
-import fragments.OrderCheckoutFragment;
+import fragments.*;
 import models.Category;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import utils.DevicePreference;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction, OnItemRemoveListener, OnQuantityChangeListener{
+public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction, OnItemRemoveListener, OnQuantityChangeListener, OnDrawerToggleListner {
 
     private DrawerLayout mDrawerLayout;
     public static OnItemRemoveListener onItemRemoveListener = null;
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         getCategory();     //show category on Drawer
         setDraweropened();    //always open a drawer when activity is opened
         drawer_Toggle_Handling(savedInstanceState);    //  enabling action bar app icon and behaving it as toggle button
+
 
     }
 
@@ -118,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     private void getCategory() {
 
+//        DevicePreference.getInstance().initPref(getApplicationContext());
+//        DevicePreference.getInstance().setAuthHeaderFlag(false);
 
         RestClient.getAdapter().getCategories(new Callback<ArrayList<Category>>() {
             @Override
@@ -148,42 +151,64 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (mDrawerToggle.isDrawerIndicatorEnabled() && mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.cart_text:
+//            case android.R.id.home:
+//                getSupportFragmentManager().popBackStack();
+//                return true;
+            case R.id.cart_text :
 //                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
 //                startActivity(intent);
                 OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
+                //fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).addToBackStack(null).commit();
 
+                //fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
+
+
+            case android.R.id.home:
+//                if(getFragmentManager().getBackStackEntryCount()>0){
+//
+//                    getFragmentManager().popBackStack();
+//                   // getFragmentManager().popBackStackImmediate();
+//
+//                }
+
+                OrderCheckoutFragment ordeCheckoutFragment = new OrderCheckoutFragment();
+                FragmentManager frgmentManager = getFragmentManager();
+                frgmentManager.beginTransaction().replace(R.id.frame_container, ordeCheckoutFragment).commit();
+
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-//    get total cart price
-//public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//    super.onActivityResult(requestCode, resultCode, data);
-//    if (requestCode == 1) {
-//        if(resultCode == RESULT_OK){
-//            String totalprice=data.getStringExtra("totalprice");
-//            Toast.makeText(getApplicationContext(),"your cart value"+totalprice,Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//}
+//
 //
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-        //get total cart price and show in menu
-        //menu.findItem(R.id.cart_text).setVisible(true);
-        //menu.findItem(R.id.cart_text).setTitle("Rs:"+String.valueOf(DetailScreen.total_cart_bill));
-        menu.findItem(R.id.cart_text).setTitle("Rs:"+ItemCart.getInstance().getTotal());
+
+       menu.findItem(R.id.cart_text).setTitle("Rs:"+ItemCart.getInstance().getTotal());
+
+        if(ItemCart.getOrderableItems().isEmpty()){
+//            hide order checkout button
+            menu.findItem(R.id.cart_text).setVisible(false);
+            menu.findItem(R.id.cart).setVisible(false);
+        }
+        else {
+
+            menu.findItem(R.id.cart_text).setVisible(true);
+            menu.findItem(R.id.cart).setVisible(true);
+            menu.findItem(R.id.cart_text).setTitle("Rs:"+ItemCart.getInstance().getTotal());
+        }
+
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -204,6 +229,11 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         invalidateOptionsMenu();
     }
 
+    @Override
+    public void showDrawerToggle(boolean showToggle) {
+        mDrawerToggle.setDrawerIndicatorEnabled(showToggle);
+    }
+
     private class SlideMenuClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -217,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
          //   set actionbar tittle when closed
 
             mDrawerLayout.closeDrawer(mDrawerList);
-            getSupportActionBar().setTitle(category.getName());
+          //  getSupportActionBar().setTitle(category.getName());
 
            // Toast.makeText(getApplicationContext(),"Cat_id"+category.getId(),Toast.LENGTH_LONG).show();
 
@@ -231,6 +261,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         menufragment.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, menufragment).commit();
+       // fragmentManager.beginTransaction().replace(R.id.frame_container, menufragment).addToBackStack(null).commit();
+
+        // mDrawerToggle.setDrawerIndicatorEnabled(false);
         mDrawerLayout.closeDrawer(mDrawerList);
 
     }
