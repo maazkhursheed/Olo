@@ -74,7 +74,7 @@ public class MenusFragment extends Fragment {
 
                     if(!menusItems.isEmpty())
                     {
-                        menuAdapter=new MenuAdapter(menusItems);
+                        menuAdapter=new MenuAdapter(getActivity(),menusItems);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                         recyclerView.setLayoutManager(mLayoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -83,13 +83,6 @@ public class MenusFragment extends Fragment {
                         menuAdapter.SetOnItemClickListner(new MenuAdapter.OnItemClickListner() {
                             @Override
                             public void onItemClick(View view, int position) {
-//                                Intent intent = new Intent(getActivity(), DetailScreen.class);
-//                               // intent.putExtra("Itemname")
-//                                intent.putExtra(IntentsConstants.item_name,menusItems.get(position).getName());
-//                               // intent.putExtra("ItemDesc",menusItems.get(position).getDescription());
-//                                intent.putExtra(IntentsConstants.item_price,menusItems.get(position).getPrice());
-//                                startActivity(intent);
-//                                //startActivityForResult(intent, 1);
 
                                 Bundle data = new Bundle();
                                 MenusItem item = menusItems.get(position);
@@ -99,8 +92,6 @@ public class MenusFragment extends Fragment {
                                 detailsFragment.setArguments(data);
                                 FragmentManager fragmentManager = getFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.frame_container, detailsFragment).commit();
-
-
 
                             }
                         });

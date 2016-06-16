@@ -79,7 +79,9 @@ public class OrderCheckoutFragment extends Fragment{
             OrderCheckEditListFragment editListFragment = new OrderCheckEditListFragment();
             android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
 //            transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-            transaction.setCustomAnimations(R.animator.slide_out_left, R.animator.slide_in_right,R.animator.slide_in_left, R.animator.slide_out_right);
+
+           // transaction.setCustomAnimations(R.animator.slide_out_left, R.animator.slide_in_right,R.animator.slide_in_left, R.animator.slide_out_right);
+            transaction.setCustomAnimations( R.animator.card_flip_right_in, R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out);
             OrderCheckSimpleListFragment simpleListFragment = new OrderCheckSimpleListFragment();
             transaction.hide(simpleListFragment);
             transaction.replace(R.id.orderframe_container, editListFragment);
@@ -91,19 +93,22 @@ public class OrderCheckoutFragment extends Fragment{
         @Override
         public void onClick(View v) {
 
-            editOrderTv.setVisibility( v.VISIBLE);
             applyOrderChanges.setVisibility(v.GONE);
 
             OrderCheckSimpleListFragment simpleListFragment = new OrderCheckSimpleListFragment();
             android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, R.animator.slide_out_left, R.animator.slide_in_right);
+            // transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_left, R.animator.slide_in_right, R.animator.slide_out_right);
+            // transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+            // transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, R.animator.slide_out_left, R.animator.slide_in_right);
+            // transaction.setCustomAnimations(R.animator.slide_out_left, R.animator.slide_in_right,R.animator.slide_in_left, R.animator.slide_out_right);
+            reloadFragment();
+            updatePriceListner();
             OrderCheckEditListFragment editListFragment = new OrderCheckEditListFragment();
+            transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
             transaction.hide(editListFragment);
             transaction.replace(R.id.orderframe_container, simpleListFragment);
             transaction.commit();
 
-            reloadFragment();
-            updatePriceListner();
         }
     }
 

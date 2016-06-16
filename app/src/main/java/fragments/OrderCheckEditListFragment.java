@@ -5,9 +5,7 @@ package fragments;
 import Interfaces.OnItemRemoveListener;
 import Interfaces.OnQuantityChangeListener;
 import adapters.CartEditListAdapter;
-import adapters.CartListAdapter;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v7.widget.DefaultItemAnimator;

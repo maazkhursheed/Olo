@@ -5,7 +5,8 @@ import Interfaces.OnQuantityChangeListener;
 import adapters.CategoryAdapter;
 
 import android.app.FragmentManager;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import cart.ItemCart;
@@ -23,6 +25,7 @@ import fragments.DetailsFragment;
 import fragments.MenusFragment;
 import fragments.OrderCheckoutFragment;
 import models.Category;
+import network.ConnectionDetector;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -45,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private ArrayList<Category> navCategoryItems;
     private CategoryAdapter categoryAdapter;
     Category category;
+    Boolean isInternetPresent = false;   // flag for Internet connection status
+    ConnectionDetector cd;              // Connection detector class
+    ImageView internetImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +58,28 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         setContentView(R.layout.activity_main);
 
         init_views();
+        checkInternetConnection();
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
         getCategory();     //show category on Drawer
         setDraweropened();    //always open a drawer when activity is opened
         drawer_Toggle_Handling(savedInstanceState);    //  enabling action bar app icon and behaving it as toggle button
+
+    }
+
+    private void checkInternetConnection() {
+
+        cd = new ConnectionDetector(getApplicationContext());
+        isInternetPresent = cd.isConnectingToInternet();      // get Internet status
+        // check for Internet status
+        if (isInternetPresent) {
+
+                      // do nothing
+        } else {
+            mDrawerList.setVisibility(View.GONE);
+            internetImage.setVisibility(View.VISIBLE);
+            Toast.makeText(this,"You don't have internet connection.",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -95,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     private void init_views()
     {
+        internetImage = (ImageView)findViewById(R.id.internetImage);
         toolbar= (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         mTitle = mDrawerTitle = getSupportActionBar().getTitle();
@@ -125,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
                 categoryAdapter = new CategoryAdapter(getApplicationContext(),categories);
                 mDrawerList.setAdapter(categoryAdapter);
-
             }
 
             @Override
@@ -154,8 +177,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.cart_text:
-//                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
-//                startActivity(intent);
+
                 OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
@@ -164,26 +186,23 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
                 return super.onOptionsItemSelected(item);
         }
     }
-//    get total cart price
-//public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//    super.onActivityResult(requestCode, resultCode, data);
-//    if (requestCode == 1) {
-//        if(resultCode == RESULT_OK){
-//            String totalprice=data.getStringExtra("totalprice");
-//            Toast.makeText(getApplicationContext(),"your cart value"+totalprice,Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//}
-//
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-        //get total cart price and show in menu
-        //menu.findItem(R.id.cart_text).setVisible(true);
-        //menu.findItem(R.id.cart_text).setTitle("Rs:"+String.valueOf(DetailScreen.total_cart_bill));
+//        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         menu.findItem(R.id.cart_text).setTitle("Rs:"+ItemCart.getInstance().getTotal());
+        if(ItemCart.getOrderableItems().isEmpty()){
+//            hide order checkout button
+            menu.findItem(R.id.cart_text).setVisible(false);
+            menu.findItem(R.id.cart).setVisible(false);
+        }
+        else {
+
+            menu.findItem(R.id.cart_text).setVisible(true);
+            menu.findItem(R.id.cart).setVisible(true);
+            menu.findItem(R.id.cart_text).setTitle("Rs:"+ItemCart.getInstance().getTotal());
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -260,6 +279,30 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onBackPressed() {
+      // super.onBackPressed();
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Do you want to Exit?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                MainActivity.this.finish();
+                ItemCart.getOrderableItems().clear();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
 
+    }
 }
