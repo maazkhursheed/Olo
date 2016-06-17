@@ -120,7 +120,8 @@ public class MenusFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mListner.showDrawerToggle(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Menu Screen");
+       // ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Menu Screen");
+
     }
 
     @Override

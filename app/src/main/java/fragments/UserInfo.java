@@ -2,16 +2,18 @@ package fragments;
 
 
 import Interfaces.OnDrawerToggleListner;
+import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
 import models.MenusItem;
@@ -35,10 +37,13 @@ public class UserInfo extends Fragment {
     private EditText edittxt_name,
                      edittxt_phone,
                      edittxt_address;
-
+        private FrameLayout thankyou;
+    private LinearLayout userinfo_linear;
     private Button button_confirm;
     private String userName,userPhone,userAddress;
     private OnDrawerToggleListner mListner;
+    private ProgressDialog progressDialog;
+
 
     public UserInfo() {
         // Required empty public constructor
@@ -89,11 +94,19 @@ public class UserInfo extends Fragment {
 
 
     }
+    private void hideKeyboard(){
+
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+    }
 
     @Override
     public void onResume() {
         super.onResume();
         mListner.showDrawerToggle(false);
+        hideKeyboard();
 
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Place Order");
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,7 +131,8 @@ public class UserInfo extends Fragment {
      * This method initialize a views of screen
      */
     private void initViews(){
-
+        userinfo_linear= (LinearLayout) view.findViewById(R.id.user_info_mainlayout);
+        thankyou= (FrameLayout) view.findViewById(R.id.fragment_order_thankyouFrame);
         edittxt_name= (EditText) view.findViewById(R.id.edittxt_username);
         edittxt_phone= (EditText) view.findViewById(R.id.edittxt_userphone);
 
@@ -141,42 +155,78 @@ public class UserInfo extends Fragment {
 
 
     }
+//    =========================helper Methos ==========================================//
+   private void showOrderCheckoutFragment() {
+      OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
+
+    FragmentManager fragmentManager = getFragmentManager();
+    fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
+}
+
+    private void hideFragment(){
+
+        userinfo_linear.setVisibility(View.GONE);
+        thankyou.setVisibility(View.VISIBLE);
+        hideKeyboard();
+        //  userinfo_linear.setVisibility(View.GONE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showOrderCheckoutFragment();
+
+            }
+        }, 4000);
+    }
+
+
+    /**
+     * validates  input fields
+     * @return
+     */
+    private boolean validateInput(){
+
+        if(edittxt_name.getText().toString().isEmpty()||edittxt_address.getText().toString().isEmpty()
+                ||edittxt_phone.getText().toString().isEmpty())
+        {
+            Toast.makeText(getActivity().getApplicationContext(),"Fields Missing",Toast.LENGTH_LONG).show();
+            return false;
+
+        }
+        else {
+            userName=edittxt_name.getText().toString();
+            userPhone=edittxt_phone.getText().toString();
+            userAddress=edittxt_address.getText().toString();
+            return true;
+        }
+
+
+    }
+    private void showProgress(String message){
+
+        progressDialog= ProgressDialog.show(getActivity(),"",message,false);
+
+    }
+
+    private void hideProgress(){
+
+        progressDialog.dismiss();
+    }
 
     //=========================InnerClass/Button Listner ==============================================///
+
+
+
 
     private class ConfirmOrderListner implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-//
-//           String deviceId= Settings.Secure.getString(getContext().getContentResolver(),
-//                   Settings.Secure.ANDROID_ID);
+
             placeOrders();
+           // hideFragment();
 
-        }
-
-        /**
-         * validates  input fields
-         * @return
-         */
-        private boolean validateInput(){
-
-            if(edittxt_name.getText().toString().isEmpty()||edittxt_address.getText().toString().isEmpty()
-                    ||edittxt_phone.getText().toString().isEmpty())
-            {
-                Toast.makeText(getActivity().getApplicationContext(),"Fields Missing",Toast.LENGTH_LONG).show();
-                return false;
-
-            }
-            else {
-                userName=edittxt_name.getText().toString();
-                 userPhone=edittxt_phone.getText().toString();
-                  userAddress=edittxt_address.getText().toString();
-               return true;
-            }
 
 
         }
-
 
 
 // ==========================This method place an order to server ===================///
@@ -186,6 +236,7 @@ public class UserInfo extends Fragment {
 
 //                DevicePreference.getInstance().initPref(getActivity().getApplicationContext());
 //                DevicePreference.getInstance().setAuthHeaderFlag(true);
+               // showProgress("Loading.....");
                 double ordertotal =  ItemCart.getInstance().getTotal();
                 int orderTime = 462970960;
                 List<MenusItem> itemsList = ItemCart.getOrderableItems();
@@ -204,17 +255,21 @@ public class UserInfo extends Fragment {
                 }
 
                 Orders placeorders = new Orders(userName, userPhone,userAddress, ordertotal, orderTime, orderdetail);
-
+                showProgress("Loading.....");
                 RestClient.getAdapter().placeOrder(placeorders, new Callback<OrderResponse>() {
                     @Override
                     public void success(OrderResponse orderResponse, Response response) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Status" + ":" +""+orderResponse.getMessage(), Toast.LENGTH_LONG).show();
+                        hideProgress();
+                        hideFragment();
+                        //Toast.makeText(getActivity().getApplicationContext(), "Status" + ":" +""+orderResponse.getMessage(), Toast.LENGTH_LONG).show();
 
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Retrofit Error" + error.toString(), Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(getActivity().getApplicationContext(), "SomeThing goes Wrong", Toast.LENGTH_LONG).show();
+                        hideProgress();
 
 
                     }
@@ -228,5 +283,6 @@ public class UserInfo extends Fragment {
             }
         }
     }
+
 
 }

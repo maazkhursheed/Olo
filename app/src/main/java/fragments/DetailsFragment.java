@@ -14,7 +14,10 @@ import android.widget.TextView;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
 
+import models.Category;
 import models.MenusItem;
+
+import java.io.Serializable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -161,6 +164,15 @@ public class DetailsFragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, menufragment).commit();
 
+//        Bundle data = new Bundle();
+//        // MenusItem item = menusItems.get(position);
+//        data.putSerializable("Category", (Serializable) category);
+//
+//        MenusFragment menufragment = new MenusFragment();
+//        menufragment.setArguments(data);
+//        FragmentManager fragmentManager = getFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.frame_container, menufragment).commit();
+
 
     }
 
@@ -244,7 +256,7 @@ public class DetailsFragment extends Fragment {
             if(selectedItemQuantity== initialQuantity ||selectedItemQuantity <maxQuantity)
             {
                 selectedItemQuantity++;
-                label_quantity.setText("Quantity :"+selectedItemQuantity);
+                label_quantity.setText("Quantity "+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
                 label_totalPrice.setText(""+totalprice);
                 menusItem.setDesiredQuantity(selectedItemQuantity);
@@ -261,7 +273,7 @@ public class DetailsFragment extends Fragment {
 
                 selectedItemQuantity--;
                 //selectedItemQuantity=initialQuantity;
-                label_quantity.setText("Quantity :"+selectedItemQuantity);
+                label_quantity.setText("Quantity "+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
                 label_totalPrice.setText(""+totalprice);
                 menusItem.setDesiredQuantity(selectedItemQuantity);
