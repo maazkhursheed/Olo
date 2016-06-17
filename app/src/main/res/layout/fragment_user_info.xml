@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="fragments.UserInfo">
+             tools:context="fragments.UserInfo"
+              android:orientation="horizontal">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,12 +17,23 @@
 
     <LinearLayout
             
-            android:id="@+id/mainlayout"
+            android:id="@+id/user_info_mainlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:weightSum="3"
-    android:layout_margin="15dp">
+    android:layout_margin="15dp"
+    >
+
+        <!--<FrameLayout-->
+                <!--android:id="@+id/fragment_order_"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginTop="100dp"-->
+                <!--android:layout_marginStart="100dp"-->
+                <!--android:layout_marginEnd="100dp"-->
+                <!--android:visibility="gone"-->
+        <!--&gt;-->
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,11 +82,29 @@
         android:id="@+id/confirm_btn"
         android:text="Proceed"/>
 
+        <!--</FrameLayout>-->
 
 
 
 
     </LinearLayout>
+    <FrameLayout
+            android:id="@+id/fragment_order_thankyouFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:visibility="gone"
+    >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ThankYou.! Your Order has been Placed"
+        />
+
+    </FrameLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
