@@ -62,16 +62,9 @@
                 android:text="Free"
                 android:layout_gravity="right"
                 android:textSize="18sp"
-                android:layout_marginLeft="110dp"
-                android:layout_marginStart="110dp"/>
+                android:layout_marginLeft="107dp"
+                android:layout_marginStart="107dp"/>
 
-        <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="90"-->
-                <!--android:layout_gravity="right"-->
-                <!--android:textSize="18sp"-->
-                <!--android:layout_marginLeft="10dp"/>-->
 
     </LinearLayout>
 
@@ -89,22 +82,31 @@
                 android:text="Delivery Fee"
                 android:textSize="18sp"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs."
-                android:layout_gravity="right"
-                android:textSize="18sp"
-                android:layout_marginLeft="140dp"/>
+        <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Rs."-->
+                <!--android:layout_gravity="right"-->
+                <!--android:textSize="18sp"-->
+                <!--android:layout_marginLeft="140dp"/>-->
+
+        <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="90"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:textSize="18sp"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginStart="5dp"/>-->
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="90"
+                android:text="Free"
                 android:layout_gravity="right"
                 android:textSize="18sp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"/>
+                android:layout_marginLeft="139dp"
+                android:layout_marginStart="139dp"/>
 
     </LinearLayout>
 

@@ -121,7 +121,7 @@ public class ItemCart {
     public double getAllTotal(){
 
         double allTotalPrice = 0;
-        int deliveryFee = 90;
+        int deliveryFee = 0;
         double serviceFee = 0;
 
         allTotalPrice = getTotal()+ deliveryFee + serviceFee;

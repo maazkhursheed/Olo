@@ -51,7 +51,6 @@ public class MenusFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,7 +91,6 @@ public class MenusFragment extends Fragment {
                                 Bundle data = new Bundle();
                                 MenusItem item = menusItems.get(position);
                                 data.putSerializable("Item", (Serializable) item);
-
                                 DetailsFragment detailsFragment = new DetailsFragment();
                                 detailsFragment.setArguments(data);
                                 FragmentManager fragmentManager = getFragmentManager();
@@ -100,31 +98,18 @@ public class MenusFragment extends Fragment {
 
                             }
                         });
-
-
-
-
-
-
-
-
                 }
-                else
-                {
+                else {
                     Toast.makeText(getActivity(),"No Menu Found of this category",Toast.LENGTH_SHORT).show();
-
                 }
-
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
                 hideProgress();
-                Toast.makeText(getActivity(),retrofitError.toString(),Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getActivity(),"Something goeas wrong ...",Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
 
@@ -136,7 +121,6 @@ public class MenusFragment extends Fragment {
         super.onResume();
         mListner.showDrawerToggle(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Menu Screen");
-
     }
 
     @Override
@@ -161,16 +145,10 @@ public class MenusFragment extends Fragment {
     }
 
 
-
     private void showProgress(String message){
-
         progressDialog=ProgressDialog.show(getActivity(),"",message,false);
-
     }
 
-    private void hideProgress(){
-
-        progressDialog.dismiss();
-    }
+    private void hideProgress(){progressDialog.dismiss();}
 
 }

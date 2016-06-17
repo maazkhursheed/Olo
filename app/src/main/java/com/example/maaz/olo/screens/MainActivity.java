@@ -7,9 +7,11 @@ import adapters.CategoryAdapter;
 
 import android.app.FragmentManager;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.*;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,12 +27,10 @@ import cart.ItemCart;
 import com.example.maaz.olo.R;
 import fragments.*;
 import models.Category;
-import network.ConnectionDetector;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import utils.DevicePreference;
 
 import java.util.ArrayList;
 
@@ -49,9 +49,11 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private ArrayList<Category> navCategoryItems;
     private CategoryAdapter categoryAdapter;
     Category category;
-    Boolean isInternetPresent = false;   // flag for Internet connection status
-    ConnectionDetector cd;              // Connection detector class
     ImageView internetImage;
+
+    private static final String LOG_TAG = "CheckNetworkStatus";
+    private NetworkChangeReceiver receiver;
+    private boolean isConnected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         setContentView(R.layout.activity_main);
 
         init_views();
-        checkInternetConnection();
+        checkInternetConectivity();
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
         getCategory();     //show category on Drawer
@@ -68,19 +70,20 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     }
 
-    private void checkInternetConnection() {
+    private void checkInternetConectivity() {
 
-        cd = new ConnectionDetector(getApplicationContext());
-        isInternetPresent = cd.isConnectingToInternet();      // get Internet status
-        // check for Internet status
-        if (isInternetPresent) {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new NetworkChangeReceiver();
+        registerReceiver(receiver, filter);
 
-                      // do nothing
-        } else {
-            mDrawerList.setVisibility(View.GONE);
-            internetImage.setVisibility(View.VISIBLE);
-            Toast.makeText(this,"You don't have internet connection.",Toast.LENGTH_SHORT).show();
-        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.v(LOG_TAG, "onDestory");
+        super.onDestroy();
+
+        unregisterReceiver(receiver);
 
     }
 
@@ -154,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                Toast.makeText(getApplicationContext(),retrofitError.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Something goes wrong ...",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -177,27 +180,14 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-//            case android.R.id.home:
-//                getSupportFragmentManager().popBackStack();
-//                return true;
+
             case R.id.cart_text :
-//                Intent intent = new Intent(getApplicationContext(), OrderCheckoutScreen.class);
-//                startActivity(intent);
+
                 OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
                 FragmentManager fragmentManager = getFragmentManager();
-                //fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).addToBackStack(null).commit();
                 fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).addToBackStack(null).commit();
 
-                //fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
-
-
             case android.R.id.home:
-//                if(getFragmentManager().getBackStackEntryCount()>0){
-//
-//                    getFragmentManager().popBackStack();
-//                   // getFragmentManager().popBackStackImmediate();
-//
-//                }
 
                 OrderCheckoutFragment ordeCheckoutFragment = new OrderCheckoutFragment();
                 FragmentManager frgmentManager = getFragmentManager();
@@ -208,8 +198,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
                 return super.onOptionsItemSelected(item);
         }
     }
-//
-//
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
@@ -241,37 +230,21 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
 
     @Override
-    public void onItemRemoved(int price) {
-        invalidateOptionsMenu();
-    }
+    public void onItemRemoved(int price) { invalidateOptionsMenu();}
 
     @Override
-    public void onQuantityChanged(int price) {
-        invalidateOptionsMenu();
-    }
+    public void onQuantityChanged(int price) {invalidateOptionsMenu();}
 
     @Override
-    public void showDrawerToggle(boolean showToggle) {
-        mDrawerToggle.setDrawerIndicatorEnabled(showToggle);
-    }
+    public void showDrawerToggle(boolean showToggle) { mDrawerToggle.setDrawerIndicatorEnabled(showToggle);}
 
     private class SlideMenuClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-           // displayView(position);   // display view for selected nav drawer item
-
-            //send categoryid to fragment .. to display menus for selected category
-
             category= (Category) parent.getItemAtPosition(position);
             send_CategoryId(category.getId());
-         //   set actionbar tittle when closed
-
             mDrawerLayout.closeDrawer(mDrawerList);
-          //  getSupportActionBar().setTitle(category.getName());
-
-           // Toast.makeText(getApplicationContext(),"Cat_id"+category.getId(),Toast.LENGTH_LONG).show();
-
         }
     }
     private void  send_CategoryId(int cat_id)
@@ -300,15 +273,15 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+
+        mDrawerToggle.syncState();          // Sync the toggle state after onRestoreInstanceState has occurred.
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggls
-        mDrawerToggle.onConfigurationChanged(newConfig);
+
+        mDrawerToggle.onConfigurationChanged(newConfig);      // Pass any configuration change to the drawer toggls
     }
 
     @Override
@@ -321,7 +294,6 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //if user pressed "yes", then he is allowed to exit from application
                 MainActivity.this.finish();
                 ItemCart.getOrderableItems().clear();
             }
@@ -329,12 +301,44 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //if user select "No", just cancel this dialog and continue with app
                 dialog.cancel();
             }
         });
         AlertDialog alert = builder.create();
         alert.show();
 
+    }
+
+    private class NetworkChangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.v(LOG_TAG, "Receieved notification about network status");
+            isNetworkAvailable(context);
+        }
+        private boolean  isNetworkAvailable(Context context) {
+
+            ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivity != null) {
+                NetworkInfo[] info = connectivity.getAllNetworkInfo();
+                if (info != null) {
+                    for (int i = 0; i < info.length; i++) {
+                        if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                            if(!isConnected){
+                                Log.v(LOG_TAG, "Now you are connected to Internet!");
+                                internetImage.setVisibility(View.GONE);
+                                mDrawerList.setVisibility(View.VISIBLE);
+                                isConnected = true;
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+            Log.v(LOG_TAG, "You are not connected to Internet!");
+            mDrawerList.setVisibility(View.GONE);
+            internetImage.setVisibility(View.VISIBLE);
+            isConnected = false;
+            return false;
+        }
     }
 }
