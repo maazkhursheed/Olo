@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
+import com.example.maaz.olo.screens.MainActivity;
 import models.MenusItem;
 import models.order_detail;
 import models.OrderResponse;
@@ -152,8 +154,6 @@ public class UserInfo extends Fragment {
      */
     private void buttonListner() {
         button_confirm.setOnClickListener(new ConfirmOrderListner());
-
-
     }
 //    =========================helper Methos ==========================================//
    private void showOrderCheckoutFragment() {
@@ -161,6 +161,8 @@ public class UserInfo extends Fragment {
 
     FragmentManager fragmentManager = getFragmentManager();
     fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
+//       Intent intent=new Intent(getActivity(), MainActivity.class);
+//       startActivity(intent);
 }
 
     private void hideFragment(){
@@ -188,7 +190,7 @@ public class UserInfo extends Fragment {
         if(edittxt_name.getText().toString().isEmpty()||edittxt_address.getText().toString().isEmpty()
                 ||edittxt_phone.getText().toString().isEmpty())
         {
-            Toast.makeText(getActivity().getApplicationContext(),"Fields Missing",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(),"Fields Missing",Toast.LENGTH_SHORT).show();
             return false;
 
         }
@@ -220,12 +222,9 @@ public class UserInfo extends Fragment {
     private class ConfirmOrderListner implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-
             placeOrders();
            // hideFragment();
-
-
-
+         ItemCart.getOrderableItems().clear();
         }
 
 

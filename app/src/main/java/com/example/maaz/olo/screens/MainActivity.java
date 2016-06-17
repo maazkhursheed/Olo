@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
             category= (Category) parent.getItemAtPosition(position);
             send_CategoryId(category.getId());
             mDrawerLayout.closeDrawer(mDrawerList);
+            getSupportActionBar().setTitle(category.getName());
         }
     }
     private void  send_CategoryId(int cat_id)
