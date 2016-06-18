@@ -36,7 +36,7 @@ android:orientation="vertical"
                 android:id="@+id/itemmenu_image"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
-               android:src="@drawable/menus_icon" />
+               />
 
     </LinearLayout>
 

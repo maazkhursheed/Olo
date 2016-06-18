@@ -10,13 +10,18 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
 >
 
+    <!--<include android:id="@+id/toolbar_details_item_screen"-->
+             <!--layout="@layout/tool_bar"-->
+
+    <!--&gt;</include>-->
+
     <LinearLayout
             android:id="@+id/mainlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_below="@+id/toolbar_details_item_screen"
             android:weightSum="4">
+        <!--android:layout_below="@+id/toolbar_details_item_screen"-->
         <!--item image layout-->
         <LinearLayout
                 android:id="@+id/layout_item_image"
@@ -27,12 +32,12 @@
                 android:weightSum="1"
                      android:background="#ffffff">
             <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/itemimage_imageview"
-                    android:src="@drawable/burger"
+                    android:id="@+id/itemFullView"
+                    android:layout_width="640dp"
+                    android:layout_height="190dp"
                     android:layout_weight="1"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+            />
             <!--android:src="@drawable/piza"-->
         </LinearLayout>
         <!-- item short_desc and item_price  layout-->
