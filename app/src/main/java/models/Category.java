@@ -2,10 +2,12 @@ package models;
 
 import android.graphics.drawable.Drawable;
 
+import java.io.Serializable;
+
 /**
  * Created by Sabih Ahmed on 5/11/2015.
  */
-public class Category {
+public class Category implements Serializable {
 
     private int id;
     private String name;

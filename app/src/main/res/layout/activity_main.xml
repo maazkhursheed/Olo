@@ -41,7 +41,7 @@
             android:dividerHeight="1dp"
             android:listSelector="@drawable/list_selector"
             android:background="@color/list_background"
-    />
+               />
 
     <ImageView
             android:id="@+id/internetImage"

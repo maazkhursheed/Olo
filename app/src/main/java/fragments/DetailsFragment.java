@@ -80,7 +80,10 @@ public class DetailsFragment extends Fragment {
 
         label_itemName.setText(itemname);
         label_itemPrice.setText("Rs: "+ String.valueOf(itemPrice));
-        totalprice= itemPrice;
+
+
+//        set total price with quantity
+        totalprice=(calcTotalPrice(checkItemQuantity(),itemPrice));
 
         menusItem.setDesiredQuantity(selectedItemQuantity);
 
@@ -141,7 +144,8 @@ public class DetailsFragment extends Fragment {
         calcTotalPrice(selectedItemQuantity, itemPrice);
         if(label_totalPrice.getText().equals(""))
         {
-            label_totalPrice.setText("" + itemPrice);
+           // label_totalPrice.setText("" + itemPrice);
+            label_totalPrice.setText("" + totalprice);
         }
 
     }
@@ -182,7 +186,7 @@ public class DetailsFragment extends Fragment {
    @Override
    public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Details Screen");
+    //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Details Screen");
 
 
 

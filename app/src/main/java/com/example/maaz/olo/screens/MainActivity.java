@@ -134,7 +134,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
         LayoutInflater inflater = getLayoutInflater();
         View listHeaderView = inflater.inflate(R.layout.drawer_header,null, false);
-        mDrawerList.addHeaderView(listHeaderView);
+
+       // mDrawerList.addHeaderView(listHeaderView);
+        mDrawerList.addHeaderView(listHeaderView,null,false);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -182,10 +184,13 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         switch (item.getItemId()) {
 
             case R.id.cart_text :
+            case R.id.cart:
 
                 OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).addToBackStack(null).commit();
+
+
 
             case android.R.id.home:
 
