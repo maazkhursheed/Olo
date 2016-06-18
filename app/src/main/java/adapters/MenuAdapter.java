@@ -82,7 +82,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
             holder.menu_item_name.setText("" + menus.getName());
 
             holder.menus_item_desc.setText("" + menus.getDescription());
-            holder.menu_item_price.setText("Rs" + ":" + (int) menus.getPrice());
+            holder.menu_item_price.setText("Rs" + " " + (int) menus.getPrice());
 //            Picasso.with(mContext).load(menus.getImages().get(position).getUrl()).
 //                    placeholder(R.drawable.fastfood).resize(100,100).error(R.id.subtract_txtview).into(holder.item_pic);
 

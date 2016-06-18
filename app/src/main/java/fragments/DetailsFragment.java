@@ -54,7 +54,6 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_details, container, false);
-        //return inflater.inflate(R.layout.fragment_details, container, false);
         getIntentValues();
         initViews();
         return view;
@@ -79,7 +78,7 @@ public class DetailsFragment extends Fragment {
 
 
         label_itemName.setText(itemname);
-        label_itemPrice.setText("Rs: "+ String.valueOf(itemPrice));
+        label_itemPrice.setText("Rs "+ String.valueOf(itemPrice));
 
 
 //        set total price with quantity
@@ -145,7 +144,7 @@ public class DetailsFragment extends Fragment {
         if(label_totalPrice.getText().equals(""))
         {
            // label_totalPrice.setText("" + itemPrice);
-            label_totalPrice.setText("" + totalprice);
+            label_totalPrice.setText("Rs" + " " + totalprice);
         }
 
     }
@@ -262,7 +261,7 @@ public class DetailsFragment extends Fragment {
                 selectedItemQuantity++;
                 label_quantity.setText("Quantity "+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
-                label_totalPrice.setText(""+totalprice);
+                label_totalPrice.setText("Rs" + " "+totalprice);
                 menusItem.setDesiredQuantity(selectedItemQuantity);
 
             }
@@ -279,7 +278,7 @@ public class DetailsFragment extends Fragment {
                 //selectedItemQuantity=initialQuantity;
                 label_quantity.setText("Quantity "+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
-                label_totalPrice.setText(""+totalprice);
+                label_totalPrice.setText("Rs" + " "+totalprice);
                 menusItem.setDesiredQuantity(selectedItemQuantity);
 
             }

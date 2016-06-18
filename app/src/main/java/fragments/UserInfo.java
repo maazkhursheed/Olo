@@ -299,7 +299,7 @@ public class UserInfo extends Fragment {
                     @Override
                     public void failure(RetrofitError error) {
 
-                        Toast.makeText(getActivity().getApplicationContext(), "SomeThing goes Wrong", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
                         hideProgress();
 
 

@@ -8,9 +8,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-
 >
-
 
     <LinearLayout
             android:id="@+id/mainlayout"
@@ -56,29 +54,26 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Pizza"
                     android:id="@+id/textView_itemname"
-
                     android:layout_alignParentRight="false"
                     android:layout_alignParentEnd="false"
                     android:textStyle="normal"
                     android:layout_weight="0.70"
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center"
-
                     android:autoText="false"/>
             <TextView
+                    android:id="@+id/textView_itemPrice"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-
-                    android:id="@+id/textView_itemPrice"
                     android:layout_weight="0.30"
-
                     android:background="#F34545"
                     android:textStyle="normal"
+                    android:text="Rs 7808.0"
                     android:textColor="@android:color/white"
-                    android:layout_gravity="center"
-                    android:padding="5dp"/>
-            <!--android:layout_marginLeft="210dp"-->
+                    android:gravity="center"
+                   />
+
         </LinearLayout>
         <!--order button and details item layout-->
         <LinearLayout
@@ -128,11 +123,10 @@
 
                 <!--total price according to quantity-->
                 <TextView
-                        android:layout_gravity=""
                         android:id="@+id/total_price"
+                        android:layout_gravity=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:gravity="center"
                         android:textColor="#000000"
                         android:textAppearance="?android:attr/textAppearanceMedium"

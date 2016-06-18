@@ -69,7 +69,7 @@ public class OrderCheckoutFragment extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Order Checkout");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Checkout");
 
 
 

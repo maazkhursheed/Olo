@@ -107,7 +107,7 @@ public class MenusFragment extends Fragment {
             @Override
             public void failure(RetrofitError retrofitError) {
                 hideProgress();
-                Toast.makeText(getActivity(),"Something goeas wrong ...",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Something went wrong!",Toast.LENGTH_LONG).show();
             }
         });
     }
