@@ -45,8 +45,12 @@
         <EditText
                 android:id="@+id/edittxt_username"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 
         android:layout_weight="0.5"/>
+        <!--android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"-->
+
 
         <TextView
                 android:layout_width="match_parent"
@@ -101,8 +105,10 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ThankYou.! Your Order has been Placed"
-        />
+                android:text="ThankYou.!
+                              Your Order has been Placed"
+               android:textColor="@android:color/darker_gray"
+                android:textStyle="bold"/>
 
     </FrameLayout>
 

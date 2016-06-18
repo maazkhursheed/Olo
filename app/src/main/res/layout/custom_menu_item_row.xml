@@ -75,7 +75,7 @@ android:orientation="vertical"
             android:gravity="right"
             android:text="550Rs"
             android:layout_marginRight="5dip"
-            android:textSize="10dip"
+            android:textSize="15dip"
             android:textColor="#B8B6B6"
             android:textStyle="bold"/>
 

@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
@@ -18,10 +19,8 @@ import android.widget.*;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
 import com.example.maaz.olo.screens.MainActivity;
-import models.MenusItem;
-import models.order_detail;
-import models.OrderResponse;
-import models.Orders;
+import com.google.gson.Gson;
+import models.*;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -29,6 +28,8 @@ import retrofit.client.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +46,7 @@ public class UserInfo extends Fragment {
     private String userName,userPhone,userAddress;
     private OnDrawerToggleListner mListner;
     private ProgressDialog progressDialog;
+    SharedPreferences mPrefs ;
 
 
     public UserInfo() {
@@ -59,10 +61,7 @@ public class UserInfo extends Fragment {
 
         view=inflater.inflate(R.layout.fragment_user_info, container, false);
         setHasOptionsMenu(true);
-      //  shouldDisplayHomeUp();
         initViews();
-//        android.app.ActionBar actionBar = getActivity().getActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         return view;
 
     }
@@ -141,7 +140,23 @@ public class UserInfo extends Fragment {
         edittxt_address= (EditText) view.findViewById(R.id.edittxt_useraddress);
         button_confirm= (Button) view.findViewById(R.id.confirm_btn);
 
+        mPrefs =getActivity().getPreferences(MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("User",null);
+        User obj = gson.fromJson(json, User.class);
+
+
          buttonListner();
+        if(obj!=null){
+
+            edittxt_name.setText(obj.getName().toString());
+            edittxt_phone.setText(obj.getPhone().toString());
+            edittxt_address.setText(obj.getAddress().toString());
+        }
+        else {
+
+
+        }
 
 
 
@@ -159,10 +174,10 @@ public class UserInfo extends Fragment {
    private void showOrderCheckoutFragment() {
       OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
 
-    FragmentManager fragmentManager = getFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
-//       Intent intent=new Intent(getActivity(), MainActivity.class);
-//       startActivity(intent);
+//    FragmentManager fragmentManager = getFragmentManager();
+//    fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
+       Intent intent=new Intent(getActivity(), MainActivity.class);
+       startActivity(intent);
 }
 
     private void hideFragment(){
@@ -198,6 +213,15 @@ public class UserInfo extends Fragment {
             userName=edittxt_name.getText().toString();
             userPhone=edittxt_phone.getText().toString();
             userAddress=edittxt_address.getText().toString();
+
+            User user=new User(userName,userPhone,userAddress);
+            SharedPreferences.Editor prefsEditor = mPrefs.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(user); //  - instance of MyObject
+            prefsEditor.putString("User", json);
+            prefsEditor.commit();
+
+
             return true;
         }
 
@@ -214,6 +238,13 @@ public class UserInfo extends Fragment {
         progressDialog.dismiss();
     }
 
+    private void getUserInfo(){
+        Gson gson = new Gson();
+        String json = mPrefs.getString("User","");
+        User obj = gson.fromJson(json, User.class);
+
+    }
+
     //=========================InnerClass/Button Listner ==============================================///
 
 
@@ -224,7 +255,7 @@ public class UserInfo extends Fragment {
         public void onClick(View view) {
             placeOrders();
            // hideFragment();
-         ItemCart.getOrderableItems().clear();
+
         }
 
 
@@ -260,6 +291,7 @@ public class UserInfo extends Fragment {
                     public void success(OrderResponse orderResponse, Response response) {
                         hideProgress();
                         hideFragment();
+                        ItemCart.getOrderableItems().clear();
                         //Toast.makeText(getActivity().getApplicationContext(), "Status" + ":" +""+orderResponse.getMessage(), Toast.LENGTH_LONG).show();
 
                     }
