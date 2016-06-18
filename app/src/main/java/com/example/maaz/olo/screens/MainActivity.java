@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private CategoryAdapter categoryAdapter;
     Category category;
     ImageView internetImage;
+    ImageView wrongImage;
 
     private static final String LOG_TAG = "CheckNetworkStatus";
     private NetworkChangeReceiver receiver;
@@ -123,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private void init_views()
     {
         internetImage = (ImageView)findViewById(R.id.internetImage);
+        wrongImage = (ImageView) findViewById(R.id.wrongImage);
+
         toolbar= (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         mTitle = mDrawerTitle = getSupportActionBar().getTitle();
@@ -157,6 +160,10 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
             @Override
             public void failure(RetrofitError retrofitError) {
+
+                mDrawerList.setVisibility(View.GONE);
+                internetImage.setVisibility(View.GONE);
+                wrongImage.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(),"Something goes wrong ...",Toast.LENGTH_LONG).show();
             }
         });
