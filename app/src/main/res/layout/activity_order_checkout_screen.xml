@@ -39,7 +39,8 @@
                 android:textColor="#f6343f"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="100dp"
-                android:layout_marginStart="100dp"/>
+                android:layout_marginStart="100dp"
+                />
 
         <TextView
                 android:id="@+id/tv_editApplyOrder"
@@ -49,8 +50,8 @@
                 android:textSize="20sp"
                 android:textColor="#f6343f"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="52dp"
-                android:layout_marginStart="52dp"
+                android:layout_marginLeft="55dp"
+                android:layout_marginStart="55dp"
                 android:visibility="gone"  />
 
 </LinearLayout>
@@ -71,8 +72,8 @@
                 android:textSize="20sp"
                 android:textColor="#f6343f"
                 android:layout_gravity="right"
-                android:layout_marginRight="27dp"
-                android:layout_marginEnd="27dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginEnd="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
@@ -89,7 +90,7 @@
             android:paddingTop="5dp"
             >
 
-        <include layout="@layout/order_sub_total"/>
+        <include layout="@layout/sub_order_total"/>
 
 
     </LinearLayout>
@@ -107,16 +108,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="2dp" >
+                android:layout_marginTop="8dp"
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingRight="20dp"
+                android:paddingEnd="20dp">
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total"
                     android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="25dp" />
+                    android:textSize="22sp"
+                   />
 
             <TextView
                     android:layout_width="wrap_content"
@@ -124,22 +128,22 @@
                     android:text="Rs "
                     android:textColor="#000000"
                     android:layout_gravity="right"
-                    android:textSize="18sp"
-                    android:layout_marginLeft="195dp"
-                    android:layout_marginStart="195dp"
-                    android:textStyle="bold"/>
+                    android:textSize="22sp"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginStart="150dp"
+                    />
 
             <TextView
                     android:id="@+id/tv_allTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10690"
+                    android:text="1069067"
                     android:textColor="#000000"
                     android:layout_gravity="end"
-                    android:textSize="18sp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:textStyle="bold"/>
+                    android:textSize="22sp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                   />
 
         </LinearLayout>
     </LinearLayout>
