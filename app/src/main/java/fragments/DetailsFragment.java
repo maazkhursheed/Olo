@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
 
+import com.squareup.picasso.Picasso;
 import models.Category;
 import models.MenusItem;
 
@@ -42,7 +44,7 @@ public class DetailsFragment extends Fragment {
     private OnDetailFragmentInteraction listner;
     private MenusItem menusItem;
     private OnDrawerToggleListner mListner;
-
+    ImageView itemView;
 
     public DetailsFragment() {
         // Required empty public constructor
@@ -54,7 +56,7 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_details, container, false);
-        //return inflater.inflate(R.layout.fragment_details, container, false);
+        itemView = (ImageView) view.findViewById(R.id.itemFullView);
         getIntentValues();
         initViews();
         return view;
@@ -79,7 +81,7 @@ public class DetailsFragment extends Fragment {
 
 
         label_itemName.setText(itemname);
-        label_itemPrice.setText("Rs: "+ String.valueOf(itemPrice));
+        label_itemPrice.setText("Rs "+ String.valueOf(itemPrice));
 
 
 //        set total price with quantity
@@ -136,6 +138,12 @@ public class DetailsFragment extends Fragment {
         itemname=menusItem.getName();
         itemPrice=menusItem.getPrice();
 
+        if(menusItem.getImages().size() > 0) {
+            Picasso.with(getActivity()).load(menusItem.getImages().get(0).getUrl()).
+                    placeholder(R.drawable.fastfood).resize(640,344).into(itemView);
+        }else{
+            itemView.setBackgroundResource(R.drawable.fastfood);
+        }
 }
     //set initial total price total price in txtview when activity created
     private void setInitial_itemPrice()
@@ -145,7 +153,7 @@ public class DetailsFragment extends Fragment {
         if(label_totalPrice.getText().equals(""))
         {
            // label_totalPrice.setText("" + itemPrice);
-            label_totalPrice.setText("" + totalprice);
+            label_totalPrice.setText("Rs" + " " + totalprice);
         }
 
     }
@@ -262,7 +270,7 @@ public class DetailsFragment extends Fragment {
                 selectedItemQuantity++;
                 label_quantity.setText("Quantity "+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
-                label_totalPrice.setText(""+totalprice);
+                label_totalPrice.setText("Rs" + " "+totalprice);
                 menusItem.setDesiredQuantity(selectedItemQuantity);
 
             }
@@ -279,7 +287,7 @@ public class DetailsFragment extends Fragment {
                 //selectedItemQuantity=initialQuantity;
                 label_quantity.setText("Quantity "+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
-                label_totalPrice.setText(""+totalprice);
+                label_totalPrice.setText("Rs" + " "+totalprice);
                 menusItem.setDesiredQuantity(selectedItemQuantity);
 
             }

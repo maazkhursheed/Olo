@@ -19,10 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.*;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
 import fragments.*;
@@ -50,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private CategoryAdapter categoryAdapter;
     Category category;
     ImageView internetImage;
+    ImageView wrongImage;
 
     private static final String LOG_TAG = "CheckNetworkStatus";
     private NetworkChangeReceiver receiver;
@@ -84,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         super.onDestroy();
 
         unregisterReceiver(receiver);
-
     }
 
 
@@ -108,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu();  // calling onPrepareOptionsMenu() to hide action bar icons
+                mDrawerList.setAdapter(categoryAdapter);
+
             }
         };
 
@@ -123,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private void init_views()
     {
         internetImage = (ImageView)findViewById(R.id.internetImage);
+        wrongImage = (ImageView) findViewById(R.id.wrongImage);
+
         toolbar= (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         mTitle = mDrawerTitle = getSupportActionBar().getTitle();
@@ -152,14 +153,16 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         RestClient.getAdapter().getCategories(new Callback<ArrayList<Category>>() {
             @Override
             public void success(ArrayList<Category> categories, Response response) {
-
                 categoryAdapter = new CategoryAdapter(getApplicationContext(),categories);
                 mDrawerList.setAdapter(categoryAdapter);
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                Toast.makeText(getApplicationContext(),"Something goes wrong ...",Toast.LENGTH_LONG).show();
+                mDrawerList.setVisibility(View.GONE);
+                internetImage.setVisibility(View.GONE);
+                wrongImage.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(),"Something went wrong!",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -220,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
             menu.findItem(R.id.cart_text).setVisible(true);
             menu.findItem(R.id.cart).setVisible(true);
-            menu.findItem(R.id.cart_text).setTitle("Rs:"+ItemCart.getInstance().getTotal());
+            menu.findItem(R.id.cart_text).setTitle("Rs "+ItemCart.getInstance().getTotal());
         }
 
 

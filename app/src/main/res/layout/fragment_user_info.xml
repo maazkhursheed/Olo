@@ -99,16 +99,16 @@
             android:layout_marginTop="100dp"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
-            android:visibility="gone"
-    >
+            android:visibility="gone">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ThankYou.!
-                              Your Order has been Placed"
-               android:textColor="@android:color/darker_gray"
-                android:textStyle="bold"/>
+                android:text="Thank You.!
+                              Your order has been placed."
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold"
+                android:textSize="30sp"/>
 
     </FrameLayout>
 

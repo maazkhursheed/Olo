@@ -4,9 +4,11 @@ import Interfaces.OnDrawerToggleListner;
 import Interfaces.OnItemRemoveListener;
 import Interfaces.OnQuantityChangeListener;
 import adapters.CartEditListAdapter;
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
@@ -33,9 +36,11 @@ public class OrderCheckoutFragment extends Fragment{
     int allTotal = 0;
     Button btn_checkout;
     private OnDrawerToggleListner mListner;
+    private FrameLayout container;
 
     public OrderCheckoutFragment() {
     }
+
 
     @Nullable
     @Override
@@ -69,7 +74,7 @@ public class OrderCheckoutFragment extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Order Checkout");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Checkout");
 
 
 
@@ -99,6 +104,8 @@ public class OrderCheckoutFragment extends Fragment{
     }
 
     private void initViews(View view) {
+
+        container = (FrameLayout) view.findViewById(R.id.orderframe_container);
 
         editOrderTv = (TextView) view.findViewById(R.id.tv_editOrder);
         editOrderTv.setOnClickListener(new EditableOrderItemListner());
@@ -143,7 +150,9 @@ public class OrderCheckoutFragment extends Fragment{
             applyOrderChanges.setVisibility(v.VISIBLE);
 
             OrderCheckEditListFragment editListFragment = new OrderCheckEditListFragment();
-            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+          //  android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            android.app.FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
 //            transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
 
            // transaction.setCustomAnimations(R.animator.slide_out_left, R.animator.slide_in_right,R.animator.slide_in_left, R.animator.slide_out_right);
@@ -162,7 +171,9 @@ public class OrderCheckoutFragment extends Fragment{
             applyOrderChanges.setVisibility(v.GONE);
 
             OrderCheckSimpleListFragment simpleListFragment = new OrderCheckSimpleListFragment();
-            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+           // android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            android.app.FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
             // transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_left, R.animator.slide_in_right, R.animator.slide_out_right);
             // transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
             // transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, R.animator.slide_out_left, R.animator.slide_in_right);
@@ -170,7 +181,10 @@ public class OrderCheckoutFragment extends Fragment{
             reloadFragment();
             updatePriceListner();
             OrderCheckEditListFragment editListFragment = new OrderCheckEditListFragment();
-            transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
+            //transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
+            transaction.setCustomAnimations( R.animator.card_flip_right_in, R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out);
+
+
             transaction.hide(editListFragment);
             transaction.replace(R.id.orderframe_container, simpleListFragment);
             transaction.commit();

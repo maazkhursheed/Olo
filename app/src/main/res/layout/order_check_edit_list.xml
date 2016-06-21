@@ -32,10 +32,11 @@
 
     <TextView
             android:id="@+id/ediItemName"
-            android:layout_width="wrap_content"
+            android:layout_width="171dp"
             android:layout_height="wrap_content"
             android:text="Spicy Chicken Burger(Value Meal)"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="5dp"
+            android:maxLines="2"/>
 
     </LinearLayout>
 
@@ -69,12 +70,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="X"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginStart="22dp"
             android:layout_gravity="right"
-            android:textColor="#ea2424"/>
+            android:textColor="#ea2424"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"/>
 
     </LinearLayout>
 

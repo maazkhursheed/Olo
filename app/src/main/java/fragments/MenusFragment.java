@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.maaz.olo.R;
 //import com.example.maaz.olo.screens.DetailScreen;
@@ -46,6 +47,7 @@ public class MenusFragment extends Fragment {
     private Gson gson;
     static String totalprice=null;
     private OnDrawerToggleListner mListner;
+    ImageView wrongImage;
 
     public MenusFragment() {
         // Required empty public constructor
@@ -58,6 +60,7 @@ public class MenusFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_menus, container, false);
 
         recyclerView = (RecyclerView)rootView.findViewById(R.id.listMenu);
+        wrongImage = (ImageView)rootView.findViewById(R.id.wrongImage);
         prepareMenusBy_Id(get_CatId());
 
         return rootView;
@@ -107,7 +110,9 @@ public class MenusFragment extends Fragment {
             @Override
             public void failure(RetrofitError retrofitError) {
                 hideProgress();
-                Toast.makeText(getActivity(),"Something goeas wrong ...",Toast.LENGTH_LONG).show();
+                recyclerView.setVisibility(View.GONE);
+                wrongImage.setVisibility(View.VISIBLE);
+                Toast.makeText(getActivity(),"Something went wrong!",Toast.LENGTH_LONG).show();
             }
         });
     }

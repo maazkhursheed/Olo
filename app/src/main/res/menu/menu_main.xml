@@ -9,7 +9,7 @@
     <item android:id="@+id/cart"
           android:title="@string/action_cart"
           android:orderInCategory="10"
-          android:icon="@drawable/cart_bag"
+          android:icon="@drawable/add_to_cart"
           app:showAsAction="always"/>
     <item android:id="@+id/cart_text"
           android:title=""
