@@ -5,6 +5,7 @@ import Interfaces.OnItemRemoveListener;
 import Interfaces.OnQuantityChangeListener;
 import adapters.CategoryAdapter;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.AlertDialog;
 import android.content.*;
@@ -24,14 +25,19 @@ import cart.ItemCart;
 import com.example.maaz.olo.R;
 import fragments.*;
 import models.Category;
+import models.MenusItem;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction, OnItemRemoveListener, OnQuantityChangeListener, OnDrawerToggleListner {
+public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction,
+        OnItemRemoveListener,
+        OnQuantityChangeListener,
+        OnDrawerToggleListner {
 
     private DrawerLayout mDrawerLayout;
     public static OnItemRemoveListener onItemRemoveListener = null;
@@ -163,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
                 internetImage.setVisibility(View.GONE);
                 wrongImage.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(),"Something went wrong!",Toast.LENGTH_LONG).show();
+                mDrawerLayout.closeDrawer(mDrawerList);
+
             }
         });
     }
@@ -186,26 +194,50 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         // Handle action bar actions click
         switch (item.getItemId()) {
 
-            case R.id.cart_text :
+            case R.id.cart_text:
             case R.id.cart:
 
                 OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).addToBackStack(null).commit();
+                FragmentManager ofragmentManager = getFragmentManager();
+                ofragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
 
-
+                break;
 
             case android.R.id.home:
+                Fragment currentFragment = getFragmentManager().findFragmentById(R.id.frame_container);
 
-                OrderCheckoutFragment ordeCheckoutFragment = new OrderCheckoutFragment();
-                FragmentManager frgmentManager = getFragmentManager();
-                frgmentManager.beginTransaction().replace(R.id.frame_container, ordeCheckoutFragment).commit();
+                if (currentFragment instanceof DetailsFragment) {
+                    //show list of category
 
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                    MenusItem menuItem = (MenusItem) currentFragment.getArguments().getSerializable("Item");
+
+                    int category_id = menuItem.getCategory_id();
+                    MenusFragment menufragment = new MenusFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("Category_id", category_id);
+
+                    menufragment.setArguments(bundle);
+                    FragmentManager mfragmentManager = getFragmentManager();
+                    mfragmentManager.beginTransaction().replace(R.id.frame_container, menufragment).commit();
+
+                }
+
+                if (currentFragment instanceof UserInfo) {
+
+                    //show OrderCheckoutFragment
+
+                    OrderCheckoutFragment ordeCheckoutFragment = new OrderCheckoutFragment();
+                    FragmentManager frgmentManager = getFragmentManager();
+                    frgmentManager.beginTransaction().replace(R.id.frame_container, ordeCheckoutFragment).commit();
+                }
+
+                break;
         }
+                return true;
+
     }
+
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -260,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     {
         Bundle bundle=new Bundle();
         bundle.putInt("Category_id",cat_id);
+       // bundle.putSerializable("Category",);
         MenusFragment menufragment = new MenusFragment();
         menufragment.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();

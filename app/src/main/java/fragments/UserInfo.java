@@ -2,8 +2,6 @@ package fragments;
 
 
 import Interfaces.OnDrawerToggleListner;
-import android.app.Dialog;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +10,12 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.*;
 import android.view.*;
 
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
+import android.widget.Toolbar;
 import cart.ItemCart;
 import com.example.maaz.olo.R;
 import com.example.maaz.olo.screens.MainActivity;
@@ -47,6 +47,7 @@ public class UserInfo extends Fragment {
     private OnDrawerToggleListner mListner;
     private ProgressDialog progressDialog;
     SharedPreferences mPrefs ;
+    private android.support.v7.widget.Toolbar toolbar;
 
 
     public UserInfo() {
@@ -61,6 +62,7 @@ public class UserInfo extends Fragment {
 
         view=inflater.inflate(R.layout.fragment_user_info, container, false);
         setHasOptionsMenu(true);
+
         initViews();
         return view;
 
@@ -95,6 +97,7 @@ public class UserInfo extends Fragment {
 
 
     }
+
     private void hideKeyboard(){
 
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -117,13 +120,22 @@ public class UserInfo extends Fragment {
 
 
     }
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.userinfo_menu,menu);
-        menu.findItem(R.id.cart_text).setVisible(true);
-        menu.findItem(R.id.cart).setVisible(false);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//
+////        inflater.inflate(R.menu.userinfo_menu,menu);
+////        menu.findItem(R.id.cart_text).setVisible(false);
+////        menu.findItem(R.id.cart).setVisible(false);
+//    }
+@Override
+public void onPrepareOptionsMenu(Menu menu) {
+    menu.findItem(R.id.cart).setVisible(false);
+    menu.findItem(R.id.cart_text).setVisible(false);
+
+    super.onPrepareOptionsMenu(menu);
+
+}
 
 
 
@@ -132,6 +144,13 @@ public class UserInfo extends Fragment {
      * This method initialize a views of screen
      */
     private void initViews(){
+        //toolbar= (android.support.v7.widget.Toolbar) view.findViewById(R.id.user_info_toolbar);
+//        AppCompatActivity activity = (AppCompatActivity) getActivity();
+//        activity.setSupportActionBar(toolbar);
+//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
         userinfo_linear= (LinearLayout) view.findViewById(R.id.user_info_mainlayout);
         thankyou= (FrameLayout) view.findViewById(R.id.fragment_order_thankyouFrame);
         edittxt_name= (EditText) view.findViewById(R.id.edittxt_username);
@@ -139,6 +158,7 @@ public class UserInfo extends Fragment {
 
         edittxt_address= (EditText) view.findViewById(R.id.edittxt_useraddress);
         button_confirm= (Button) view.findViewById(R.id.confirm_btn);
+
 
         mPrefs =getActivity().getPreferences(MODE_PRIVATE);
         Gson gson = new Gson();
@@ -171,12 +191,9 @@ public class UserInfo extends Fragment {
         button_confirm.setOnClickListener(new ConfirmOrderListner());
     }
 //    =========================helper Methos ==========================================//
-   private void showOrderCheckoutFragment() {
-      OrderCheckoutFragment orderCheckoutFragment = new OrderCheckoutFragment();
+   private void showMainActivity() {
 
-//    FragmentManager fragmentManager = getFragmentManager();
-//    fragmentManager.beginTransaction().replace(R.id.frame_container, orderCheckoutFragment).commit();
-       Intent intent=new Intent(getActivity(), MainActivity.class);
+       Intent intent=new Intent(getActivity().getApplicationContext(), MainActivity.class);
        startActivity(intent);
 }
 
@@ -184,15 +201,17 @@ public class UserInfo extends Fragment {
 
         userinfo_linear.setVisibility(View.GONE);
         thankyou.setVisibility(View.VISIBLE);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         hideKeyboard();
         //  userinfo_linear.setVisibility(View.GONE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showOrderCheckoutFragment();
+                showMainActivity();
 
             }
-        }, 4000);
+        }, 2000);
     }
 
 
@@ -253,6 +272,7 @@ public class UserInfo extends Fragment {
     private class ConfirmOrderListner implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            //mListner.showDrawerToggle(false);
             placeOrders();
            // hideFragment();
 

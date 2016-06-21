@@ -3,6 +3,7 @@ package fragments;
 
 import Interfaces.OnDrawerToggleListner;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -44,7 +45,9 @@ public class DetailsFragment extends Fragment {
     private OnDetailFragmentInteraction listner;
     private MenusItem menusItem;
     private OnDrawerToggleListner mListner;
+    private ProgressDialog progressDialog;
     ImageView itemView;
+    int catId;
 
     public DetailsFragment() {
         // Required empty public constructor
@@ -57,8 +60,11 @@ public class DetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_details, container, false);
         itemView = (ImageView) view.findViewById(R.id.itemFullView);
+        //showProgress("Loading...");
         getIntentValues();
         initViews();
+        setHasOptionsMenu(true);
+        //backToMenus(menusItem.getId());
         return view;
     }
 
@@ -131,20 +137,31 @@ public class DetailsFragment extends Fragment {
      */
     private void getIntentValues() {
 
-//        itemname=  getIntent().getExtras().getString(IntentsConstants.item_name);
-//        itemPrice = getIntent().getExtras().getDouble(IntentsConstants.item_price);
         Bundle bundle = getArguments();
         menusItem= (MenusItem) bundle.getSerializable("Item");
         itemname=menusItem.getName();
         itemPrice=menusItem.getPrice();
 
         if(menusItem.getImages().size() > 0) {
+           // showProgress("Loading.....");
+
             Picasso.with(getActivity()).load(menusItem.getImages().get(0).getUrl()).
-                    placeholder(R.drawable.fastfood).resize(640,344).into(itemView);
+                    placeholder(R.drawable.progress_animation).into(itemView);
+           // hideProgress();
+            //.resize(640,344)
         }else{
             itemView.setBackgroundResource(R.drawable.fastfood);
         }
+
+
 }
+
+    private void hideProgress() { progressDialog.dismiss();}
+
+    private void showProgress(String message) {
+        progressDialog= ProgressDialog.show(getActivity(),"",message,false);
+    }
+
     //set initial total price total price in txtview when activity created
     private void setInitial_itemPrice()
     {
@@ -191,7 +208,28 @@ public class DetailsFragment extends Fragment {
 
 
 //========================================Overridden methods=======================================================
-   @Override
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+
+                MenusFragment menusFragment=new MenusFragment();
+                FragmentManager frgmentManager = getFragmentManager();
+                frgmentManager.beginTransaction().replace(R.id.frame_container, menusFragment).commit();
+
+
+                return true;
+
+            // Other case statements...
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
    public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Details Screen");
@@ -203,7 +241,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-       mListner.showDrawerToggle(true);
+       mListner.showDrawerToggle(false);
 
     }
 

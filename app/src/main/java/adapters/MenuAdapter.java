@@ -86,7 +86,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
 
         if(menus.getImages().size() > 0) {
             Picasso.with(mContext).load(menus.getImages().get(0).getUrl()).
-                    placeholder(R.drawable.fastfood).resize(100, 100).into(holder.item_pic);
+                    placeholder(R.drawable.progress_animation).resize(100, 100).into(holder.item_pic);
         }else{
             holder.item_pic.setBackgroundResource(R.drawable.fastfood);
         }

@@ -48,6 +48,7 @@ public class MenusFragment extends Fragment {
     static String totalprice=null;
     private OnDrawerToggleListner mListner;
     ImageView wrongImage;
+   // int cat_id;
 
     public MenusFragment() {
         // Required empty public constructor
@@ -62,6 +63,7 @@ public class MenusFragment extends Fragment {
         recyclerView = (RecyclerView)rootView.findViewById(R.id.listMenu);
         wrongImage = (ImageView)rootView.findViewById(R.id.wrongImage);
         prepareMenusBy_Id(get_CatId());
+       // prepareMenusBy_Id();
 
         return rootView;
     }
@@ -71,10 +73,10 @@ public class MenusFragment extends Fragment {
         return cat_id;
     }
 
-    private void prepareMenusBy_Id(int category_id)
+    private void prepareMenusBy_Id(int cat_id)
     {
         showProgress("Loading.....");
-        RestClient.getAdapter().getMenuItems(category_id, new Callback<ArrayList<MenusItem>>() {
+        RestClient.getAdapter().getMenuItems(cat_id, new Callback<ArrayList<MenusItem>>() {
             @Override
             public void success(final ArrayList<MenusItem> menusItems, Response response) {
                 hideProgress();

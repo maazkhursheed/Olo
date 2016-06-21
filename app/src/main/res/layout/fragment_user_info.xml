@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -14,8 +14,12 @@
                     <!--&gt;-->
 
     <!--</RelativeLayout>-->
+    <!--<include layout="@layout/fragments_toolbar"-->
+             <!--android:id="@+id/user_info_toolbar"/>-->
 
+    <!--android:layout_below="@+id/user_info_toolbar"-->
     <LinearLayout
+
             
             android:id="@+id/user_info_mainlayout"
             android:layout_width="match_parent"
@@ -24,6 +28,7 @@
             android:weightSum="3"
     android:layout_margin="15dp"
     >
+
 
         <!--<FrameLayout-->
                 <!--android:id="@+id/fragment_order_"-->
@@ -45,10 +50,14 @@
         <EditText
                 android:id="@+id/edittxt_username"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.5"
+            android:maxLength="35"/>
+        <!--android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"-->
+
+        <!--android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"-->
+        <!--android:maxLength="35"-->
         <!--android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"-->
 
 
@@ -96,21 +105,31 @@
             android:id="@+id/fragment_order_thankyouFrame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:visibility="gone">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thank You.!
-                              Your order has been placed."
-                android:textColor="@android:color/darker_gray"
-                android:textStyle="bold"
-                android:textSize="30sp"/>
+            android:visibility="gone">
+        <!--android:layout_marginTop="100dp"-->
+        <!--android:layout_marginStart="100dp"-->
+        <!--android:layout_marginEnd="100dp"-->
+
+        <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Thank You.!-->
+                              <!--Your order has been placed."-->
+                <!--android:textColor="@android:color/background_dark"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="30sp"/>-->
+        <include layout="@layout/thankyou_message"/>
+        <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Your order has been placed."-->
+
+                <!--android:textColor="@android:color/darker_gray"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="30sp"/>-->
 
     </FrameLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

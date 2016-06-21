@@ -134,6 +134,9 @@ public class OrderCheckoutFragment extends Fragment{
         if(ItemCart.getOrderableItems().isEmpty()){
 //            hide order checkout button
             btn_checkout.setVisibility(View.INVISIBLE);
+            Intent intent = new Intent(getActivity(),MainActivity.class);
+            startActivity(intent);
+
         }
         else {
 
