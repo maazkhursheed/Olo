@@ -68,10 +68,16 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_DONE){
 
-                    ItemCart.getOrderableItems().get(position).setDesiredQuantity(Integer.parseInt(String.valueOf(v.getText())));
-                    holder.itemEditQuantity.setCursorVisible(false);
-                    holder.itemEditQuantity.setSelection(holder.itemEditQuantity.getText().length());
+                    if( holder.itemEditQuantity.getText().toString().matches("0")){
+                       removeItem(position);
+                    }
+                   else {
+                        ItemCart.getOrderableItems().get(position).setDesiredQuantity(Integer.parseInt(String.valueOf(v.getText())));
+                        holder.itemEditQuantity.setCursorVisible(false);
+                        holder.itemEditQuantity.setSelection(holder.itemEditQuantity.getText().length());
+                    }
                 }
+
                 return false;
             }
         });
@@ -88,6 +94,12 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
         });
     }
 
+    private void removeItem(int position) {
+        MainActivity.onItemRemoveListener.onItemRemoved((int) ItemCart.getInstance().getTotal());
+        ItemCart.getOrderableItems().remove(position);
+        Toast.makeText(mContext,"Item Removed",Toast.LENGTH_SHORT).show();
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
@@ -100,22 +112,4 @@ public class CartEditListAdapter extends RecyclerView.Adapter<CartEditListAdapte
         return totalPrice;
     }
 
-//    private class EditionSetListner implements TextView.OnEditorActionListener {
-//
-//        int mPosition;
-//
-//        public EditionSetListner(int position) {
-//
-//            this.mPosition= position;
-//        }
-//
-//        @Override
-//        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//
-//            if(actionId == EditorInfo.IME_ACTION_DONE){
-//                ItemCart.getOrderableItems().get(mPosition).setDesiredQuantity(Integer.parseInt(String.valueOf(v.getText())));
-//            }
-//            return false;
-//        }
-//    }
 }

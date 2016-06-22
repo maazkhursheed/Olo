@@ -8,6 +8,7 @@ import adapters.CategoryAdapter;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.*;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     private Toolbar toolbar;
     private ArrayList<Category> navCategoryItems;
     private CategoryAdapter categoryAdapter;
+    private ProgressDialog progressDialog;
     Category category;
     ImageView internetImage;
     ImageView wrongImage;
@@ -155,10 +157,11 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     private void getCategory() {
 
-
+        showProgress("Loading.....");
         RestClient.getAdapter().getCategories(new Callback<ArrayList<Category>>() {
             @Override
             public void success(ArrayList<Category> categories, Response response) {
+                hideProgress();
                 categoryAdapter = new CategoryAdapter(getApplicationContext(),categories);
                 mDrawerList.setAdapter(categoryAdapter);
             }
@@ -175,6 +178,11 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         });
     }
 
+    private void showProgress(String message) {
+        progressDialog=ProgressDialog.show(this,"",message,false);
+    }
+
+    private void hideProgress() { progressDialog.dismiss();}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

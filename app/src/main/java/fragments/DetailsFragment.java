@@ -277,7 +277,6 @@ public class DetailsFragment extends Fragment {
         @Override
         public void onClick(View view) {
 
-
            ItemCart.getInstance().addOrUpdateItem(menusItem);
            // total_cart_bill +=totalprice;
             listner.OnItemAddedInCart();
@@ -285,17 +284,6 @@ public class DetailsFragment extends Fragment {
            // getActivity().getFragmentManager().beginTransaction().hide(DetailsFragment.this).commit();
             backToMenus(menusItem.getCategory_id());
            // getActivity().getFragmentManager().beginTransaction().replace();
-
-
-
-
-
-
-
-
-
-
-
             //finish();
         }
     }
