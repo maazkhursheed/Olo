@@ -1,5 +1,6 @@
 package fragments;
 
+import Interfaces.OnDrawerEnableDisable;
 import Interfaces.OnDrawerToggleListner;
 import Interfaces.OnItemRemoveListener;
 import Interfaces.OnQuantityChangeListener;
@@ -36,6 +37,8 @@ public class OrderCheckoutFragment extends Fragment{
     int allTotal = 0;
     Button btn_checkout;
     private OnDrawerToggleListner mListner;
+    private OnDrawerEnableDisable enableDisableDrawer;
+
     private FrameLayout container;
 
     public OrderCheckoutFragment() {
@@ -60,6 +63,7 @@ public class OrderCheckoutFragment extends Fragment{
     public void onResume() {
         super.onResume();
         mListner.showDrawerToggle(true);
+        enableDisableDrawer.unlockDrawer();
         hideKeyboard();
 
     }
@@ -85,6 +89,7 @@ public class OrderCheckoutFragment extends Fragment{
         super.onAttach(context);
         try {
             mListner= (OnDrawerToggleListner) context;
+            enableDisableDrawer= (OnDrawerEnableDisable) context;
 
         }
         catch (ClassCastException ex){
@@ -97,6 +102,7 @@ public class OrderCheckoutFragment extends Fragment{
         try {
 
             mListner= (OnDrawerToggleListner) getActivity();
+            enableDisableDrawer= (OnDrawerEnableDisable) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString()
                     + " must implement OnDrawerToggleListner");

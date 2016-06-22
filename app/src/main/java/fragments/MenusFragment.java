@@ -1,6 +1,7 @@
 package fragments;
 
 
+import Interfaces.OnDrawerEnableDisable;
 import Interfaces.OnDrawerToggleListner;
 import adapters.MenuAdapter;
 import android.annotation.TargetApi;
@@ -47,6 +48,8 @@ public class MenusFragment extends Fragment {
     private Gson gson;
     static String totalprice=null;
     private OnDrawerToggleListner mListner;
+    private OnDrawerEnableDisable enableDisableDrawer;
+
     ImageView wrongImage;
    // int cat_id;
 
@@ -127,6 +130,7 @@ public class MenusFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mListner.showDrawerToggle(true);
+        enableDisableDrawer.unlockDrawer();
        // ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Menu Screen");
 
     }
@@ -136,6 +140,7 @@ public class MenusFragment extends Fragment {
         super.onAttach(context);
         try {
             this.mListner = (OnDrawerToggleListner) context;
+            this.enableDisableDrawer= (OnDrawerEnableDisable) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(e.toString() + " must implement OnDrawerToggleListner");
         }
@@ -146,6 +151,8 @@ public class MenusFragment extends Fragment {
         try {
 
             mListner= (OnDrawerToggleListner) getActivity();
+            this.enableDisableDrawer= (OnDrawerEnableDisable) getActivity();
+
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString()
                     + " must implement OnDrawerToggleListner");

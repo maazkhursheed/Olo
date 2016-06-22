@@ -1,5 +1,6 @@
 package com.example.maaz.olo.screens;
 
+import Interfaces.OnDrawerEnableDisable;
 import Interfaces.OnDrawerToggleListner;
 import Interfaces.OnItemRemoveListener;
 import Interfaces.OnQuantityChangeListener;
@@ -37,7 +38,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements DetailsFragment.OnDetailFragmentInteraction,
         OnItemRemoveListener,
         OnQuantityChangeListener,
-        OnDrawerToggleListner {
+        OnDrawerToggleListner,
+        OnDrawerEnableDisable {
 
     private DrawerLayout mDrawerLayout;
     public static OnItemRemoveListener onItemRemoveListener = null;
@@ -71,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         getCategory();     //show category on Drawer
         setDraweropened();    //always open a drawer when activity is opened
         drawer_Toggle_Handling(savedInstanceState);    //  enabling action bar app icon and behaving it as toggle button
+       // mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+
 
     }
 
@@ -262,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         return super.onPrepareOptionsMenu(menu);
     }
 
+//====================================Local Interface overriden methods ====================================//
     @Override
     public void OnItemAddedInCart() {
         invalidateOptionsMenu();
@@ -277,6 +283,19 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     @Override
     public void showDrawerToggle(boolean showToggle) { mDrawerToggle.setDrawerIndicatorEnabled(showToggle);}
+
+    @Override
+    public void lockDrawer() {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+    }
+
+    @Override
+    public void unlockDrawer() {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
+
+    }
 
     private class SlideMenuClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override

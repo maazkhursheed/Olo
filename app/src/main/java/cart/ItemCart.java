@@ -53,8 +53,11 @@ public class ItemCart {
                 //Item Update Block
                 if (iterator.getId() == item.getId()) {    //Check if item exixts in cart
                     isItemfound = true;
+                    //int tempItemQuantity =+ item.getDesiredQuantity();
 
-                    iterator.setDesiredQuantity(item.getDesiredQuantity());
+                    iterator.setDesiredQuantity(iterator.getDesiredQuantity()+item.getDesiredQuantity());
+
+                   /// iterator.setDesiredQuantity(item.getDesiredQuantity());
 
                     break;
                 }

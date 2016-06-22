@@ -1,6 +1,7 @@
 package fragments;
 
 
+import Interfaces.OnDrawerEnableDisable;
 import Interfaces.OnDrawerToggleListner;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -47,6 +48,8 @@ public class UserInfo extends Fragment {
     private OnDrawerToggleListner mListner;
     private ProgressDialog progressDialog;
     SharedPreferences mPrefs ;
+    private OnDrawerEnableDisable enableDisableDrawer;
+
     private android.support.v7.widget.Toolbar toolbar;
 
 
@@ -73,6 +76,7 @@ public class UserInfo extends Fragment {
         super.onAttach(context);
         try {
             this.mListner = (OnDrawerToggleListner) context;
+            this.enableDisableDrawer= (OnDrawerEnableDisable) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(e.toString() + " must implement OnDrawerToggleListner");
         }
@@ -83,6 +87,8 @@ public class UserInfo extends Fragment {
         try {
 
             mListner= (OnDrawerToggleListner) getActivity();
+            this.enableDisableDrawer= (OnDrawerEnableDisable) getActivity();
+
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString()
                     + " must implement OnDrawerToggleListner");
@@ -110,6 +116,7 @@ public class UserInfo extends Fragment {
     public void onResume() {
         super.onResume();
         mListner.showDrawerToggle(false);
+        enableDisableDrawer.lockDrawer();
         hideKeyboard();
 
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Place Order");
