@@ -6,9 +6,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="@drawable/kj_bg"
+
         xmlns:app="http://schemas.android.com/apk/res-auto"
 >
+    <!--android:background="#ffffff"-->
 
     <!--<include android:id="@+id/toolbar_details_item_screen"-->
              <!--layout="@layout/tool_bar"-->
@@ -20,7 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="4">
+            android:weightSum="4"
+            >
+        <!--android:background="@color/darkBackground_black"-->
         <!--android:layout_below="@+id/toolbar_details_item_screen"-->
         <!--item image layout-->
         <LinearLayout
@@ -109,22 +113,24 @@
                     layout="@layout/custom_picker"
                     android:layout_margin="15dp"
                     android:id="@+id/myquantity_picker"/>
+
     </RelativeLayout>
+            <!--Existing Quantity shown-->
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:layout_margin="15dp"
                     android:layout_weight="0.12">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LastAdded Quantity"
+                        android:text="Existing Quantity"
                         android:textStyle="bold"
-                        android:layout_margin="15dp"
+
                         android:id="@+id/alreaty_itemQuantity_txtview"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#7CAF41"
+                        android:textColor="@color/white_text_color"
                       />
 
                 <!--total price according to quantity-->
@@ -134,11 +140,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="#7CAF41"
+                        android:textStyle="bold"
+                        android:textColor="@color/white_text_color"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_margin="15dp"
+
                 android:text="2"/>
 
             </RelativeLayout>
@@ -156,12 +163,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total Price"
-                        android:textStyle="normal"
+                        android:textStyle="bold"
                         android:layout_margin="15dp"
                         android:id="@+id/total_price_txtview"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000000"/>
+                        android:textColor="@color/white_text_color"/>
 
                 <!--total price according to quantity-->
                 <TextView
@@ -170,7 +177,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textColor="@color/white_text_color"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
@@ -184,7 +192,7 @@
 
             <!--</LinearLayout>-->
             <Button
-                    android:background="#7CAF41"
+                    android:background="@color/ColorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:text="Add to Basket"

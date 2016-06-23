@@ -3,7 +3,8 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="fragments.UserInfo"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+               android:background="@color/white_text_color">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -91,9 +92,12 @@
 
                 android:layout_weight="0.5"/>
 
-        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:id="@+id/confirm_btn"
-        android:text="Proceed"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/confirm_btn"
+        android:text="Proceed"
+        />
 
         <!--</FrameLayout>-->
 

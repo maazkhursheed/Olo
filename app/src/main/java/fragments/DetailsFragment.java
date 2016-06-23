@@ -29,7 +29,7 @@ public class DetailsFragment extends Fragment {
             label_itemPrice,
             label_incrementQuantity,
             label_decrementQuantity,
-            label_totalPrice,
+            label_totalPrice_according_quantity,
             label_quantity,
             Label_selected_quantity_txtview,
             label_selected_quantity;
@@ -86,7 +86,7 @@ public class DetailsFragment extends Fragment {
         label_itemPrice = (TextView) view.findViewById(R.id.textView_itemPrice);
         label_incrementQuantity = (TextView) view.findViewById(R.id.add_txtview);
         label_decrementQuantity = (TextView) view.findViewById(R.id.subtract_txtview);
-        label_totalPrice = (TextView) view.findViewById(R.id.total_price);
+        label_totalPrice_according_quantity = (TextView) view.findViewById(R.id.total_price);
         label_quantity = (TextView) view.findViewById(R.id.itemquantity_txtview);
         label_selected_quantity= (TextView) view.findViewById(R.id.item_quantity_already);
         Label_selected_quantity_txtview= (TextView) view.findViewById(R.id.alreaty_itemQuantity_txtview);
@@ -117,7 +117,8 @@ public class DetailsFragment extends Fragment {
 
 
 //        set total price with quantity
-        totalprice = (calcTotalPrice(checkItemQuantity(), itemPrice));
+
+        //totalprice = (calcTotalPrice(checkItemQuantity(), itemPrice));
 
         menusItem.setDesiredQuantity(selectedItemQuantity);
 
@@ -195,9 +196,11 @@ public class DetailsFragment extends Fragment {
     private void setInitial_itemPrice() {
 
         calcTotalPrice(selectedItemQuantity, itemPrice);
-        if (label_totalPrice.getText().equals("")) {
-            // label_totalPrice.setText("" + itemPrice);
-            label_totalPrice.setText("Rs" + " " + totalprice);
+        if (label_totalPrice_according_quantity.getText().equals("")) {
+            // label_totalPrice_according_quantity.setText("" + itemPrice);
+           // label_totalPrice_according_quantity.setText("Rs" + " " + totalprice);
+            label_totalPrice_according_quantity.setText("Rs" + " " + itemPrice);
+
         }
 
     }
@@ -327,7 +330,7 @@ public class DetailsFragment extends Fragment {
                 selectedItemQuantity++;
                 label_quantity.setText("Quantity "+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
-                label_totalPrice.setText("Rs" + " "+totalprice);
+                label_totalPrice_according_quantity.setText("Rs" + " "+totalprice);
                 menusItem.setDesiredQuantity(selectedItemQuantity);
 
             }
@@ -344,7 +347,7 @@ public class DetailsFragment extends Fragment {
                 //selectedItemQuantity=initialQuantity;
                 label_quantity.setText("Quantity "+selectedItemQuantity);
                 totalprice= calcTotalPrice(selectedItemQuantity, itemPrice);
-                label_totalPrice.setText("Rs" + " "+totalprice);
+                label_totalPrice_according_quantity.setText("Rs" + " "+totalprice);
                 menusItem.setDesiredQuantity(selectedItemQuantity);
 
             }

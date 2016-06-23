@@ -46,7 +46,7 @@
                 android:id="@+id/tvService"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Service Fee (0%)"
+                android:text="Service Charges (0%)"
                 android:textSize="18sp"
                 android:layout_below="@+id/tv_sbTotal"/>
 
@@ -65,7 +65,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delivery Fee"
+                android:text="Delivery Charges"
                 android:textSize="18sp"
                 android:layout_below="@+id/tvService"/>
 

@@ -1,6 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                 >
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/kj_bg"
+            >
+        <!--android:background="#CC000000"-->
+        <!--android:background="@drawable/black_gradient"-->
+
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/listMenu"
@@ -8,8 +18,13 @@
             android:layout_height="match_parent"
             android:padding="2dp"
             android:scrollbars="vertical"
-            android:background="#FFFFFF"
+            android:alpha="0.6"
+
+
+
     />
+    </FrameLayout>
+    <!--android:background="#FFFFFF"-->
 
     <ImageView
             android:id="@+id/wrongImage"

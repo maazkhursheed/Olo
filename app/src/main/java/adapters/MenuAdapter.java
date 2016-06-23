@@ -68,7 +68,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_menu_item_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_menu_row, parent, false);
+       // View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_menu_item_row, parent, false);
+
 
         return new MyViewHolder(itemView);
     }
@@ -91,11 +93,16 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
             holder.item_pic.setBackgroundResource(R.drawable.fastfood);
         }
 
-        if (position % 2 == 1) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#dddddd"));
-        } else {
-            holder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
-        }
+//        if (position % 2 == 1) {
+//            holder.itemView.setBackgroundColor(Color.parseColor("#B7B7B7"));
+//            //holder.itemView.setBackgroundColor(Color.parseColor("#dddddd"));
+//
+//        } else {
+//           // holder.itemView.setBackgroundColor(R.color.lightBackground_black);
+//           // holder.itemView.getResources().getColor(R.color.lightBackground_black);
+//            holder.itemView.setBackgroundColor(Color.parseColor("#161616"));
+//
+//        }
 
 
     }
