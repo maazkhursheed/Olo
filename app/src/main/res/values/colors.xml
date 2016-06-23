@@ -22,7 +22,10 @@
         <!--<color name="ColorPrimary">#F34545</color>-->
         <!--<color name="ColorPrimaryDark">#E64A19</color>-->
 
-    <color name="ColorPrimary">#E64A19</color>
-    <color name="ColorPrimaryDark">#F6343F</color>
+    <!--<color name="ColorPrimary">#E64A19</color>-->
+    <!--<color name="ColorPrimaryDark">#F6343F</color>-->
+
+    <color name="ColorPrimary">#FC0202</color>
+    <color name="ColorPrimaryDark">#FC0202</color>
 
 </resources>

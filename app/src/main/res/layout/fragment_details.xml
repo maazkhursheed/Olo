@@ -71,12 +71,13 @@
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_weight="0.30"
-                    android:background="#F34545"
+                    android:background="@color/ColorPrimary"
                     android:textStyle="normal"
                     android:text="Rs 7808.0"
                     android:textColor="@android:color/white"
                     android:gravity="center"
                    />
+            <!--#F34545"-->
 
         </LinearLayout>
         <!--order button and details item layout-->
@@ -89,10 +90,10 @@
                 android:layout_weight="2"
                 android:weightSum="2">
 
-            <RelativeLayout android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.25"
-            ></RelativeLayout>
+            <!--<RelativeLayout android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_weight="0.25"-->
+            <!--&gt;</RelativeLayout>-->
 
 
             <!--custom picker here-->
@@ -113,17 +114,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_weight="0.25">
+                    android:layout_weight="0.12">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LastAdded Quantity"
-                        android:textStyle="normal"
+                        android:textStyle="bold"
                         android:layout_margin="15dp"
                         android:id="@+id/alreaty_itemQuantity_txtview"
                         android:gravity="center"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#7CAF41"/>
+                        android:textColor="#7CAF41"
+                      />
 
                 <!--total price according to quantity-->
                 <TextView
@@ -149,7 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_weight="0.25">
+                    android:layout_weight="0.12">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -189,7 +191,7 @@
                     android:id="@+id/addcart_btn"
                     android:textColor="@android:color/white"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="1.50"
                     android:layout_alignParentRight="false"
                     android:layout_alignParentEnd="false"
 
