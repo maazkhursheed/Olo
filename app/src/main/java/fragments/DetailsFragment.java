@@ -295,43 +295,10 @@ public class DetailsFragment extends Fragment {
     private class AddCartListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-//            ItemCart.getInstance().addOrUpdateItem(menusItem);
-//            // total_cart_bill +=totalprice;
-//            listner.OnItemAddedInCart();
-//            // getActivity().getFragmentManager().popBackStack();
-//            // getActivity().getFragmentManager().beginTransaction().hide(DetailsFragment.this).commit();
-//            backToMenus(menusItem.getCategory_id());
-//
-            ////////////////////////////////////////////////////////////////////////
-
-//
-//            if(selectedItemQuantity==1)
-//            {
-//                ItemCart.getInstance().addOrUpdateItem(menusItem);
-//
-//
-//            }
-//            else {
-//                int totalDesiredQuantity=checkItemQuantity()+selectedItemQuantity;
-//
-//                menusItem.setDesiredQuantity(totalDesiredQuantity);
-//                ItemCart.getInstance().addOrUpdateItem(menusItem);
-//
-//
-//
-//            }
 
 
-
-           // menusItem.setDesiredQuantity(selectedItemQuantity);
-          // ItemCart.getInstance().addOrUpdateItem(menusItem);
-           // total_cart_bill +=totalprice;        menusItem.setDesiredQuantity(selectedItemQuantity);
-
-
-               // int totalDesiredQuantity=checkItemQuantity()+selectedItemQuantity;
-
-              //  menusItem.setDesiredQuantity(totalDesiredQuantity);
-            ItemCart.getInstance().addOrUpdateItem(menusItem);
+           ItemCart.getInstance().addOrUpdateItem(menusItem);
+           // total_cart_bill +=totalprice;
             listner.OnItemAddedInCart();
            // getActivity().getFragmentManager().popBackStack();
            // getActivity().getFragmentManager().beginTransaction().hide(DetailsFragment.this).commit();

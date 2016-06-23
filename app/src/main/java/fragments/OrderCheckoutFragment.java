@@ -206,7 +206,6 @@ public class OrderCheckoutFragment extends Fragment{
     }
 
     private void reloadFragment() {
-
         android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.detach(this).attach(this).commit();
     }
