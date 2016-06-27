@@ -25,10 +25,12 @@ import com.example.maaz.olo.R;
 //import com.example.maaz.olo.screens.DetailScreen;
 import com.google.gson.Gson;
 import models.MenusItem;
+import network.NetworkChangeReceiver;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import utils.Constants;
 
 import java.io.*;
 import java.net.URL;
@@ -78,15 +80,16 @@ public class MenusFragment extends Fragment {
 
     private void prepareMenusBy_Id(int cat_id)
     {
-        showProgress("Loading.....");
-        RestClient.getAdapter().getMenuItems(cat_id, new Callback<ArrayList<MenusItem>>() {
-            @Override
-            public void success(final ArrayList<MenusItem> menusItems, Response response) {
-                hideProgress();
+       // if(NetworkChangeReceiver.getInstance().isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    if(!menusItems.isEmpty())
-                    {
-                        menuAdapter=new MenuAdapter(getActivity().getApplicationContext(),menusItems);
+            showProgress("Loading.....");
+            RestClient.getAdapter().getMenuItems(cat_id, new Callback<ArrayList<MenusItem>>() {
+                @Override
+                public void success(final ArrayList<MenusItem> menusItems, Response response) {
+                    hideProgress();
+
+                    if (!menusItems.isEmpty()) {
+                        menuAdapter = new MenuAdapter(getActivity().getApplicationContext(), menusItems);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                         recyclerView.setLayoutManager(mLayoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -106,20 +109,26 @@ public class MenusFragment extends Fragment {
 
                             }
                         });
+                    } else {
+                        Toast.makeText(getActivity(), "No Menu Found of this category", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else {
-                    Toast.makeText(getActivity(),"No Menu Found of this category",Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                hideProgress();
-                recyclerView.setVisibility(View.GONE);
-                wrongImage.setVisibility(View.VISIBLE);
-                Toast.makeText(getActivity(),"Something went wrong!",Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void failure(RetrofitError retrofitError) {
+                    hideProgress();
+                    Toast.makeText(getActivity().getApplicationContext(), Constants.Server_Error, Toast.LENGTH_LONG).show();
+
+                    recyclerView.setVisibility(View.GONE);
+//                    wrongImage.setVisibility(View.VISIBLE);
+//                    Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_LONG).show();
+                }
+            });
+        //}
+//        else {
+//            enableDisableDrawer.lockDrawer();
+//            Toast.makeText(getActivity().getApplicationContext(), Constants.No_Internet_Connection,Toast.LENGTH_LONG).show();
+//        }
     }
 
 
@@ -130,7 +139,8 @@ public class MenusFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mListner.showDrawerToggle(true);
-        enableDisableDrawer.unlockDrawer();
+            enableDisableDrawer.unlockDrawer();
+
        // ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Menu Screen");
 
     }

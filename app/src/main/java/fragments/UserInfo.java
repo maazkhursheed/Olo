@@ -22,10 +22,12 @@ import com.example.maaz.olo.R;
 import com.example.maaz.olo.screens.MainActivity;
 import com.google.gson.Gson;
 import models.*;
+import network.NetworkChangeReceiver;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,28 +121,16 @@ public class UserInfo extends Fragment {
         enableDisableDrawer.lockDrawer();
         hideKeyboard();
 
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Place Order");
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
 
 
     }
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//
-////        inflater.inflate(R.menu.userinfo_menu,menu);
-////        menu.findItem(R.id.cart_text).setVisible(false);
-////        menu.findItem(R.id.cart).setVisible(false);
-//    }
-@Override
-public void onPrepareOptionsMenu(Menu menu) {
-    menu.findItem(R.id.cart).setVisible(false);
-    menu.findItem(R.id.cart_text).setVisible(false);
 
-    super.onPrepareOptionsMenu(menu);
+   @Override
+   public void onPrepareOptionsMenu(Menu menu) {
+       menu.findItem(R.id.cart).setVisible(false);
+       menu.findItem(R.id.cart_text).setVisible(false);
+
+       super.onPrepareOptionsMenu(menu);
 
 }
 
@@ -151,11 +141,6 @@ public void onPrepareOptionsMenu(Menu menu) {
      * This method initialize a views of screen
      */
     private void initViews(){
-        //toolbar= (android.support.v7.widget.Toolbar) view.findViewById(R.id.user_info_toolbar);
-//        AppCompatActivity activity = (AppCompatActivity) getActivity();
-//        activity.setSupportActionBar(toolbar);
-//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
 
         userinfo_linear= (LinearLayout) view.findViewById(R.id.user_info_mainlayout);
@@ -280,7 +265,14 @@ public void onPrepareOptionsMenu(Menu menu) {
         @Override
         public void onClick(View view) {
             //mListner.showDrawerToggle(false);
-            placeOrders();
+//            if(NetworkChangeReceiver.getInstance().isNetworkAvailable(getActivity().getApplicationContext()))
+//            {
+                placeOrders();
+
+//            }
+//            else {
+//                Toast.makeText(getActivity().getApplicationContext(), Constants.No_Internet_Connection,Toast.LENGTH_LONG).show();
+//            }
            // hideFragment();
 
         }
@@ -293,52 +285,60 @@ public void onPrepareOptionsMenu(Menu menu) {
 
 //                DevicePreference.getInstance().initPref(getActivity().getApplicationContext());
 //                DevicePreference.getInstance().setAuthHeaderFlag(true);
-               // showProgress("Loading.....");
-                double ordertotal =  ItemCart.getInstance().getTotal();
-                int orderTime = 462970960;
-                List<MenusItem> itemsList = ItemCart.getOrderableItems();
-                ArrayList<order_detail> orderdetail = new ArrayList<>();
+                // showProgress("Loading.....");
+              //  if (NetworkChangeReceiver.getInstance().isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                for (MenusItem item : itemsList) {
+                    double ordertotal = ItemCart.getInstance().getTotal();
+                    int orderTime = 462970960;
+                    List<MenusItem> itemsList = ItemCart.getOrderableItems();
+                    ArrayList<order_detail> orderdetail = new ArrayList<>();
 
-                    int id = item.getId();
-                    String itemname = item.getName();
-                    int desiredQuantity = item.getDesiredQuantity();
-                    double price = item.getPrice();
+                    for (MenusItem item : itemsList) {
 
-                    order_detail detail = new order_detail(id, itemname, desiredQuantity,price);
-                //order_detail detail = new order_detail(1,"Tikka",3,400);
-                   orderdetail.add(detail);
+                        int id = item.getId();
+                        String itemname = item.getName();
+                        int desiredQuantity = item.getDesiredQuantity();
+                        double price = item.getPrice();
+
+                        order_detail detail = new order_detail(id, itemname, desiredQuantity, price);
+                        //order_detail detail = new order_detail(1,"Tikka",3,400);
+                        orderdetail.add(detail);
+                    }
+
+                    Orders placeorders = new Orders(userName, userPhone, userAddress, ordertotal, orderTime, orderdetail);
+                    showProgress("Loading.....");
+                    RestClient.getAdapter().placeOrder(placeorders, new Callback<OrderResponse>() {
+                        @Override
+                        public void success(OrderResponse orderResponse, Response response) {
+                            hideProgress();
+                            hideFragment();
+                            ItemCart.getOrderableItems().clear();
+                            //Toast.makeText(getActivity().getApplicationContext(), "Status" + ":" +""+orderResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                            Toast.makeText(getActivity().getApplicationContext(), Constants.Server_Error, Toast.LENGTH_LONG).show();
+                            hideProgress();
+
+
+                        }
+                    });
+
+
                 }
-
-                Orders placeorders = new Orders(userName, userPhone,userAddress, ordertotal, orderTime, orderdetail);
-                showProgress("Loading.....");
-                RestClient.getAdapter().placeOrder(placeorders, new Callback<OrderResponse>() {
-                    @Override
-                    public void success(OrderResponse orderResponse, Response response) {
-                        hideProgress();
-                        hideFragment();
-                        ItemCart.getOrderableItems().clear();
-                        //Toast.makeText(getActivity().getApplicationContext(), "Status" + ":" +""+orderResponse.getMessage(), Toast.LENGTH_LONG).show();
-
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-
-                        Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
-                        hideProgress();
-
-
-                    }
-                });
-
-
-            }
-            else {
-
-//                exception here
-            }
+//                else {
+//
+////                exception here
+//                }
+//            }
+//            else {
+//                Toast.makeText(getActivity().getApplicationContext(), Constants.No_Internet_Connection,Toast.LENGTH_LONG).show();
+//
+//
+//            }
         }
     }
 

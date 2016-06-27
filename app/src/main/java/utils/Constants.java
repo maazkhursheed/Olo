@@ -10,6 +10,9 @@ public class Constants {
 
     public static String KEY_SERIALIZEABLE_ITEM_OBJECT = "itemObj";
     public static String BASE_URL_PROD = "http://178.62.30.18:3002/api/v1";
+    public static String No_Internet_Connection="No Internet Connection";
+    public static String Server_Error="No Internet Connection.";
+    public static String Internet_Connected="Internet Connected";
 
 
 }

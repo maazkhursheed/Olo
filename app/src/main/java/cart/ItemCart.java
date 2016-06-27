@@ -55,6 +55,7 @@ public class ItemCart {
                     isItemfound = true;
                     //int tempItemQuantity =+ item.getDesiredQuantity();
 
+
                     iterator.setDesiredQuantity(iterator.getDesiredQuantity()+item.getDesiredQuantity());
 
                    /// iterator.setDesiredQuantity(item.getDesiredQuantity());
@@ -120,6 +121,11 @@ public class ItemCart {
 
         return cartTotal;
     }
+    /**
+     * This method simply returns  Cart total price plus some other charges
+     *
+     * @return
+     */
 
     public double getAllTotal(){
 

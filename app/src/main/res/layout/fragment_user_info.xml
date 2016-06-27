@@ -97,7 +97,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/confirm_btn"
         android:text="Proceed"
-        />
+        android:background="@color/greeen_color"
+        android:textColor="@color/white_text_color"/>
 
         <!--</FrameLayout>-->
 

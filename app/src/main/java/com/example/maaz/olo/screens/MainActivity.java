@@ -1,11 +1,9 @@
 package com.example.maaz.olo.screens;
 
-import Interfaces.OnDrawerEnableDisable;
-import Interfaces.OnDrawerToggleListner;
-import Interfaces.OnItemRemoveListener;
-import Interfaces.OnQuantityChangeListener;
+import Interfaces.*;
 import adapters.CategoryAdapter;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.AlertDialog;
@@ -15,6 +13,7 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,10 +27,12 @@ import com.example.maaz.olo.R;
 import fragments.*;
 import models.Category;
 import models.MenusItem;
+import network.NetworkChangeReceiver;
 import network.RestClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import utils.Constants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         OnItemRemoveListener,
         OnQuantityChangeListener,
         OnDrawerToggleListner,
-        OnDrawerEnableDisable {
+        OnDrawerEnableDisable,
+        NetworkConnectivityListener{
 
     private DrawerLayout mDrawerLayout;
     public static OnItemRemoveListener onItemRemoveListener = null;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
     ImageView wrongImage;
 
     private static final String LOG_TAG = "CheckNetworkStatus";
-    private NetworkChangeReceiver receiver;
+   // private NetworkChangeReceiver receiver;
     private boolean isConnected = false;
 
     @Override
@@ -68,8 +70,9 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        network.NetworkChangeReceiver.getInstance().setConnectivityListener(this);
         init_views();
-        checkInternetConectivity();
+       // checkInternetConectivity();
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
         getCategory();     //show category on Drawer
@@ -81,26 +84,34 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     }
 
-    private void checkInternetConectivity() {
-
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        receiver = new NetworkChangeReceiver();
-        registerReceiver(receiver, filter);
-
-    }
+//    private void checkInternetConectivity() {
+//
+//        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+//        receiver = new NetworkChangeReceiver();
+//        registerReceiver(receiver, filter);
+//
+//    }
 
     @Override
     protected void onDestroy() {
         Log.v(LOG_TAG, "onDestory");
         super.onDestroy();
 
-        unregisterReceiver(receiver);
+       // unregisterReceiver(receiver);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getCategory();
+    }
 
     public void setDraweropened()
     {
         mDrawerLayout.openDrawer(mDrawerList);
+    }
+    public void setDrawerclosed(){
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
 
@@ -160,28 +171,37 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     }
 
+
+
     private void getCategory() {
 
-        showProgress("Loading.....");
+        // showProgress("Loading......!");
+
+       // showProgress("Loading.....");
         RestClient.getAdapter().getCategories(new Callback<ArrayList<Category>>() {
+
             @Override
             public void success(ArrayList<Category> categories, Response response) {
-                hideProgress();
-                categoryAdapter = new CategoryAdapter(getApplicationContext(),categories);
+                //hideProgress();
+                categoryAdapter = new CategoryAdapter(getApplicationContext(), categories);
                 mDrawerList.setAdapter(categoryAdapter);
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                mDrawerList.setVisibility(View.GONE);
-                internetImage.setVisibility(View.GONE);
-                wrongImage.setVisibility(View.VISIBLE);
-                Toast.makeText(getApplicationContext(),"Something went wrong!",Toast.LENGTH_LONG).show();
-                mDrawerLayout.closeDrawer(mDrawerList);
+                Toast.makeText(getApplicationContext(), Constants.Server_Error, Toast.LENGTH_LONG).show();
+
+                //hideProgress();
+//                mDrawerList.setVisibility(View.GONE);
+//                internetImage.setVisibility(View.GONE);
+//                wrongImage.setVisibility(View.VISIBLE);
+//                mDrawerLayout.closeDrawer(mDrawerList);
 
             }
         });
     }
+
+
 
     private void showProgress(String message) {
         progressDialog=ProgressDialog.show(this,"",message,false);
@@ -305,6 +325,31 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     }
 
+    @Override
+    public void onNetworkConnetced() {
+       // Toast.makeText(getApplicationContext(), Constants.Internet_Connected, Toast.LENGTH_LONG).show();
+        getCategory();
+        Fragment currentFragment = getFragmentManager().findFragmentById(R.id.frame_container);
+
+        if (currentFragment instanceof DetailsFragment || currentFragment instanceof UserInfo ||currentFragment instanceof OrderCheckoutFragment) {
+            setDrawerclosed();
+            //  setDraweropened();
+        }
+
+        else
+        {
+           setDraweropened();
+        }
+    }
+
+    @Override
+    public void onNetworkDisconnected() {
+        //mDrawerLayout.closeDrawers();
+        setDrawerclosed();
+
+        Toast.makeText(getApplicationContext(),Constants.No_Internet_Connection,Toast.LENGTH_LONG).show();
+    }
+
     private class SlideMenuClickListener implements android.widget.AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -361,9 +406,12 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
         builder.setCancelable(false);
         builder.setMessage("Do you want to Exit?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                MainActivity.this.finish();
+                //MainActivity.this.finish();
+                finishAffinity();
+                //finish();
                 ItemCart.getOrderableItems().clear();
             }
         });
@@ -378,36 +426,38 @@ public class MainActivity extends AppCompatActivity implements DetailsFragment.O
 
     }
 
-    private class NetworkChangeReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.v(LOG_TAG, "Receieved notification about network status");
-            isNetworkAvailable(context);
-        }
-        private boolean  isNetworkAvailable(Context context) {
-
-            ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (connectivity != null) {
-                NetworkInfo[] info = connectivity.getAllNetworkInfo();
-                if (info != null) {
-                    for (int i = 0; i < info.length; i++) {
-                        if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                            if(!isConnected){
-                                Log.v(LOG_TAG, "Now you are connected to Internet!");
-                                internetImage.setVisibility(View.GONE);
-                                mDrawerList.setVisibility(View.VISIBLE);
-                                isConnected = true;
-                            }
-                            return true;
-                        }
-                    }
-                }
-            }
-            Log.v(LOG_TAG, "You are not connected to Internet!");
-            mDrawerList.setVisibility(View.GONE);
-            internetImage.setVisibility(View.VISIBLE);
-            isConnected = false;
-            return false;
-        }
-    }
+//    private class NetworkChangeReceiver extends BroadcastReceiver {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            Log.v(LOG_TAG, "Receieved notification about network status");
+//            isNetworkAvailable(context);
+//        }
+//        private boolean  isNetworkAvailable(Context context) {
+//
+//            ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//            if (connectivity != null) {
+//                NetworkInfo[] info = connectivity.getAllNetworkInfo();
+//                if (info != null) {
+//                    for (int i = 0; i < info.length; i++) {
+//                        if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+//                            if(!isConnected){
+//                                Log.v(LOG_TAG, "Now you are connected to Internet!");
+//                                internetImage.setVisibility(View.GONE);
+//                                mDrawerList.setVisibility(View.VISIBLE);
+//
+//
+//                                isConnected = true;
+//                            }
+//                            return true;
+//                        }
+//                    }
+//                }
+//            }
+//            Log.v(LOG_TAG, "You are not connected to Internet!");
+//            mDrawerList.setVisibility(View.GONE);
+//            internetImage.setVisibility(View.VISIBLE);
+//            isConnected = false;
+//            return false;
+//        }
+//    }
 }

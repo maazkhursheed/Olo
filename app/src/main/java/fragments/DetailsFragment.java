@@ -40,7 +40,7 @@ public class DetailsFragment extends Fragment {
     static double totalprice;
     static double total_cart_bill;
     private boolean valuechanged = false;
-    private int initialQuantity = 1, maxQuantity = 20;
+    private int initialQuantity = 1, maxQuantity =999 ;
     private int selectedItemQuantity = 1;
     private int alreadyIteamQuantity=0;
 
