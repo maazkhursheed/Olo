@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.example.maaz.olo"
+        applicationId "com.attribes.olo.kababjees"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
