@@ -79,7 +79,7 @@ android:padding="5dip"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Very Delicios in taste..."
-        android:textStyle="italic|bold"/>
+        android:textStyle="bold"/>
 
 <!-- Rightend price -->
 <TextView

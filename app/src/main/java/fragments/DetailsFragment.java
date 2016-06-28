@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.StrictMode;
 import android.support.v4.widget.DrawerLayout;
 import android.view.*;
 
@@ -65,6 +66,12 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_details, container, false);
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         itemView = (ImageView) view.findViewById(R.id.itemFullView);
         //showProgress("Loading...");
         getIntentValues();
@@ -79,8 +86,6 @@ public class DetailsFragment extends Fragment {
         //toolbar = (Toolbar) findViewById(R.id.toolbar_details_item_screen);
 
         // ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Details Screen");
-
-
         button_addCart = (Button) view.findViewById(R.id.addcart_btn);
         label_itemName = (TextView) view.findViewById(R.id.textView_itemname);
         label_itemPrice = (TextView) view.findViewById(R.id.textView_itemPrice);

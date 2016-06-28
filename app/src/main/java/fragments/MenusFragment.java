@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,6 +65,11 @@ public class MenusFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_menus, container, false);
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         recyclerView = (RecyclerView)rootView.findViewById(R.id.listMenu);
         wrongImage = (ImageView)rootView.findViewById(R.id.wrongImage);
