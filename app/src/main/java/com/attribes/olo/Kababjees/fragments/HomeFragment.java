@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.fragments;
+package com.attribes.olo.kababjees.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;

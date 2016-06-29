@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.fragments;
+package com.attribes.olo.kababjees.fragments;
 
 
 import android.app.Fragment;
@@ -15,12 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.attribes.olo.Kababjees.Interfaces.OnDrawerEnableDisable;
-import com.attribes.olo.Kababjees.Interfaces.OnDrawerToggleListner;
-import com.attribes.olo.Kababjees.adapters.MenuAdapter;
-import com.attribes.olo.Kababjees.models.MenusItem;
-import com.attribes.olo.Kababjees.network.RestClient;
-import com.attribes.olo.Kababjees.utils.Constants;
+import com.attribes.olo.kababjees.Interfaces.OnDrawerEnableDisable;
+import com.attribes.olo.kababjees.Interfaces.OnDrawerToggleListner;
+import com.attribes.olo.kababjees.adapters.MenuAdapter;
+import com.attribes.olo.kababjees.models.MenusItem;
+import com.attribes.olo.kababjees.network.RestClient;
+import com.attribes.olo.kababjees.utils.Constants;
 import com.attribes.olo.kababjees.R;
 import com.google.gson.Gson;
 import retrofit.Callback;

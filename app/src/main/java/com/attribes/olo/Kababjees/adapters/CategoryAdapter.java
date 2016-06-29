@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.adapters;
+package com.attribes.olo.kababjees.adapters;
 
 import android.annotation.TargetApi;
 import android.app.Service;
@@ -12,7 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.attribes.olo.Kababjees.models.Category;
+import com.attribes.olo.kababjees.models.Category;
 import com.attribes.olo.kababjees.R;
 
 

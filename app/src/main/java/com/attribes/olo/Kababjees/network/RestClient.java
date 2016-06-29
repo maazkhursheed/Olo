@@ -1,6 +1,6 @@
-package com.attribes.olo.Kababjees.network;
+package com.attribes.olo.kababjees.network;
 
-import com.attribes.olo.Kababjees.utils.Constants;
+import com.attribes.olo.kababjees.utils.Constants;
 import com.squareup.okhttp.OkHttpClient;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;

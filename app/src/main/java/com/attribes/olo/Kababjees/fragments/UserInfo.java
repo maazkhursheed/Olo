@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.fragments;
+package com.attribes.olo.kababjees.fragments;
 
 
 import android.app.Fragment;
@@ -16,13 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
-import com.attribes.olo.Kababjees.Interfaces.OnDrawerEnableDisable;
-import com.attribes.olo.Kababjees.Interfaces.OnDrawerToggleListner;
-import com.attribes.olo.Kababjees.Screens.MainActivity;
-import com.attribes.olo.Kababjees.cart.ItemCart;
-import com.attribes.olo.Kababjees.models.*;
-import com.attribes.olo.Kababjees.network.RestClient;
-import com.attribes.olo.Kababjees.utils.Constants;
+import com.attribes.olo.kababjees.Interfaces.OnDrawerEnableDisable;
+import com.attribes.olo.kababjees.Interfaces.OnDrawerToggleListner;
+import com.attribes.olo.kababjees.Screens.MainActivity;
+import com.attribes.olo.kababjees.cart.ItemCart;
+import com.attribes.olo.kababjees.models.*;
+import com.attribes.olo.kababjees.network.RestClient;
+import com.attribes.olo.kababjees.utils.Constants;
 
 import com.attribes.olo.kababjees.R;
 import com.google.gson.Gson;

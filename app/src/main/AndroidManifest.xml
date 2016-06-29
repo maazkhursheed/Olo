@@ -16,7 +16,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme1">
         <activity
-                android:name="com.attribes.olo.Kababjees.Screens.SplashScreen"
+                android:name="com.attribes.olo.kababjees.Screens.SplashScreen"
                 android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -26,14 +26,14 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="com.attribes.olo.Kababjees.Screens.MainActivity"
+                android:name="com.attribes.olo.kababjees.Screens.MainActivity"
                android:screenOrientation="portrait"
         >
         </activity>
         <!-- android:theme="@style/AppTheme -->
         <!-- android:label="@string/title_activity_detail_menu_screen" -->
 
-        <receiver android:name="com.attribes.olo.Kababjees.network.NetworkChangeReceiver">
+        <receiver android:name=".network.NetworkChangeReceiver">
             <intent-filter>
 
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>

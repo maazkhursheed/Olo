@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.models;
+package com.attribes.olo.kababjees.models;
 
 /**
  * Created by Maaz on 5/25/2016.

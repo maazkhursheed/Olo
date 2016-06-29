@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.Interfaces;
+package com.attribes.olo.kababjees.Interfaces;
 
 /**
  * Created by attribe on 6/16/16.

@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.Screens;
+package com.attribes.olo.kababjees.Screens;
 
 import android.app.Activity;
 import android.content.Intent;

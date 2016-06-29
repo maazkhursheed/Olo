@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.network;
+package com.attribes.olo.kababjees.network;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import com.attribes.olo.Kababjees.Interfaces.NetworkConnectivityListener;
+import com.attribes.olo.kababjees.Interfaces.NetworkConnectivityListener;
 
 /**
  * Created by attribe on 6/24/16.

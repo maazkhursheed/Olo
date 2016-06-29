@@ -1,9 +1,9 @@
-package com.attribes.olo.Kababjees.network;
+package com.attribes.olo.kababjees.network;
 
-import com.attribes.olo.Kababjees.models.Category;
-import com.attribes.olo.Kababjees.models.MenusItem;
-import com.attribes.olo.Kababjees.models.OrderResponse;
-import com.attribes.olo.Kababjees.models.Orders;
+import com.attribes.olo.kababjees.models.Category;
+import com.attribes.olo.kababjees.models.MenusItem;
+import com.attribes.olo.kababjees.models.OrderResponse;
+import com.attribes.olo.kababjees.models.Orders;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;

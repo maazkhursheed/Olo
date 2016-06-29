@@ -1,6 +1,6 @@
-package com.attribes.olo.Kababjees.cart;
+package com.attribes.olo.kababjees.cart;
 
-import com.attribes.olo.Kababjees.models.MenusItem;
+import com.attribes.olo.kababjees.models.MenusItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -11,7 +11,7 @@
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/kj_bg"
+            android:background="@drawable/rest_kj"
             >
         <!--android:background="#CC000000"-->
         <!--android:background="@drawable/black_gradient"-->

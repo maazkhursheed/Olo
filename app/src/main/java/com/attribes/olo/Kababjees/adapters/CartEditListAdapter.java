@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.adapters;
+package com.attribes.olo.kababjees.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +10,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.attribes.olo.Kababjees.Screens.MainActivity;
-import com.attribes.olo.Kababjees.cart.ItemCart;
-import com.attribes.olo.Kababjees.models.MenusItem;
+import com.attribes.olo.kababjees.Screens.MainActivity;
+import com.attribes.olo.kababjees.cart.ItemCart;
+import com.attribes.olo.kababjees.models.MenusItem;
 import com.attribes.olo.kababjees.R;
 
 import java.util.List;

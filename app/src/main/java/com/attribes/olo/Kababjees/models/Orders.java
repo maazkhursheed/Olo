@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.models;
+package com.attribes.olo.kababjees.models;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.utils;
+package com.attribes.olo.kababjees.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

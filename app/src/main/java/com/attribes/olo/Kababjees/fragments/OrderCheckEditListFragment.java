@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.fragments;
+package com.attribes.olo.kababjees.fragments;
 
 
 import android.app.Fragment;
@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.attribes.olo.Kababjees.Interfaces.OnItemRemoveListener;
-import com.attribes.olo.Kababjees.Interfaces.OnQuantityChangeListener;
-import com.attribes.olo.Kababjees.adapters.CartEditListAdapter;
-import com.attribes.olo.Kababjees.cart.ItemCart;
+import com.attribes.olo.kababjees.Interfaces.OnItemRemoveListener;
+import com.attribes.olo.kababjees.Interfaces.OnQuantityChangeListener;
+import com.attribes.olo.kababjees.adapters.CartEditListAdapter;
+import com.attribes.olo.kababjees.cart.ItemCart;
 import com.attribes.olo.kababjees.R;
 
 /**

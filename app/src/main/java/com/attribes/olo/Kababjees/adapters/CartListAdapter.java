@@ -1,11 +1,11 @@
-package com.attribes.olo.Kababjees.adapters;
+package com.attribes.olo.kababjees.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.attribes.olo.Kababjees.models.MenusItem;
+import com.attribes.olo.kababjees.models.MenusItem;
 import com.attribes.olo.kababjees.R;
 
 import java.util.List;

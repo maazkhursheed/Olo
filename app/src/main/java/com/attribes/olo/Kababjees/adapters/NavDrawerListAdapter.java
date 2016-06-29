@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.adapters;
+package com.attribes.olo.kababjees.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.attribes.olo.Kababjees.models.NavDrawerItem;
+import com.attribes.olo.kababjees.models.NavDrawerItem;
 import com.attribes.olo.kababjees.R;
 
 

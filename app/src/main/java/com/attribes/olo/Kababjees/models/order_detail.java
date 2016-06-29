@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.models;
+package com.attribes.olo.kababjees.models;
 
 /**
  * Created by attribe on 6/9/16.

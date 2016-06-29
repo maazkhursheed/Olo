@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.Interfaces;
+package com.attribes.olo.kababjees.Interfaces;
 
 /**
  * Created by Maaz on 6/10/2016.

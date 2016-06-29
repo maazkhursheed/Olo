@@ -1,8 +1,8 @@
-package com.attribes.olo.Kababjees.utils;
+package com.attribes.olo.kababjees.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import com.attribes.olo.Kababjees.Screens.ExceptionView;
+import com.attribes.olo.kababjees.Screens.ExceptionView;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

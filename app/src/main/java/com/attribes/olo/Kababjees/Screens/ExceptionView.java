@@ -1,9 +1,9 @@
-package com.attribes.olo.Kababjees.Screens;
+package com.attribes.olo.kababjees.Screens;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
-import com.attribes.olo.Kababjees.utils.ExceptionHanlder;
+import com.attribes.olo.kababjees.utils.ExceptionHanlder;
 import com.attribes.olo.kababjees.R;
 
 

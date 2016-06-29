@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees.utils;
+package com.attribes.olo.kababjees.utils;
 
 /**
  * Created by Sabih Ahmed on 5/13/2015.

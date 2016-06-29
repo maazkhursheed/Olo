@@ -1,4 +1,4 @@
-package com.attribes.olo.Kababjees;
+package com.attribes.olo.kababjees;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
